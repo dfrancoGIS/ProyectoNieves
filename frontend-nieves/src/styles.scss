@@ -1,0 +1,22 @@
+// Importar Angular Material Theming
+@use '@angular/material' as mat;
+
+// Incluir estilos base de Angular Material
+@include mat.core();
+
+// Definir la paleta de colores personalizada basada en ALCON
+$frontend-nieves-primary: mat.define-palette(mat.$pink-palette, 800);
+$frontend-nieves-accent: mat.define-palette(mat.$gray-palette, 700, 400);
+$frontend-nieves-warn: mat.define-palette(mat.$red-palette);
+
+// Crear el tema personalizado
+$frontend-nieves-theme: mat.define-light-theme((
+  color: (
+    primary: $frontend-nieves-primary,
+    accent: $frontend-nieves-accent,
+    warn: $frontend-nieves-warn,
+  )
+));
+
+// Aplicar el tema a Angular Material
+@include mat.all-component-themes($frontend-nieves-theme);
