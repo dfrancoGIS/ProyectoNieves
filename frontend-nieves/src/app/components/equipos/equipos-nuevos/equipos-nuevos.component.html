@@ -1,0 +1,99 @@
+<mat-sidenav-container class="example-container" *ngIf="!showChild">
+    <mat-sidenav #sidenav [mode]="'over'" [position]="'end'">
+    </mat-sidenav>
+
+    <mat-sidenav-content>
+        <div class="referencia">
+            <p>Equipos / Gestión de Equipos</p>         
+        </div>
+        
+        <div class="encabezado">
+            <mat-form-field appearance="outline" class="foe">
+                <mat-label>Equipo</mat-label>
+                <mat-select [(value)]="selectedTeam" (selectionChange)="newSelectedTeam()">
+                    <mat-option [value]="team" *ngFor="let team of displayedTeams">{{team}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-checkbox color="primary" (change)="changeCheckboxState($event)">Seguimiento</mat-checkbox>
+        </div>
+        <div>
+            <mat-form-field>
+                <mat-label>Filtrado</mat-label>
+                <input matInput (keyup)="applyFilter($event)" placeholder="Código de equipo" #input>
+            </mat-form-field>
+            <button class="buttonActions" mat-raised-button color="accent" (click)="nuevoEquipo()">Nuevo equipo
+                <mat-icon>add</mat-icon>
+            </button>
+            <button class="buttonActions" mat-raised-button color="accent" (click)="busquedaEquipo()">Búsqueda de equipo
+                <mat-icon>search</mat-icon>
+            </button>
+        </div>
+
+        <div class="mat-elevation-z8">
+            <table mat-table [dataSource]="dataSource" matSort>
+                <ng-container *ngFor="let column of columns" [matColumnDef]="column.columnDef">
+                    <th mat-header-cell *matHeaderCellDef [style.background-color]="color" mat-sort-header>
+                        {{column.header}}
+                    </th>
+                    <td mat-cell *matCellDef="let row">
+                        {{column.cell(row)}}
+                    </td>
+                </ng-container>
+
+                <!-- Actions Columns -->
+                <ng-container matColumnDef="action1">
+                    <th mat-header-cell *matHeaderCellDef [style.background-color]="color"></th>
+                    <td mat-cell *matCellDef="let row">
+                        <button mat-icon-button matTooltip="Detalle" [matTooltipShowDelay]="1000" (click)="viewEquipo(row)">
+                            <img src="assets/img/view.png">
+                        </button>
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="action2">
+                    <th mat-header-cell *matHeaderCellDef [style.background-color]="color"></th>
+                    <td mat-cell *matCellDef="let row">
+                        <button mat-icon-button matTooltip="Editar" [matTooltipShowDelay]="1000" (click)="editarEquipo(row)">
+                            <img src="assets/img/edit.png">
+                        </button>
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="action3">
+                    <th mat-header-cell *matHeaderCellDef [style.background-color]="color"></th>
+                    <td mat-cell *matCellDef="let row">
+                        <button mat-icon-button matTooltip="Dar de baja" [matTooltipShowDelay]="1000" (click)="bajaEquipo(row)">
+                            <img src="assets/img/delete.png">
+                        </button>
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="action4">
+                    <th mat-header-cell *matHeaderCellDef [style.background-color]="color"></th>
+                    <td mat-cell *matCellDef="let row">
+                    </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="highlightRow(row)"
+                [class.demo-row-is-clicked]="clickedRows.has(row)"></tr>
+
+                <!-- Row shown when there is no matching data. -->
+                <tr class="mat-row" *matNoDataRow>
+                    <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+                </tr>
+            </table>
+            <mat-paginator [pageSizeOptions]="[10, 25, 100]" aria-label="Select page of users"
+                [style.background-color]="'lightgray'"></mat-paginator>
+        </div>
+
+        <div class="exportar">
+            <button mat-raised-button color="accent" (click)="generateExcel()">Descargar Excel
+                <mat-icon>download</mat-icon>
+            </button>
+        </div>
+    </mat-sidenav-content>
+</mat-sidenav-container>
+
+<router-outlet *ngIf="showChild"></router-outlet>
+

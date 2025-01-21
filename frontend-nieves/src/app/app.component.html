@@ -1,129 +1,139 @@
-<mat-toolbar color="primary" class="full-width-toolbar">
-  <!-- Botón de menú -->
-  <button mat-icon-button (click)="toggleSidenav()">
-    <mat-icon>menu</mat-icon>
+<mat-toolbar color="primary">
+  <button mat-icon-button (click)="sidenav.toggle()">
+      <mat-icon>menu</mat-icon>
   </button>
-
-  <!-- Icono del logo -->
-  <mat-icon class="app-logo" (click)="clickLogo()">home</mat-icon>
-
+  <img src="assets/img/logoalcon2.png" (click)="clickLogo()">
   <span class="toolbar-item-spacer"></span>
-
-  <!-- Icono de cerrar sesión -->
   <button mat-icon-button (click)="cerrarSesion()">
-    <mat-icon>logout</mat-icon>
+      <mat-icon>logout</mat-icon>
   </button>
-
-  <!-- Icono de capas -->
-  <button mat-icon-button (click)="toggleLayers()">
-    <mat-icon>layers</mat-icon>
+  <button mat-icon-button>
+      <mat-icon>layers</mat-icon>
   </button>
 </mat-toolbar>
 
-<mat-sidenav-container class="sidenav-container" [ngClass]="{'sidenav-opened': opened}">
-  <!-- Fondo Oscuro -->
-  <div class="backdrop" [hidden]="!opened" (click)="toggleSidenav()"></div>
-
-  <!-- Sidebar -->
-  <mat-sidenav #sidenav mode="side" [(opened)]="opened" class="sidenav-content">
-    <mat-nav-list class="custom-nav-list">
-      <a mat-list-item routerLink="/">Inicio</a>
-      <a mat-list-item routerLink="/equipos">Equipos</a>
-      <a mat-list-item routerLink="/comunicaciones">Comunicaciones</a>
-      <a mat-list-item routerLink="/carreteras">Carreteras</a>
-      <a mat-list-item routerLink="/cuadrillas">Cuadrillas</a>
-      <a mat-list-item routerLink="/retenes">Retenes</a>
-      <a mat-list-item routerLink="/documentos-informes">Documentos e Informes</a>
-      <a mat-list-item routerLink="/generador-consultas">Generador de Consultas</a>
-      <a mat-list-item routerLink="/equipos-entrantes">Equipos Entrantes</a>
-      <a mat-list-item routerLink="/estaciones-meteorologicas">Estaciones Meteorológicas</a>
-      <a mat-list-item routerLink="/paneles">Paneles</a>
-      <a mat-list-item routerLink="/fundentes">Fundentes</a>
-      <a mat-list-item routerLink="/configuracion">Configuración</a>
-    </mat-nav-list>
+<mat-sidenav-container>
+  <mat-sidenav #sidenav opened="true" color="primary">
+      <mat-nav-list>
+        <mat-list-item class="parent full-parent-menu">
+          <a mat-list-item routerLink="/">Inicio</a>
+        </mat-list-item>
+        <mat-list-item class="parent full-parent-menu">
+          <a mat-list-item routerLink="/equipos">Equipos</a>
+        </mat-list-item>
+        <mat-list-item class="parent full-parent-menu">
+          <a mat-list-item routerLink="/comunicaciones">Comunicaciones</a>
+        </mat-list-item>
+        <mat-list-item class="parent full-parent-menu">
+          <a mat-list-item routerLink="/carreteras">Carreteras</a>
+        </mat-list-item>
+        <mat-list-item class="parent full-parent-menu">
+          <a mat-list-item routerLink="/cuadrillas">Cuadrillas</a>
+        </mat-list-item>
+        <mat-list-item class="parent full-parent-menu">
+          <a mat-list-item routerLink="/retenes">Retenes</a>
+        </mat-list-item>
+        <mat-list-item class="parent full-parent-menu">
+          <a mat-list-item routerLink="/documentos-informes">Documentos e Informes</a>
+        </mat-list-item>
+        <mat-list-item class="parent full-parent-menu">
+          <a mat-list-item routerLink="/generador-consultas">Generador de Consultas</a>
+        </mat-list-item>
+        <mat-list-item class="parent full-parent-menu">
+          <a mat-list-item routerLink="/equipos-entrantes">Equipos Entrantes</a>
+        </mat-list-item>
+        <mat-list-item class="parent full-parent-menu">
+          <a mat-list-item routerLink="/estaciones-meteorologicas">Estaciones Meteorológicas</a>
+        </mat-list-item>
+        <mat-list-item class="parent full-parent-menu">
+          <a mat-list-item routerLink="/paneles">Paneles</a>
+        </mat-list-item>
+        <mat-list-item class="parent full-parent-menu">
+          <a mat-list-item routerLink="/fundentes">Fundentes</a>
+        </mat-list-item>
+        <mat-list-item class="parent full-parent-menu">
+          <a mat-list-item routerLink="/configuracion">Configuración</a>
+        </mat-list-item>
+      </mat-nav-list>
   </mat-sidenav>
 
-  <!-- Contenido Principal -->
-  <mat-sidenav-content class="content">
-    <!-- Página de Inicio (solo si la URL es "/") -->
-    <div class="inicio" *ngIf="router.url === '/'">
-      <div class="grid-container">
-        <button mat-raised-button class="inicio-button" (click)="abrirEquipos()">     
-          <div class="button-contenido"> 
-            <img src="assets/img/equipos.png">
-            <label>Equipos</label>
-          </div>   
-        </button>
-        <button mat-raised-button class="inicio-button" (click)="abrirComunicaciones()">       
-          <div class="button-contenido"> 
-            <img src="assets/img/comunicaciones.png">
-            <label>Comunicaciones</label>
-          </div>  
-        </button>
-        <button mat-raised-button class="inicio-button" (click)="abrirCarreteras()">         
-          <div class="button-contenido"> 
-            <img src="assets/img/carreteras.png">
-            <label>Carreteras</label>
-          </div>  
-        </button>
-        <button mat-raised-button class="inicio-button" (click)="abrirCuadrillas()">        
-          <div class="button-contenido"> 
-            <img src="assets/img/cuadrillas.png">
-            <label>Cuadrillas</label>
-          </div>
-        </button>
-        <button mat-raised-button class="inicio-button" (click)="abrirRetenes()">    
-          <div class="button-contenido">      
-            <img src="assets/img/retenes.png">
-            <label>Retenes</label>
-          </div>  
-        </button>
-        <button mat-raised-button class="inicio-button" (click)="abrirDocumentos()">    
-          <div class="button-contenido">      
-            <img src="assets/img/documentos.png">
-            <label>Documentos e Informes</label>
-          </div>  
-        </button>
-        <button mat-raised-button class="inicio-button" (click)="abrirConsultas()">    
-          <div class="button-contenido">      
-            <img src="assets/img/consultas.png">
-            <label>Generador de Consultas</label>
-          </div>  
-        </button>
-        <button mat-raised-button class="inicio-button" (click)="abrirEntrantes()">    
-          <div class="button-contenido">      
-            <img src="assets/img/entrantes.png">
-            <label>Equipos Entrantes</label>
-          </div>  
-        </button>
-        <button mat-raised-button class="inicio-button" (click)="abrirMeteorologia()">    
-          <div class="button-contenido">      
-            <img src="assets/img/meteorologia.png">
-            <label>Estaciones Meteorológicas</label>
-          </div>  
-        </button>
-        <button mat-raised-button class="inicio-button" (click)="abrirPaneles()">    
-          <div class="button-contenido">      
-            <img src="assets/img/paneles.png">
-            <label>Paneles</label>
-          </div>  
-        </button>
-        <button mat-raised-button class="inicio-button" (click)="abrirFundentes()">    
-          <div class="button-contenido">      
-            <img src="assets/img/fundentes.png">
-            <label>Fundentes</label>
-          </div>  
-        </button>
-        <button mat-raised-button class="inicio-button" (click)="abrirConfiguracion()">    
-          <div class="button-contenido">      
-            <img src="assets/img/configuracion.png">
-            <label>Configuración</label>
-          </div>  
-        </button>
+  <mat-sidenav-content>
+      <div class="inicio" *ngIf="router.url === '/'">
+          <button mat-raised-button (click)="abrirEquipos()">     
+              <div class="button-contenido"> 
+                  <img src="assets/img/equipos.png">
+                  <label>Equipos</label>
+              </div>   
+          </button>
+          <button mat-raised-button (click)="abrirComunicaciones()">       
+              <div class="button-contenido"> 
+                  <img src="assets/img/comunicaciones.png">
+                  <label>Comunicaciones</label>
+              </div>  
+          </button>
+          <button mat-raised-button (click)="abrirCarreteras()">         
+              <div class="button-contenido"> 
+                  <img src="assets/img/carreteras.png">
+                  <label>Carreteras</label>
+              </div>  
+          </button>
+          <button mat-raised-button (click)="abrirCuadrillas()">        
+              <div class="button-contenido"> 
+                  <img src="assets/img/cuadrillas.png">
+                  <label>Cuadrillas</label>
+              </div>
+          </button>
+          <button mat-raised-button (click)="abrirRetenes()">    
+              <div class="button-contenido">      
+                  <img src="assets/img/retenes.png">
+                  <label>Retenes</label>
+              </div>  
+          </button>
+          <button mat-raised-button (click)="abrirDocumentos()">    
+              <div class="button-contenido">      
+                  <img src="assets/img/documentos.png">
+                  <label>Documentos</label>
+              </div>  
+          </button>
+          <button mat-raised-button (click)="abrirConsultas()">       
+              <div class="button-contenido">   
+                  <img src="assets/img/consultas.png">
+                  <label>Consultas</label>
+              </div>
+          </button>
+          <button mat-raised-button (click)="abrirEntrantes()"> 
+              <div class="button-contenido">         
+                  <img src="assets/img/entrantes.png">
+                  <label>Equipos Entrantes</label>
+              </div>
+          </button>
+          <button mat-raised-button (click)="abrirMeteorologia()">    
+              <div class="button-contenido">      
+                  <img src="assets/img/meteorologia.png">
+                  <label>Estaciones Meteorológicas</label>
+              </div>
+          </button>
+          <button mat-raised-button (click)="abrirPaneles()">         
+              <div class="button-contenido"> 
+                  <img src="assets/img/paneles.png">
+                  <label>Paneles</label>
+              </div>
+          </button>
+          <button mat-raised-button (click)="abrirFundentes()">    
+              <div class="button-contenido"> 
+                  <img src="assets/img/fundentes.png">
+                  <label>Fundentes</label>
+              </div>
+          </button>
+          <button mat-raised-button (click)="abrirConfiguracion()">    
+              <div class="button-contenido">      
+                  <img src="assets/img/configuracion.png">
+                  <label>Configuración</label>
+              </div>
+          </button>
       </div>
-    </div>
 
-    <router-outlet></router-outlet>
+      <router-outlet></router-outlet>
+
   </mat-sidenav-content>
 </mat-sidenav-container>
-

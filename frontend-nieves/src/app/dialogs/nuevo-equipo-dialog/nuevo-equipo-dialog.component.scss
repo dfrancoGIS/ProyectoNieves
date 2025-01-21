@@ -1,0 +1,30 @@
+.container {
+    width: 600px;
+
+    h1 {
+        padding-left: 14rem;
+        font-weight: bold;
+        font-size: 18px;
+        background-color: lightgray;
+    }
+       
+    form {
+        margin-top:0.5rem;
+
+        .mat-mdc-dialog-actions {
+            float: right;
+            margin-top:2rem;
+            padding-bottom:1rem;
+        }
+
+        mat-form-field {
+            display: block;
+            margin-right: 2rem;
+            margin-left: 2rem;
+        }
+    
+        mat-error {
+            font-size: 12px;
+        }
+    }
+}

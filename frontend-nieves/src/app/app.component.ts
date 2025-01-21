@@ -1,5 +1,8 @@
-import { Component } from '@angular/core';
-import { Router } from '@angular/router';  // <-- IMPORTANTE: Importar Router
+import { Component, ViewChild } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { MatSidenav } from '@angular/material/sidenav';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-root',
@@ -7,16 +10,11 @@ import { Router } from '@angular/router';  // <-- IMPORTANTE: Importar Router
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'frontend-nieves';
-  opened = true; // Sidebar inicia abierto
+  @ViewChild('sidenav') sidenav!: MatSidenav;
 
-  // ✅ CORRECCIÓN: Inyectar Router en el constructor
-  constructor(public router: Router) {}
-
-  toggleSidenav() {
-    this.opened = !this.opened;
+  constructor(public router: Router, private dialog: MatDialog) {
+    console.log(router.url)
   }
-
   cerrarSesion() {
     console.log('Cerrando sesión...');
   }
@@ -27,8 +25,9 @@ export class AppComponent {
 
   clickLogo() {
     console.log('Redirigiendo a inicio...');
-    this.router.navigate(['/']);  // ✅ Ya no dará error
+    this.router.navigate(['/']); 
   }
+
 
   abrirEquipos() { this.router.navigate(['/equipos']); }
   abrirComunicaciones() { this.router.navigate(['/comunicaciones']); }

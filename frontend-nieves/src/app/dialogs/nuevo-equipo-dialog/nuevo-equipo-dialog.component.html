@@ -1,0 +1,47 @@
+<div class="container">
+  <h1 mat-dialog-title>Nuevo Equipo</h1>
+  <mat-divider></mat-divider>
+  <div mat-dialog-content>
+      <form [formGroup]="form">
+          <mat-form-field appearance="outline">
+              <mat-label>Nombre</mat-label>
+              <input matInput formControlName="nombre" required>
+              <mat-error *ngIf="form.get('nombre')?.invalid">Debes introducir un nombre</mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+              <mat-label>Extensión</mat-label>
+              <input matInput formControlName="extension" required>
+              <mat-error *ngIf="form.get('extension')?.invalid">Debes introducir una extensión</mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+              <mat-label>Teléfono 1</mat-label>
+              <input matInput formControlName="telefono1" required>
+              <mat-error *ngIf="form.get('telefono1')?.invalid">Debes introducir un teléfono</mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+              <mat-label>Teléfono 2</mat-label>
+              <input matInput formControlName="telefono2">
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+              <mat-label>Ocupación</mat-label>
+              <input matInput formControlName="ocupacion" required>
+              <mat-error *ngIf="form.get('ocupacion')?.invalid">Debes introducir una ocupación</mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+              <mat-label>Departamento</mat-label>
+              <input matInput formControlName="departamento" required>
+              <mat-error *ngIf="form.get('departamento')?.invalid">Debes introducir un departamento</mat-error>
+          </mat-form-field>
+          <div mat-dialog-actions>
+              <button mat-raised-button mat-dialog-close color="warn" (click)="cancelar()">Cerrar</button>
+              <button mat-raised-button mat-dialog-save color="accent" [disabled]="form.invalid"
+                  (click)="insertarNuevoEquipo()">Guardar</button>
+          </div>
+      </form>
+  </div>
+</div>

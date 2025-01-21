@@ -1,121 +1,105 @@
-/* Eliminar scroll de toda la página */
-html, body {
-  overflow: hidden !important;
+:host {
+  display: flex;
+  flex-direction: column;
   height: 100%;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  flex-direction: column;
 }
 
-/* Ajuste dinámico para que el contenido no cause scroll */
-mat-sidenav-container {
-  height: 100vh;
-  display: flex;
-  flex-direction: column; /* Asegura que los elementos se distribuyan verticalmente */
+.toolbar-item-spacer {
+  flex: 1 1 auto;
 }
 
-/* Barra lateral con scroll */
-mat-sidenav {
-  width: 260px;
-  background-color: #f5f5f5;
-  overflow-y: auto; /* Permite el scroll dentro de la barra lateral */
-}
-
-/* Evitar desbordamiento en el contenido principal */
-mat-sidenav-content {
-  flex: 1;
-  overflow: hidden !important;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start; /* Mantiene los elementos alineados desde arriba */
-}
-
-/* Barra superior */
-mat-toolbar {
-  height: 64px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 16px;
-  background-color: #AD1457;
-  color: white;
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 1000;
-}
-
-/* Icono del logo */
-.app-logo {
-  font-size: 36px;
+img {
   cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
-  width: auto;
-  color: white;
 }
 
-/* Espaciador para los iconos */
-span.toolbar-item-spacer {
-  flex-grow: 1;
+mat-sidenav-container {
+  flex: 1;
+
+  mat-sidenav {
+      width: 260px;
+      //background: linear-gradient(white, lightgray);   
+      background-color: lightgray;
+
+      .full-parent-menu {
+          background-color: lightgray;
+      }
+
+      .full-width {
+          width: 100%;
+      }
+      
+      .info-class {
+          float: right;
+          padding-left: 0.4rem;
+      }
+
+      .menu-button.rotated {
+          transform: rotate(180deg);
+      }
+      
+      .submenu {
+          overflow-y: hidden;
+          transition: transform 300ms ease;
+          transform: scaleY(0);
+          transform-origin: top;
+          //padding-left: 30px;
+      }
+      
+      .submenu.expanded {
+          transform: scaleY(1);
+          background-color: white;
+      }             
+
+      .parent.highlighted {
+          background-color: #AD1457;
+          opacity: 90%;
+      }
+  }
 }
 
-/* Estilo de los botones en la grilla */
-.grid-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); 
-  gap: 20px; 
-  justify-content: center;
-  padding: 20px;
-  max-width: 1200px;
-  margin: auto;
-  margin-top: 64px; /* Para evitar que los botones se solapen con la barra superior */
-  flex-grow: 1;
-}
+mat-sidenav-content {
 
-/* Estilo de los botones */
-.inicio-button {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: flex-start;
-  width: 320px;
-  height: 120px;
-  border-radius: 8px;
-  background: white;
-  border: 1px solid black !important;
-  transition: transform 0.2s ease-in-out;
-  padding-left: 20px;
-  margin-bottom: 10px;
-}
+  .inicio {
+      margin-top: 2rem;
+      margin-left: 5rem;
+  }
 
-.inicio-button:hover {
-  transform: scale(1.02);
-}
+  button {
+      width: 320px;
+      height: 120px;
+      margin-bottom: 1rem;
+      margin-right: 1rem;
+      border: 1px solid black !important;
 
-/* Iconos dentro de los botones */
-.inicio-button img {
-  width: 64px;
+      .button-contenido {
+          display: flex;
+          /* flex-direction: row; */
+          /* justify-content: space-evenly; */
+          align-items: center;
+      }
+
+        // Ajustar tamaño de los iconos dentro de los botones
+.button-contenido img {
+  max-width: 64px; // Tamaño estándar para los iconos
   height: auto;
-  margin-right: 16px;
+  object-fit: contain;
 }
 
-/* Contenido dentro de los botones */
-.button-contenido {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  width: 100%;
+
+      label {
+          margin-top: 1rem;
+          font-size: 15px;
+      }
+
+      img {
+          padding-right: 2rem;
+      }          
+  }
+
+   /*.last-button {      
+          width: 400px;   
+          margin-left: 39.7%;
+          margin-top: 2%;
+      }*/
 }
 
-/* Estilo del texto dentro de los botones */
-.button-contenido label {
-  font-size: 15px;
-  font-weight: bold;
-  text-align: left;
-  margin-left: 8px;
-}
