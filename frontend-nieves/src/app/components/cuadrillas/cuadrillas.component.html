@@ -1,0 +1,40 @@
+<mat-sidenav-container class="example-container">
+    <mat-sidenav #sidenav [mode]="'over'" [position]="'end'"></mat-sidenav>
+
+    <mat-sidenav-content>
+        <div class="referencia">
+            <p>Cuadrillas / Gestión de cuadrillas</p>
+        </div>
+
+        <!-- Panel Superior: Lista de cuadrillas -->
+        <div class="panel-superior">
+            <mat-card class="cuadrillas-card">
+                <div class="cuadrillas-title">Cuadrillas Disponibles</div>
+                <div class="cuadrillas-container">
+                    <div *ngFor="let cuadrilla of cuadrillas" class="cuadrilla">
+                        <div class="cuadrilla-header">{{ cuadrilla.nombre }}</div>
+                        <ul class="cuadrilla-list">
+                            <li *ngFor="let equipo of cuadrilla.equipos" class="equipo rojo">
+                                {{ equipo.nombre }}
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </mat-card>
+        </div>
+
+        <!-- Panel Central: Gestión de Equipos y Turnos -->
+        <mat-tab-group>
+            <!-- Pestaña: Gestión de Equipos -->
+            <mat-tab label="Gestión de Equipos">
+                
+
+            </mat-tab>
+
+            <!-- Pestaña: Gestión de Turnos -->
+            <mat-tab label="Gestión de Turnos">
+                
+            </mat-tab>
+        </mat-tab-group>
+    </mat-sidenav-content>
+</mat-sidenav-container>

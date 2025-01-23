@@ -27,6 +27,8 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatRadioModule } from '@angular/material/radio';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { MatCardModule } from '@angular/material/card';
+import { MatTabsModule } from '@angular/material/tabs';
 
 // Módulos de Formularios y HTTP
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -54,6 +56,7 @@ import { EditarCarreteraDialogComponent } from './dialogs/editar-carretera-dialo
 import { EquiposEntrantesComponent } from './components/equipos-entrantes/equipos-entrantes.component';
 import { ComunicacionesComponent } from './components/comunicaciones/comunicaciones.component';
 import { RetenesComponent } from './components/retenes/retenes.component';
+import { CuadrillasComponent } from './components/cuadrillas/cuadrillas.component';
 
 @NgModule({
   declarations: [
@@ -70,7 +73,8 @@ import { RetenesComponent } from './components/retenes/retenes.component';
     EditarCarreteraDialogComponent,
     EquiposEntrantesComponent,
     ComunicacionesComponent,
-    RetenesComponent, 
+    RetenesComponent,
+    CuadrillasComponent, 
   ],
   imports: [
     BrowserModule,
@@ -104,7 +108,9 @@ import { RetenesComponent } from './components/retenes/retenes.component';
     MatNativeDateModule,
     MatStepperModule,
     MatRadioModule,
-    DragDropModule
+    DragDropModule,
+    MatCardModule,
+    MatTabsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

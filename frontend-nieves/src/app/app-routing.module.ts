@@ -21,6 +21,9 @@ import { ComunicacionesComponent } from './components/comunicaciones/comunicacio
 // Componente de Retenes 
 import { RetenesComponent } from './components/retenes/retenes.component';
 
+// Componente de Cuadrillas
+import { CuadrillasComponent } from './components/cuadrillas/cuadrillas.component';
+
 const routes: Routes = [
   { path: '', component: EquiposComponent }, // Página de inicio en Equipos
   { path: 'equipos', component: EquiposComponent, children: [
@@ -36,6 +39,7 @@ const routes: Routes = [
   { path: 'equipos-entrantes', component: EquiposEntrantesComponent }, // Equipos Entrantes
   { path: 'comunicaciones', component: ComunicacionesComponent }, // Comunicaciones
   { path: 'retenes', component: RetenesComponent }, // Nueva ruta para Retenes
+  { path: 'cuadrillas', component: CuadrillasComponent }, // Nueva ruta para Cuadrillas
 
   // Ruta 404 - Página no encontrada
   { path: '**', redirectTo: '/' } // Si la URL no existe, redirige a la raíz
