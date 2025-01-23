@@ -1,0 +1,169 @@
+<mat-sidenav-container class="example-container" *ngIf="!showChild">
+    <mat-sidenav #sidenav [mode]="'over'" [position]="'end'">
+    </mat-sidenav>
+
+    <mat-sidenav-content>
+        <div class="referencia">
+            <p>Comunicaciones / Gestión de Comunicaciones</p>         
+        </div>
+        
+        <div class="encabezado">
+            <mat-form-field appearance="outline" class="foe large-select">
+                <mat-label>Equipos dados de alta</mat-label>
+                <mat-select [(value)]="selectedTeam">
+                    <mat-option *ngFor="let team of displayedTeams" [value]="team">{{ team }}</mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="foe large-select">
+                <mat-label>Comunicaciones</mat-label>
+                <mat-select [(value)]="selectedHistory">
+                    <mat-option *ngFor="let history of historyOptions" [value]="history">{{ history }}</mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field>
+                <mat-label>Vehículo</mat-label>
+                <input matInput (keyup)="applyFilter($event)" placeholder="Introduce la matrícula" #input>
+            </mat-form-field>
+        </div>
+
+        <!-- Tabla de registros -->
+        <div class="mat-elevation-z8">
+            <table mat-table [dataSource]="dataSource" matSort>
+                <ng-container *ngFor="let column of columns" [matColumnDef]="column.columnDef">
+                    <th mat-header-cell *matHeaderCellDef [style.background-color]="color" mat-sort-header>
+                        {{ column.header }}
+                    </th>
+                    <td mat-cell *matCellDef="let row">
+                        {{ column.cell(row) }}
+                    </td>
+                </ng-container>
+
+                <!-- Actions Columns -->
+                <ng-container matColumnDef="action1">
+                    <th mat-header-cell *matHeaderCellDef></th>
+                    <td mat-cell *matCellDef="let row">
+                        <button mat-icon-button matTooltip="Detalle" (click)="viewEquipo(row)">
+                            <mat-icon>visibility</mat-icon>
+                        </button>
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="action2">
+                    <th mat-header-cell *matHeaderCellDef></th>
+                    <td mat-cell *matCellDef="let row">
+                        <button mat-icon-button matTooltip="Editar" (click)="editarComunicacion(row)">
+                            <mat-icon>edit</mat-icon>
+                        </button>
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="action3">
+                    <th mat-header-cell *matHeaderCellDef></th>
+                    <td mat-cell *matCellDef="let row">
+                        <button mat-icon-button matTooltip="Eliminar" (click)="borrarComunicacion(row)">
+                            <mat-icon>delete</mat-icon>
+                        </button>
+                    </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+                <tr class="mat-row" *matNoDataRow>
+                    <td class="mat-cell" colspan="6">No hay datos disponibles</td>
+                </tr>
+            </table>
+            <mat-paginator [pageSizeOptions]="[10, 25, 100]"></mat-paginator>
+        </div>
+
+        <!-- Fila de fecha y hora -->
+        <div class="filtros">
+            <mat-form-field appearance="outline">
+                <mat-label>Fecha</mat-label>
+                <input matInput [matDatepicker]="pickerFecha">
+                <mat-datepicker-toggle matSuffix [for]="pickerFecha"></mat-datepicker-toggle>
+                <mat-datepicker #pickerFecha></mat-datepicker>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+                <mat-label>Hora</mat-label>
+                <input matInput type="time">
+            </mat-form-field>
+        </div>
+
+        <!-- Fila de zona, prioridad, carretera, PK inicio y PK fin -->
+        <div class="filtros">
+            <mat-form-field appearance="outline">
+                <mat-label>Zona</mat-label>
+                <input matInput>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+                <mat-label>Prioridad</mat-label>
+                <input matInput type="number">
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+                <mat-label>Carretera</mat-label>
+                <input matInput>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+                <mat-label>PK. Inicio</mat-label>
+                <input matInput type="number">
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+                <mat-label>PK. Fin</mat-label>
+                <input matInput type="number">
+            </mat-form-field>
+        </div>
+
+        <!-- Fila de tarea, estado de carretera y observaciones -->
+        <div class="filtros">
+            <mat-form-field appearance="outline">
+                <mat-label>Tarea del equipo</mat-label>
+                <input matInput>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+                <mat-label>Estado de la carretera</mat-label>
+                <input matInput>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+                <mat-label>A tener en cuenta por</mat-label>
+                <input matInput>
+            </mat-form-field>
+        </div>
+
+        <!-- Observaciones -->
+        <div class="observaciones">
+            <mat-form-field appearance="outline">
+                <mat-label>Observaciones</mat-label>
+                <textarea matInput></textarea>
+            </mat-form-field>
+        </div>
+
+        <!-- Botones de acción -->
+        <div class="acciones">
+            <button mat-raised-button color="accent" (click)="nuevaComunicacion()">
+                <mat-icon>add</mat-icon> Nueva Comunicación
+            </button>
+            <button mat-raised-button color="primary" (click)="editarComunicacion()">
+                <mat-icon>edit</mat-icon> Editar
+            </button>
+            <button mat-raised-button color="warn" (click)="borrarComunicacion()">
+                <mat-icon>delete</mat-icon> Eliminar
+            </button>
+        </div>
+
+    </mat-sidenav-content>
+</mat-sidenav-container>
+
+<router-outlet *ngIf="showChild"></router-outlet>
+
+
+

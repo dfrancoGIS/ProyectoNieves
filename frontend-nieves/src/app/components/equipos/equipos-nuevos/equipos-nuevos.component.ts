@@ -12,6 +12,14 @@ import { NuevoEquipoDialogComponent } from 'src/app/dialogs/nuevo-equipo-dialog/
 })
 export class EquiposNuevosComponent implements AfterViewInit, OnInit {
 
+  selectedHistory: string = '';  // Selección del histórico de equipos
+  historyOptions: string[] = ['Histórico 1', 'Histórico 2', 'Histórico 3']; // Opciones del histórico
+
+  selectedResource: string = '';  // Selección del recurso
+  resourceOptions: string[] = ['Recurso 1', 'Recurso 2', 'Recurso 3']; // Opciones de recursos
+
+  input!: HTMLInputElement; 
+
   showChild: boolean = false;
   selectedTeam: string = '';
   displayedTeams: string[] = ['Equipo 1', 'Equipo 2', 'Equipo 3'];
@@ -20,7 +28,7 @@ export class EquiposNuevosComponent implements AfterViewInit, OnInit {
   color: string = '#BDBDBD';
 
   columns = [
-    { columnDef: 'nombre', header: 'Nombre', cell: (element: any) => `${element.nombre}` },
+    { columnDef: 'nombre', header: 'Nombre y apellidos', cell: (element: any) => `${element.nombre}` },
     { columnDef: 'extension', header: 'Extensión', cell: (element: any) => `${element.extension}` },
     { columnDef: 'telefono1', header: 'Teléfono 1', cell: (element: any) => `${element.telefono1}` },
     { columnDef: 'telefono2', header: 'Teléfono 2', cell: (element: any) => element.telefono2 || '-' },
@@ -30,8 +38,8 @@ export class EquiposNuevosComponent implements AfterViewInit, OnInit {
 
   displayedColumns: string[] = [...this.columns.map(c => c.columnDef), 'action1', 'action2', 'action3'];
   listaEquipos: any[] = [
-    { nombre: 'Ángel López', extension: '15111', telefono1: '628141559', telefono2: '', ocupacion: 'Carreteras', departamento: 'Carreteras' },
-    { nombre: 'Ander Insagube', extension: '', telefono1: '', telefono2: '', ocupacion: 'Carreteras', departamento: 'Carreteras' }
+    { nombre: 'Ángel López Martinez', extension: '15111', telefono1: '628141559', telefono2: '', ocupacion: 'Carreteras', departamento: 'Carreteras' },
+    { nombre: 'Ander Insagube Perez', extension: '', telefono1: '', telefono2: '', ocupacion: 'Carreteras', departamento: 'Carreteras' }
   ];
 
   clickedRows = new Set<any>();

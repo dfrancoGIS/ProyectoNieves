@@ -40,5 +40,5 @@ export class AppComponent {
   abrirMeteorologia() { this.router.navigate(['/estaciones-meteorologicas']); }
   abrirPaneles() { this.router.navigate(['/paneles']); }
   abrirFundentes() { this.router.navigate(['/fundentes']); }
-  abrirConfiguracion() { this.router.navigate(['/configuracion']); }
+  abrirVisor() { this.router.navigate(['/visor']); }
 }

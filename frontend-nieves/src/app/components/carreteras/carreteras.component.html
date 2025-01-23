@@ -1,0 +1,38 @@
+<mat-sidenav-container class="example-container">
+    <mat-sidenav #sidenav [mode]="'over'" [position]="'end'"></mat-sidenav>
+
+    <mat-sidenav-content>
+        <div class="referencia">
+            <p>Estado de las Carreteras</p>         
+        </div>
+
+        <!-- Buscador de carreteras -->
+        <div class="buscador">
+            <mat-form-field>
+                <mat-label>Buscar Carretera</mat-label>
+                <input matInput (keyup)="applyFilter($event)" placeholder="Ingrese el nombre o código" #input>
+            </mat-form-field>
+        </div>
+
+        <!-- Contenedor de las prioridades -->
+        <div class="tabla-carreteras">
+            <div class="columna" *ngFor="let prioridad of prioridades">
+                <h3>Prioridad {{ prioridad }}</h3>
+                <div *ngFor="let carretera of obtenerCarreterasPorPrioridad(prioridad)" class="carretera">
+                    <span class="nombre-carretera">{{ carretera.nombre }}</span>
+                    <span class="separador">|</span>
+                    <span class="estado-carretera">{{ carretera.estado }}</span>
+                    <span class="separador">|</span>
+                    <button mat-icon-button matTooltip="Editar Estado" (click)="editarCarretera(carretera)">
+                        <mat-icon>edit</mat-icon>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </mat-sidenav-content>
+</mat-sidenav-container>
+
+<router-outlet></router-outlet>
+
+

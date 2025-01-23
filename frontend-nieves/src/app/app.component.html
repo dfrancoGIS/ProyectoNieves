@@ -2,7 +2,7 @@
   <button mat-icon-button (click)="sidenav.toggle()">
       <mat-icon>menu</mat-icon>
   </button>
-  <img src="assets/img/logoalcon2.png" (click)="clickLogo()">
+  <img class="logoApp "src="assets/img/nieve.png" (click)="clickLogo()">
   <span class="toolbar-item-spacer"></span>
   <button mat-icon-button (click)="cerrarSesion()">
       <mat-icon>logout</mat-icon>
@@ -52,7 +52,7 @@
           <a mat-list-item routerLink="/fundentes">Fundentes</a>
         </mat-list-item>
         <mat-list-item class="parent full-parent-menu">
-          <a mat-list-item routerLink="/configuracion">Configuración</a>
+          <a mat-list-item routerLink="/configuracion">Visor geográfico</a>
         </mat-list-item>
       </mat-nav-list>
   </mat-sidenav>
@@ -92,7 +92,7 @@
           <button mat-raised-button (click)="abrirDocumentos()">    
               <div class="button-contenido">      
                   <img src="assets/img/documentos.png">
-                  <label>Documentos</label>
+                  <label>Documentos e informes</label>
               </div>  
           </button>
           <button mat-raised-button (click)="abrirConsultas()">       
@@ -125,10 +125,10 @@
                   <label>Fundentes</label>
               </div>
           </button>
-          <button mat-raised-button (click)="abrirConfiguracion()">    
+          <button mat-raised-button (click)="abrirVisor()">    
               <div class="button-contenido">      
-                  <img src="assets/img/configuracion.png">
-                  <label>Configuración</label>
+                  <img src="assets/img/visor.png">
+                  <label>Visor</label>
               </div>
           </button>
       </div>

@@ -1,0 +1,56 @@
+/* Contenedor para centrar la tabla y hacerla más grande */
+.tabla-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 2rem;
+}
+
+/* Tabla más ancha */
+.equipos-entrantes-table {
+    width: 95%; /* Ocupa más espacio en pantalla */
+    max-width: 1400px; /* Aumenta el tamaño máximo */
+    border-collapse: collapse;
+    background: #fff;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15); /* Sombra sutil */
+    border-radius: 8px;
+    padding: 1.5rem;
+}
+
+/* Aumenta el tamaño de las celdas y separa más las columnas */
+th, td {
+    text-align: center;
+    padding: 25px 30px; /* Más padding para mejor tamaño */
+    border: 2px solid #ccc;
+    font-size: 20px; /* Hace el texto más grande */
+    min-width: 150px; /* Asegura que las columnas sean más anchas */
+}
+
+/* Estilización de encabezados */
+th {
+    background-color: #e0e0e0; /* Gris claro */
+    font-weight: bold;
+    font-size: 22px; /* Encabezados más visibles */
+}
+
+/* Espaciado adicional entre los encabezados */
+.header-cell {
+    background-color: #d3d3d3 !important;
+    padding: 22px;
+    font-weight: bold;
+    font-size: 22px; /* Hace que los encabezados sean más grandes */
+    //border-radius: 5px;
+}
+
+/* Aumentar separación entre filas */
+tr {
+    height: 60px; /* Hace que las filas sean más altas */
+}
+/* Estilos del título de la página */
+.referencia {
+    display: flex;
+    justify-content: flex-start;
+    margin-left: 2rem;
+    font-size: 15px;
+    margin-top: 1rem;
+}

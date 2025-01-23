@@ -45,9 +45,14 @@ import { EquiposModificacionComponent } from './components/equipos/equipos-modif
 import { EquiposBajaComponent } from './components/equipos/equipos-baja/equipos-baja.component';
 import { DetalleEquipoComponent } from './components/equipos/detalle-equipo/detalle-equipo.component';
 import { BusquedaEquipoComponent } from './components/equipos/busqueda-equipo/busqueda-equipo.component';
+import { CarreterasComponent } from './components/carreteras/carreteras.component';
 
 // Diálogos
 import { NuevoEquipoDialogComponent } from './dialogs/nuevo-equipo-dialog/nuevo-equipo-dialog.component';
+import { NuevaComunicacionDialogComponent } from './dialogs/nueva-comunicacion-dialog/nueva-comunicacion-dialog.component';
+import { EditarCarreteraDialogComponent } from './dialogs/editar-carretera-dialog/editar-carretera-dialog.component';
+import { EquiposEntrantesComponent } from './components/equipos-entrantes/equipos-entrantes.component';
+import { ComunicacionesComponent } from './components/comunicaciones/comunicaciones.component';
 
 @NgModule({
   declarations: [
@@ -58,7 +63,12 @@ import { NuevoEquipoDialogComponent } from './dialogs/nuevo-equipo-dialog/nuevo-
     EquiposBajaComponent,
     DetalleEquipoComponent,
     BusquedaEquipoComponent,
-    NuevoEquipoDialogComponent, 
+    NuevoEquipoDialogComponent,
+    NuevaComunicacionDialogComponent,
+    CarreterasComponent,
+    EditarCarreteraDialogComponent,
+    EquiposEntrantesComponent,
+    ComunicacionesComponent, 
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,33 @@
+<div class="container">
+    <h1 mat-dialog-title>Editar Carretera</h1>
+    <mat-divider></mat-divider>
+    <div mat-dialog-content>
+        <form [formGroup]="form">
+            <mat-form-field appearance="outline">
+                <mat-label>Nombre de la Carretera</mat-label>
+                <input matInput formControlName="nombre" readonly>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+                <mat-label>Prioridad</mat-label>
+                <mat-select formControlName="prioridad">
+                    <mat-option *ngFor="let p of prioridades" [value]="p">{{ p }}</mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+                <mat-label>Estado</mat-label>
+                <mat-select formControlName="estado">
+                    <mat-option *ngFor="let e of estados" [value]="e">{{ e }}</mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <div mat-dialog-actions>
+                <button mat-raised-button mat-dialog-close color="warn" (click)="cancelar()">Cerrar</button>
+                <button mat-raised-button mat-dialog-save color="accent" [disabled]="form.invalid"
+                    (click)="guardarCambios()">Guardar</button>
+            </div>
+        </form>
+    </div>
+</div>
+
