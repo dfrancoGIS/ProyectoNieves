@@ -15,8 +15,11 @@ import { CarreterasComponent } from './components/carreteras/carreteras.componen
 // Componente de Equipos Entrantes
 import { EquiposEntrantesComponent } from './components/equipos-entrantes/equipos-entrantes.component';
 
-// Componente de Comunicaciones (Nuevo)
+// Componente de Comunicaciones
 import { ComunicacionesComponent } from './components/comunicaciones/comunicaciones.component';
+
+// Componente de Retenes 
+import { RetenesComponent } from './components/retenes/retenes.component';
 
 const routes: Routes = [
   { path: '', component: EquiposComponent }, // Página de inicio en Equipos
@@ -31,7 +34,8 @@ const routes: Routes = [
 
   { path: 'carreteras', component: CarreterasComponent }, // Página de carreteras
   { path: 'equipos-entrantes', component: EquiposEntrantesComponent }, // Equipos Entrantes
-  { path: 'comunicaciones', component: ComunicacionesComponent }, // Nueva ruta para Comunicaciones
+  { path: 'comunicaciones', component: ComunicacionesComponent }, // Comunicaciones
+  { path: 'retenes', component: RetenesComponent }, // Nueva ruta para Retenes
 
   // Ruta 404 - Página no encontrada
   { path: '**', redirectTo: '/' } // Si la URL no existe, redirige a la raíz

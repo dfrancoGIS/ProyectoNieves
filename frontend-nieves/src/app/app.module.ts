@@ -53,6 +53,7 @@ import { NuevaComunicacionDialogComponent } from './dialogs/nueva-comunicacion-d
 import { EditarCarreteraDialogComponent } from './dialogs/editar-carretera-dialog/editar-carretera-dialog.component';
 import { EquiposEntrantesComponent } from './components/equipos-entrantes/equipos-entrantes.component';
 import { ComunicacionesComponent } from './components/comunicaciones/comunicaciones.component';
+import { RetenesComponent } from './components/retenes/retenes.component';
 
 @NgModule({
   declarations: [
@@ -68,7 +69,8 @@ import { ComunicacionesComponent } from './components/comunicaciones/comunicacio
     CarreterasComponent,
     EditarCarreteraDialogComponent,
     EquiposEntrantesComponent,
-    ComunicacionesComponent, 
+    ComunicacionesComponent,
+    RetenesComponent, 
   ],
   imports: [
     BrowserModule,

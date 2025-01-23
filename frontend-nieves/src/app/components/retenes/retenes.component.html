@@ -1,0 +1,168 @@
+<mat-sidenav-container class="example-container" *ngIf="!showChild">
+    <mat-sidenav #sidenav [mode]="'over'" [position]="'end'">
+    </mat-sidenav>
+
+    <mat-sidenav-content>
+        <div class="referencia">
+            <p>Retenes / Gestión de Retenes</p>         
+        </div>
+
+        <!-- Tabla Superior -->
+        <div class="mat-elevation-z8">
+            <table mat-table [dataSource]="dataSourceSuperior" matSort>
+                <ng-container matColumnDef="recurso">
+                    <th mat-header-cell *matHeaderCellDef [style.background-color]="'lightgrey'"> Recurso </th>
+                    <td mat-cell *matCellDef="let row"> {{ row.recurso }} </td>
+                </ng-container>
+                
+                <ng-container matColumnDef="fechaInicio">
+                    <th mat-header-cell *matHeaderCellDef [style.background-color]="'lightgrey'"> Fecha Inicio </th>
+                    <td mat-cell *matCellDef="let row"> {{ row.fechaInicio }} </td>
+                </ng-container>
+                
+                <ng-container matColumnDef="horaInicio">
+                    <th mat-header-cell *matHeaderCellDef [style.background-color]="'lightgrey'"> Hora Inicio </th>
+                    <td mat-cell *matCellDef="let row"> {{ row.horaInicio }} </td>
+                </ng-container>
+                
+                <ng-container matColumnDef="fechaFin">
+                    <th mat-header-cell *matHeaderCellDef [style.background-color]="'lightgrey'"> Fecha Fin </th>
+                    <td mat-cell *matCellDef="let row"> {{ row.fechaFin }} </td>
+                </ng-container>
+                
+                <ng-container matColumnDef="horaFin">
+                    <th mat-header-cell *matHeaderCellDef [style.background-color]="'lightgrey'"> Hora Fin </th>
+                    <td mat-cell *matCellDef="let row"> {{ row.horaFin }} </td>
+                </ng-container>
+                
+                <ng-container matColumnDef="vehiculo">
+                    <th mat-header-cell *matHeaderCellDef [style.background-color]="'lightgrey'"> Vehículo </th>
+                    <td mat-cell *matCellDef="let row"> {{ row.vehiculo }} </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumnsSuperior"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumnsSuperior;"></tr>
+            </table>
+        </div>
+
+        <!-- Filtros y selecciones -->
+        <div class="encabezado">
+            <mat-form-field appearance="outline" class="foe large-select">
+                <mat-label>Equipos dados de alta</mat-label>
+                <mat-select [(value)]="selectedTeam" (selectionChange)="newSelectedTeam()">
+                    <mat-option [value]="team" *ngFor="let team of displayedTeams">{{team}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+        
+            <mat-form-field appearance="outline" class="foe large-select">
+                <mat-label>Histórico de equipos</mat-label>
+                <mat-select [(value)]="selectedHistory">
+                    <mat-option [value]="history" *ngFor="let history of historyOptions">{{history}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+
+        <!-- Filtros -->
+        <div class="filtros">
+            <mat-form-field appearance="outline">
+                <mat-label>Recurso</mat-label>
+                <input matInput placeholder="Escribe el recurso">
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+                <mat-label>Fecha Inicio</mat-label>
+                <input matInput [matDatepicker]="pickerInicio">
+                <mat-datepicker-toggle matSuffix [for]="pickerInicio"></mat-datepicker-toggle>
+                <mat-datepicker #pickerInicio></mat-datepicker>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+                <mat-label>Fecha Fin</mat-label>
+                <input matInput [matDatepicker]="pickerFin">
+                <mat-datepicker-toggle matSuffix [for]="pickerFin"></mat-datepicker-toggle>
+                <mat-datepicker #pickerFin></mat-datepicker>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+                <mat-label>Hora Inicio</mat-label>
+                <input matInput type="time">
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+                <mat-label>Hora Fin</mat-label>
+                <input matInput type="time">
+            </mat-form-field>
+        </div>
+
+        <!-- Vehículo y Acciones -->
+        <div class="acciones">
+            <mat-form-field>
+                <mat-label>Vehículo</mat-label>
+                <input matInput (keyup)="applyFilter($event)" placeholder="Introduce la matrícula" #input>
+            </mat-form-field>
+        </div>
+
+        <!-- Tabla Inferior -->
+        <div class="mat-elevation-z8">
+            <table mat-table [dataSource]="dataSource" matSort>
+                <ng-container *ngFor="let column of columns" [matColumnDef]="column.columnDef">
+                    <th mat-header-cell *matHeaderCellDef [style.background-color]="color" mat-sort-header>
+                        {{column.header}}
+                    </th>
+                    <td mat-cell *matCellDef="let row">
+                        {{column.cell(row)}}
+                    </td>
+                </ng-container>
+
+                <!-- Actions Columns -->
+                <ng-container matColumnDef="action1">
+                    <th mat-header-cell *matHeaderCellDef [style.background-color]="color"></th>
+                    <td mat-cell *matCellDef="let row">
+                        <button mat-icon-button matTooltip="Detalle" [matTooltipShowDelay]="1000" (click)="viewEquipo(row)">
+                            <img src="assets/img/view.png">
+                        </button>
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="action2">
+                    <th mat-header-cell *matHeaderCellDef [style.background-color]="color"></th>
+                    <td mat-cell *matCellDef="let row">
+                        <button mat-icon-button matTooltip="Editar" [matTooltipShowDelay]="1000" (click)="editarEquipo(row)">
+                            <img src="assets/img/edit.png">
+                        </button>
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="action3">
+                    <th mat-header-cell *matHeaderCellDef [style.background-color]="color"></th>
+                    <td mat-cell *matCellDef="let row">
+                        <button mat-icon-button matTooltip="Dar de baja" [matTooltipShowDelay]="1000" (click)="bajaEquipo(row)">
+                            <img src="assets/img/delete.png">
+                        </button>
+                    </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="highlightRow(row)"
+                    [class.demo-row-is-clicked]="clickedRows.has(row)"></tr>
+
+                <!-- Fila sin datos -->
+                <tr class="mat-row" *matNoDataRow>
+                    <td class="mat-cell" colspan="6">No hay datos disponibles</td>
+                </tr>
+            </table>
+            <mat-paginator [pageSizeOptions]="[10, 25, 100]" aria-label="Select page of users"
+                [style.background-color]="'lightgray'"></mat-paginator>
+        </div>
+
+        <!-- Botón de exportación -->
+        <div class="exportar">
+            <button mat-raised-button color="accent" (click)="generateExcel()">Descargar Excel
+                <mat-icon>download</mat-icon>
+            </button>
+        </div>
+
+    </mat-sidenav-content>
+</mat-sidenav-container>
+
+<router-outlet *ngIf="showChild"></router-outlet>

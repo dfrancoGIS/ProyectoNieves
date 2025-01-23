@@ -49,6 +49,22 @@
     margin: 0rem 2rem;
     margin-top: 1rem;
 }
+.filtros2 {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 0rem 2rem;
+    margin-top: 1rem;
+}
+
+.filtros2 mat-form-field {
+    flex: 1;
+    min-width: 250px;  /* Aumenta el ancho mínimo */
+    max-width: 100%;  /* Permite que ocupen más espacio */
+}
+
 
 .observaciones{
     display: flex;
@@ -113,4 +129,14 @@
 /* Color de los bordes del input */
 .foe {
     --mdc-outlined-text-field-outline-color: #d3d3d3;
+}
+
+.observaciones mat-form-field {
+    width: 100%; /* Ocupar todo el ancho disponible */
+    min-height: 120px; /* Aumenta la altura */
+}
+
+.observaciones textarea {
+    min-height: 100px; /* Ajusta la altura mínima del textarea */
+    resize: vertical; /* Permitir redimensionamiento vertical si es necesario */
 }

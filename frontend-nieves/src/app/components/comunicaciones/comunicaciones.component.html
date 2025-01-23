@@ -42,28 +42,28 @@
 
                 <!-- Actions Columns -->
                 <ng-container matColumnDef="action1">
-                    <th mat-header-cell *matHeaderCellDef></th>
+                    <th mat-header-cell *matHeaderCellDef [style.background-color]="color"></th>
                     <td mat-cell *matCellDef="let row">
-                        <button mat-icon-button matTooltip="Detalle" (click)="viewEquipo(row)">
-                            <mat-icon>visibility</mat-icon>
+                        <button mat-icon-button matTooltip="Detalle" [matTooltipShowDelay]="1000" (click)="viewEquipo(row)">
+                            <img src="assets/img/view.png">
                         </button>
                     </td>
                 </ng-container>
 
                 <ng-container matColumnDef="action2">
-                    <th mat-header-cell *matHeaderCellDef></th>
+                    <th mat-header-cell *matHeaderCellDef [style.background-color]="color"></th>
                     <td mat-cell *matCellDef="let row">
-                        <button mat-icon-button matTooltip="Editar" (click)="editarComunicacion(row)">
-                            <mat-icon>edit</mat-icon>
+                        <button mat-icon-button matTooltip="Editar" [matTooltipShowDelay]="1000" (click)="editarComunicacion(row)">
+                            <img src="assets/img/edit.png">
                         </button>
                     </td>
                 </ng-container>
 
                 <ng-container matColumnDef="action3">
-                    <th mat-header-cell *matHeaderCellDef></th>
+                    <th mat-header-cell *matHeaderCellDef [style.background-color]="color"></th>
                     <td mat-cell *matCellDef="let row">
-                        <button mat-icon-button matTooltip="Eliminar" (click)="borrarComunicacion(row)">
-                            <mat-icon>delete</mat-icon>
+                        <button mat-icon-button matTooltip="Dar de baja" [matTooltipShowDelay]="1000" (click)="borrarComunicacion(row)">
+                            <img src="assets/img/delete.png">
                         </button>
                     </td>
                 </ng-container>
@@ -75,7 +75,8 @@
                     <td class="mat-cell" colspan="6">No hay datos disponibles</td>
                 </tr>
             </table>
-            <mat-paginator [pageSizeOptions]="[10, 25, 100]"></mat-paginator>
+            <mat-paginator [pageSizeOptions]="[10, 25, 100]" aria-label="Select page of users"
+                [style.background-color]="'lightgray'"></mat-paginator>
         </div>
 
         <!-- Fila de fecha y hora -->
@@ -94,7 +95,7 @@
         </div>
 
         <!-- Fila de zona, prioridad, carretera, PK inicio y PK fin -->
-        <div class="filtros">
+        <div class="filtros2">
             <mat-form-field appearance="outline">
                 <mat-label>Zona</mat-label>
                 <input matInput>
@@ -122,7 +123,7 @@
         </div>
 
         <!-- Fila de tarea, estado de carretera y observaciones -->
-        <div class="filtros">
+        <div class="filtros2">
             <mat-form-field appearance="outline">
                 <mat-label>Tarea del equipo</mat-label>
                 <input matInput>
