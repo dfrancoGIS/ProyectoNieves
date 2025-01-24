@@ -14,7 +14,7 @@
                     <div *ngFor="let cuadrilla of cuadrillas" class="cuadrilla">
                         <div class="cuadrilla-header">{{ cuadrilla.nombre }}</div>
                         <ul class="cuadrilla-list">
-                            <li *ngFor="let equipo of cuadrilla.equipos" class="equipo rojo">
+                            <li *ngFor="let equipo of cuadrilla.equipos" class="equipo rojo" (click)="seleccionarEquipo(equipo)">
                                 {{ equipo.nombre }}
                             </li>
                         </ul>
@@ -27,14 +27,204 @@
         <mat-tab-group>
             <!-- Pestaña: Gestión de Equipos -->
             <mat-tab label="Gestión de Equipos">
-                
+                <div class="fila1">
+                    <mat-form-field appearance="outline" class="foe large-select">
+                        <mat-label>Equipos disponibles</mat-label>
+                        <mat-select [(value)]="selectedEquipo" (selectionChange)="seleccionarEquipo($event.value)">
+                            <mat-option *ngFor="let equipo of equiposDisponibles" [value]="equipo">
+                                {{ equipo.nombre }}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
 
+                <div class="fila2">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Nombre equipo</mat-label>
+                        <input matInput [(ngModel)]="equipoActual.nombre">
+                    </mat-form-field>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Cuadrilla</mat-label>
+                        <input matInput [(ngModel)]="equipoActual.cuadrilla">
+                    </mat-form-field>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Localidad</mat-label>
+                        <input matInput [(ngModel)]="equipoActual.localidad">
+                    </mat-form-field>
+                    <mat-checkbox [(ngModel)]="equipoActual.responsable">Responsable</mat-checkbox>
+                </div>
+
+                <div class="fila3">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Nombre</mat-label>
+                        <input matInput [(ngModel)]="equipoActual.nombreContacto">
+                    </mat-form-field>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Teléfono 1</mat-label>
+                        <input matInput [(ngModel)]="equipoActual.tfno1">
+                    </mat-form-field>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Teléfono 2</mat-label>
+                        <input matInput [(ngModel)]="equipoActual.tfno2">
+                    </mat-form-field>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Teléfono 3</mat-label>
+                        <input matInput [(ngModel)]="equipoActual.tfno3">
+                    </mat-form-field>
+                </div>
+
+                <div class="fila4">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Nombre</mat-label>
+                        <input matInput [(ngModel)]="equipoActual.nombreContacto">
+                    </mat-form-field>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Teléfono 1</mat-label>
+                        <input matInput [(ngModel)]="equipoActual.tfno1">
+                    </mat-form-field>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Teléfono 2</mat-label>
+                        <input matInput [(ngModel)]="equipoActual.tfno2">
+                    </mat-form-field>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Teléfono 3</mat-label>
+                        <input matInput [(ngModel)]="equipoActual.tfno3">
+                    </mat-form-field>
+                </div>
+
+                <div class="fila6">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Vehículo</mat-label>
+                        <input matInput [(ngModel)]="equipoActual.vehiculo">
+                    </mat-form-field>
+                </div>
+                <div class="fila7">
+                    <!-- Tabla de carreteras a tratar -->
+                    <div class="tabla-container">
+                        <mat-card-title>Carreteras a tratar</mat-card-title>
+                        <table mat-table [dataSource]="carreteras" class="mat-elevation-z8">
+                            <ng-container matColumnDef="nombre">
+                                <th mat-header-cell *matHeaderCellDef>Carretera</th>
+                                <td mat-cell *matCellDef="let row">{{ row.nombre }}</td>
+                            </ng-container>
+                
+                            <tr mat-header-row *matHeaderRowDef="['nombre']"></tr>
+                            <tr mat-row *matRowDef="let row; columns: ['nombre'];"></tr>
+                        </table>
+                    </div>
+                
+                    <!-- Botones de acción -->
+                    <div class="acciones">
+                        <button mat-icon-button matTooltip="Visualizar" (click)="visualizarCarretera()">
+                            <mat-icon>visibility</mat-icon>
+                        </button>
+                        <button mat-icon-button matTooltip="Añadir" (click)="agregarCarretera()">
+                            <mat-icon>add</mat-icon>
+                        </button>
+                        <button mat-icon-button matTooltip="Eliminar" (click)="eliminarCarretera()">
+                            <mat-icon>delete</mat-icon>
+                        </button>
+                    </div>
+                </div>
             </mat-tab>
 
             <!-- Pestaña: Gestión de Turnos -->
             <mat-tab label="Gestión de Turnos">
-                
+                <!-- Selección de equipo -->
+                <div class="fila1">
+                    <mat-form-field appearance="outline" class="foe large-select">
+                        <mat-label>Equipos disponibles</mat-label>
+                        <mat-select [(value)]="selectedEquipo" (selectionChange)="seleccionarEquipo($event.value)">
+                            <mat-option *ngFor="let equipo of equiposDisponibles" [value]="equipo">
+                                {{ equipo.nombre }}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            
+                <!-- Tabla de turnos -->
+                <div class="fila7">
+                    <div class="tabla-container">
+                        <table mat-table [dataSource]="turnos" class="mat-elevation-z8">
+                            
+                            <!-- Fecha Inicio -->
+                            <ng-container matColumnDef="fechaInicio">
+                                <th mat-header-cell *matHeaderCellDef> Fecha Inicio </th>
+                                <td mat-cell *matCellDef="let row"> {{ row.fechaInicio }} </td>
+                            </ng-container>
+            
+                            <!-- Hora Inicio -->
+                            <ng-container matColumnDef="horaInicio">
+                                <th mat-header-cell *matHeaderCellDef> Hora Inicio </th>
+                                <td mat-cell *matCellDef="let row"> {{ row.horaInicio }} </td>
+                            </ng-container>
+            
+                            <!-- Fecha Fin -->
+                            <ng-container matColumnDef="fechaFin">
+                                <th mat-header-cell *matHeaderCellDef> Fecha Fin </th>
+                                <td mat-cell *matCellDef="let row"> {{ row.fechaFin }} </td>
+                            </ng-container>
+            
+                            <!-- Hora Fin -->
+                            <ng-container matColumnDef="horaFin">
+                                <th mat-header-cell *matHeaderCellDef> Hora Fin </th>
+                                <td mat-cell *matCellDef="let row"> {{ row.horaFin }} </td>
+                            </ng-container>
+            
+                            <!-- Observaciones -->
+                            <ng-container matColumnDef="observaciones">
+                                <th mat-header-cell *matHeaderCellDef> Observaciones </th>
+                                <td mat-cell *matCellDef="let row"> {{ row.observaciones }} </td>
+                            </ng-container>
+            
+                            <tr mat-header-row *matHeaderRowDef="['fechaInicio', 'horaInicio', 'fechaFin', 'horaFin', 'observaciones']"></tr>
+                            <tr mat-row *matRowDef="let row; columns: ['fechaInicio', 'horaInicio', 'fechaFin', 'horaFin', 'observaciones'];"></tr>
+                        </table>
+                    </div>
+            
+                    <!-- Botones de acción -->
+                    <div class="acciones">
+                        <button mat-icon-button matTooltip="Añadir Turno" (click)="agregarTurno()">
+                            <mat-icon>add</mat-icon>
+                        </button>
+                        <button mat-icon-button matTooltip="Editar Turno" (click)="editarTurno(selectedTurno)">
+                            <mat-icon>edit</mat-icon>
+                        </button>
+                        <button mat-icon-button matTooltip="Eliminar Turno" (click)="eliminarTurno(selectedTurno)">
+                            <mat-icon>delete</mat-icon>
+                        </button>
+                    </div>
+                </div>
+                <div class="fila8">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Fecha Inicio</mat-label>
+                        <input matInput [matDatepicker]="pickerInicio">
+                        <mat-datepicker-toggle matSuffix [for]="pickerInicio"></mat-datepicker-toggle>
+                        <mat-datepicker #pickerInicio></mat-datepicker>
+                    </mat-form-field>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Hora Inicio</mat-label>
+                        <input matInput type="time">
+                    </mat-form-field>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Fecha Fin</mat-label>
+                        <input matInput [matDatepicker]="pickerFin">
+                        <mat-datepicker-toggle matSuffix [for]="pickerFin"></mat-datepicker-toggle>
+                        <mat-datepicker #pickerFin></mat-datepicker>
+                    </mat-form-field>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Hora Fin</mat-label>
+                        <input matInput type="time">
+                    </mat-form-field>
+                </div>
+                <div class="observaciones">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Observaciones</mat-label>
+                        <textarea matInput></textarea>
+                    </mat-form-field>
+                </div>
             </mat-tab>
         </mat-tab-group>
     </mat-sidenav-content>
 </mat-sidenav-container>
+
