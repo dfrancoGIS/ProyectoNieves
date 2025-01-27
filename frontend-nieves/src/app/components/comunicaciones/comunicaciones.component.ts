@@ -9,6 +9,12 @@ import { MatTableDataSource } from '@angular/material/table';
   styleUrls: ['./comunicaciones.component.scss']
 })
 export class ComunicacionesComponent implements AfterViewInit, OnInit {
+borrarComunicacion() {
+throw new Error('Method not implemented.');
+}
+nuevaComunicacion() {
+throw new Error('Method not implemented.');
+}
   showChild: boolean = false;
   selectedTeam: string = '';
   displayedTeams: string[] = ['COPO 1', 'COPO 2', 'COPO 3'];
@@ -19,7 +25,28 @@ export class ComunicacionesComponent implements AfterViewInit, OnInit {
   color: string = '#BDBDBD';
   dataSource!: MatTableDataSource<any>;
 
-  // Definición de columnas para la tabla
+  equiposCarreteras: { equipo: string, carretera: string }[][] = [
+    [
+      { equipo: 'COPO 13', carretera: 'N-622' },
+      { equipo: 'COPO 29', carretera: 'N-1' },
+      { equipo: '', carretera: '' },
+      { equipo: 'COPO 30', carretera: '' },
+      { equipo: '', carretera: '' },
+      { equipo: '', carretera: '' },
+      { equipo: '', carretera: '' }
+    ],
+    [
+      { equipo: 'COPO 29', carretera: 'N-622' },
+      { equipo: 'COPO 6', carretera: 'N-1 (IR...)' },
+      { equipo: '', carretera: '' },
+      { equipo: 'COPO 1', carretera: 'A-2620' },
+      { equipo: '', carretera: '' },
+      { equipo: '', carretera: '' },
+      { equipo: 'COPO 24', carretera: 'A-126' }
+    ]
+  ];
+
+  // Definición de columnas para la tabla (sin acciones)
   columns = [
     { columnDef: 'nombre', header: 'Nombre', cell: (element: any) => element.nombre },
     { columnDef: 'extension', header: 'Extensión', cell: (element: any) => element.extension },
@@ -29,7 +56,7 @@ export class ComunicacionesComponent implements AfterViewInit, OnInit {
     { columnDef: 'departamento', header: 'Departamento', cell: (element: any) => element.departamento }
   ];
 
-  displayedColumns: string[] = [...this.columns.map(c => c.columnDef), 'action1', 'action2', 'action3'];
+  displayedColumns: string[] = this.columns.map(c => c.columnDef); // Se eliminan las acciones
 
   listaComunicaciones: any[] = [
     { nombre: 'Ángel López', extension: '15111', telefono1: '628141559', telefono2: '', ocupacion: 'Carreteras', departamento: 'Carreteras' },
@@ -48,17 +75,8 @@ export class ComunicacionesComponent implements AfterViewInit, OnInit {
     this.dataSource.sort = this.sort;
   }
 
-  nuevaComunicacion() { console.log("Nueva comunicación agregada"); }
-  editarComunicacion(row?: any) { console.log("Editando comunicación:", row); }
-  borrarComunicacion(row?: any) { console.log("Borrando comunicación:", row); }
-
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value.trim().toLowerCase();
     this.dataSource.filter = filterValue;
-  }
-
-  viewEquipo(row: any) {
-    console.log('Ver detalles de la comunicación:', row);
-    // Aquí puedes agregar lógica adicional, como abrir un modal con detalles.
   }
 }

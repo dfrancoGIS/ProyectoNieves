@@ -4,6 +4,7 @@
     bottom: 0;
     left: 0;
     right: 0;
+    overflow-y: auto; // Permite scroll si es necesario
 }
 
 /* Título */
@@ -15,15 +16,6 @@
     margin-top: 1rem;
 }
 
-
-/* Buscador */
-.buscador {
-    display: flex;
-    justify-content: flex-start;
-    margin: 1rem 2rem;
-
-}
-
 .mat-mdc-form-field {
     font-size: 14px;
     width: 30%;
@@ -32,9 +24,10 @@
     margin-right: 2rem;
 }
 
-/* Diseño de las prioridades */
+/* Contenedor de prioridades */
 .tabla-carreteras {
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-around;
     margin: 2rem;
     gap: 1rem;
@@ -67,10 +60,16 @@
     justify-content: space-between;
     align-items: center;
     background-color: white;
-    padding: 0.5rem;
-    margin: 0.2rem 0;
-    border-radius: 3px;
+    padding: 0.7rem;
+    margin: 0.3rem 0;
+    border-radius: 5px;
     box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.2s;
+}
+
+.carretera:hover {
+    background-color: #f0f0f0;
+    cursor: pointer;
 }
 
 /* Barra separadora */
@@ -81,10 +80,58 @@
 }
 
 /* Estados */
+.estado-carretera {
+    font-weight: bold;
+}
+
 .estado-carretera.cerrado {
     color: red;
 }
 
 .estado-carretera.cadenas {
     color: orange;
+}
+
+/* 🔹 SECCIÓN EDITAR MASIVO - UNA SOLA FILA */
+.editar-masivo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap; // Permite ajuste en pantallas más pequeñas
+    gap: 1rem;
+    margin: 2rem;
+    padding: 1rem;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+/* Ajuste del tamaño de los selectores */
+.editar-masivo mat-form-field {
+    width: 250px;
+    min-width: 200px;
+}
+
+/* Botón de guardar cambios */
+.boton-guardar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+
+.boton-guardar button {
+    background-color: #c2185b;
+    color: white;
+    font-weight: bold;
+    padding: 0.8rem 2rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    min-width: 180px;
+}
+
+.boton-guardar button:hover {
+    background-color: #9c0e4e;
 }

@@ -1,104 +1,227 @@
-/* Contenedor general */
-.example-container {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
+/* Ajuste para que la página ocupe toda la pantalla sin scroll */
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
 }
 
-.large-select {
-    width: 220px;  /* Aumentar el ancho del selector */
-    min-width: 200px;
-    height: 50px;  /* Ajustar la altura */
-    font-size: 14px; /* Aumentar el tamaño del texto */
-}
-
-
-/* Estilos del título de la página */
-.referencia {
+/* Contenedor principal centrado */
+.contenedor-principal {
     display: flex;
-    justify-content: flex-start;
-    margin-left: 2rem;
-    font-size: 15px;
-    margin-top: 1rem;
+    flex-direction: column;
+    justify-content: space-between; /* Distribuye la tabla y el formulario */
+    align-items: center;
+    background-color: #f8e6ec;
+    padding: 15px;
+    border-radius: 8px;
+    border: 2px solid #b3005e;
+    width: 90%;
+    margin: 0 auto;
 }
 
-/* Alinear los selectores de Equipos y Histórico */
-.encabezado {
+/* Título principal */
+.titulo-principal {
+    font-size: 22px;
+    font-weight: bold;
+    color: #8b0045;
+    margin-bottom: 10px;
+}
+
+/* Botones superiores */
+.botones-superiores {
     display: flex;
     justify-content: center;
-    gap: 1rem;
+    gap: 8px;
+    margin-bottom: 15px;
+}
+
+/* Estilos de los botones */
+.boton-zona {
+    background-color: #d81b60;
+    color: white;
+    font-weight: bold;
+    padding: 3px 8px;
+    border: 2px solid #8b0045;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 12px;
+}
+
+.boton-zona:hover {
+    background-color: #b3005e;
+}
+
+/* Tabla */
+.tabla-vialidad {
+    width: 100%;
+    font-size: 12px;
+    border-collapse: collapse;
+    background-color: white;
+    margin-top: 10px;
+    flex-grow: 1; /* La tabla ocupará todo el espacio disponible */
+    overflow-y: auto; /* Si hay más datos, permite el desplazamiento interno */
+}
+
+/* Encabezados */
+th {
+    background-color: #b3005e;
+    color: white;
+    padding: 5px;
+    border: 1px solid black;
+}
+
+.header-cell{
+    background-color: lightgrey !important;
+    color: black;
+    font-weight: bold;
+    padding: 10px;
+    text-align: left;
+    border: none;
+}
+
+/* Celdas */
+td {
+    padding: 5px;
+    text-align: center;
+    border: 1px solid black;
+}
+
+/* Estilos de la información dentro de cada celda */
+.equipo-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px;
+    min-width: 100px;
+}
+
+/* Colores para los textos */
+.copo {
+    font-weight: bold;
+    color: purple;
+}
+
+.carretera {
+    font-weight: bold;
+    color: green;
+}
+
+/* Formulario */
+.formulario-container {
+    display: flex;
+    justify-content: flex-start; /* Distribuye los elementos uniformemente */
+    gap: 0.5rem; /* Espaciado entre los elementos */
+    width: 90%; /* Ocupar todo el ancho del div padre */
+    margin: 0 auto;
+    margin-top: 7px;
+}
+
+/* Título del formulario */
+.formulario-container h3 {
+    text-align: center;
+    color: #8b0045;
+    margin-bottom: 10px;
+}
+
+/* Campos del formulario */
+.form-row {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+}
+
+.form-row label {
+    font-weight: bold;
+    color: #b3005e;
+}
+
+.form-row input,
+.form-row select {
+    padding: 8px;
+    border: 1px solid #b3005e;
+    border-radius: 4px;
+    width: 100%;
+}
+
+/* Botón de agregar */
+.boton-agregar {
+    background-color: #d81b60;
+    color: white;
+    font-weight: bold;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.boton-agregar:hover {
+    background-color: #b3005e;
+}
+
+mat-form-field {
+    width: 200px; /* Antes era 300px */
+    font-size: 12px;/* Aumentar el ancho de los desplegables */
 }
 
 .large-select {
-    width: 400px; /* Aumentar el ancho de los selectores */
-    min-width: 280px;
-    height: 56px; /* Aumentar la altura */
-    font-size: 16px; /* Aumentar el tamaño del texto */
+    width: 80%; /* Asegurar que ocupen todo el espacio posible */
 }
 
-/* Filtros alineados horizontalmente */
-.filtros {
+.vehiculo {
     display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    align-items: center;
-    gap: 0.5rem;
-    margin: 0rem 2rem;
-    margin-top: 2rem;
+    justify-content: flex-start; /* Distribuye los elementos uniformemente */
+    gap: 1rem; /* Espaciado entre los elementos */
+    width: 90%; /* Ocupar todo el ancho del div padre */
+    margin: 0 auto;
+    margin-top: 3px;
 }
 
-/* Reducir tamaño de los select y fechas */
-.filtros mat-form-field {
-    width: 250px; /* Tamaño uniforme para select y fechas */
-    min-width: 140px;
+.vehiculo-input {
+    flex-grow: 1; /* Hace que el input se expanda ocupando el espacio disponible */
+    width: 100%; /* Asegurar que ocupe todo el ancho disponible */
+    max-width: 800px; /* Limitar el tamaño máximo */
 }
 
-/* Estilos específicos para los campos de hora */
-.filtros mat-form-field input[type="time"] {
-    width: 120px; /* Reducir ancho de los inputs de hora */
-}
-
-/* Botones y cuadro de filtrado alineados */
-.acciones {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin: 1rem 2rem;
-}
-
-/* Ajustar el tamaño del filtrado */
-.acciones mat-form-field {
-    flex-grow: 1;
-    min-width: 250px;
-}
-
-/* Botones alineados correctamente */
-.buttonActions {
-    margin-left: 1rem;
-    font-size: 12px;
-    padding: 7px 9px;
-    min-width: 80px;
-    height: 35px;
-    margin-bottom: 20px;
-}
-
-/* Contenedor de la tabla */
 .mat-elevation-z8 {
-    margin: 2rem;
+    width: 90%; /* Ocupar todo el ancho del div padre */
+    margin: 0 auto;
+    margin-top: 7px;
 }
 
-/* Botón de exportar Excel alineado a la derecha */
-.exportar {
-    display: flex;
-    justify-content: flex-end;
-    margin-top: 1rem;
-    margin-right: 2rem;
-    margin-bottom: 2rem;
+/* Asegurar que la tabla ocupe todo el ancho disponible */
+.styled-table {
+    border-collapse: collapse;
+    width: 100%;
+    background-color: white;
+    text-align: left; /* Alinea el contenido a la izquierda */
 }
 
-/* Color de los bordes del input */
-.foe {
-    --mdc-outlined-text-field-outline-color: #d3d3d3;
+/* Encabezado de la tabla */
+.styled-table thead th {
+    background-color: lightgrey !important;
+    color: black;
+    font-weight: bold;
+    padding: 10px;
+    text-align: left !important; /* Alinear títulos al inicio */
+    border-bottom: none !important; /* Quitar la línea inferior del encabezado */
 }
+
+/* Celdas de la tabla alineadas a la izquierda */
+.styled-table td {
+    text-align: left !important; /* Alinear contenido al inicio */
+    padding: 8px 12px; /* Espaciado interno para mejor visualización */
+    border: none !important; /* Eliminar todas las líneas */
+}
+
+/* Pie de la tabla */
+.styled-table tfoot td {
+    background-color: lightgrey !important;
+    font-weight: bold;
+    text-align: center; /* Centrar el contenido del pie de tabla */
+    border-top: none !important; /* Quitar la línea superior del pie de tabla */
+}
+
+

@@ -6,14 +6,6 @@
             <p>Estado de las Carreteras</p>         
         </div>
 
-        <!-- Buscador de carreteras -->
-        <div class="buscador">
-            <mat-form-field>
-                <mat-label>Buscar Carretera</mat-label>
-                <input matInput (keyup)="applyFilter($event)" placeholder="Ingrese el nombre o código" #input>
-            </mat-form-field>
-        </div>
-
         <!-- Contenedor de las prioridades -->
         <div class="tabla-carreteras">
             <div class="columna" *ngFor="let prioridad of prioridades">
@@ -30,9 +22,45 @@
             </div>
         </div>
 
+        <!-- Nueva Sección: Modificación Masiva de Estados -->
+        <div class="editar-masivo">
+            <h3>Cambiar Estado de Varias Carreteras</h3>
+        
+            <!-- Selección de Prioridad -->
+            <mat-form-field appearance="outline">
+                <mat-label>Seleccionar Prioridad</mat-label>
+                <mat-select [(value)]="prioridadSeleccionada" (selectionChange)="filtrarCarreterasPorPrioridad()">
+                    <mat-option *ngFor="let p of prioridades" [value]="p">{{ p }}</mat-option>
+                </mat-select>
+            </mat-form-field>
+        
+            <!-- Selección de Carreteras -->
+            <mat-form-field appearance="outline">
+                <mat-label>Seleccionar Carreteras</mat-label>
+                <mat-select multiple [(value)]="carreterasSeleccionadas">
+                    <mat-option value="todas">Todas</mat-option>
+                    <mat-option *ngFor="let carretera of carreterasFiltradas" [value]="carretera.nombre">
+                        {{ carretera.nombre }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        
+            <!-- Selección de Estado -->
+            <mat-form-field appearance="outline">
+                <mat-label>Seleccionar Nuevo Estado</mat-label>
+                <mat-select [(value)]="nuevoEstado">
+                    <mat-option *ngFor="let estado of estados" [value]="estado">{{ estado }}</mat-option>
+                </mat-select>
+            </mat-form-field>
+        
+            <!-- Botón de Aplicar Cambio -->
+            <div class="boton-guardar">
+                <button mat-raised-button color="primary" (click)="actualizarEstados()">Guardar Cambios</button>
+            </div>
+        </div>
+        
+
     </mat-sidenav-content>
 </mat-sidenav-container>
 
 <router-outlet></router-outlet>
-
-

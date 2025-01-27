@@ -7,6 +7,83 @@
     right: 0;
 }
 
+.contenedor-principal {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Distribuye la tabla y el formulario */
+    align-items: center;
+    background-color: #f8e6ec;
+    padding: 15px;
+    border-radius: 8px;
+    border: 2px solid #b3005e;
+    width: 90%;
+    margin: 0 auto;
+}
+
+/* Colores para los textos */
+.copo {
+    font-weight: bold;
+    color: purple;
+}
+
+.carretera {
+    font-weight: bold;
+    color: green;
+}
+
+/* Estilos de la información dentro de cada celda */
+.equipo-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px;
+    min-width: 100px;
+}
+
+/* Título principal */
+.titulo-principal {
+    font-size: 22px;
+    font-weight: bold;
+    color: #8b0045;
+    margin-bottom: 10px;
+}
+
+/* Botones superiores */
+.botones-superiores {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 15px;
+}
+
+/* Estilos de los botones */
+.boton-zona {
+    background-color: #d81b60;
+    color: white;
+    font-weight: bold;
+    padding: 3px 8px;
+    border: 2px solid #8b0045;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 12px;
+}
+
+.boton-zona:hover {
+    background-color: #b3005e;
+}
+
+/* Tabla */
+.tabla-vialidad {
+    width: 100%;
+    font-size: 12px;
+    border-collapse: collapse;
+    background-color: white;
+    margin-top: 10px;
+    flex-grow: 1; /* La tabla ocupará todo el espacio disponible */
+    overflow-y: auto; /* Si hay más datos, permite el desplazamiento interno */
+}
+
+
 .large-select {
     width: 220px;  /* Aumentar el ancho del selector */
     min-width: 200px;
@@ -32,6 +109,40 @@
     width: 96%; /* Ocupar todo el ancho del div padre */
     margin-left: 2rem;
     margin-right: 1rem;
+    margin-top: 10px;
+}
+
+/* Encabezados */
+th {
+    background-color: #b3005e;
+    color: white;
+    padding: 5px;
+    border: 1px solid black;
+}
+
+.header-cell{
+    background-color: lightgrey !important;
+    color: black;
+    font-weight: bold;
+    padding: 10px;
+    text-align: left;
+    border: none;
+}
+
+/* Celdas */
+td {
+    padding: 5px;
+    text-align: center;
+    border: 1px solid black;
+}
+
+/* Estilos de la información dentro de cada celda */
+.equipo-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px;
+    min-width: 100px;
 }
 
 .encabezado mat-form-field {
@@ -139,4 +250,37 @@
 .observaciones textarea {
     min-height: 100px; /* Ajusta la altura mínima del textarea */
     resize: vertical; /* Permitir redimensionamiento vertical si es necesario */
+}
+
+/* Asegurar que la tabla ocupe todo el ancho disponible */
+.styled-table {
+    border-collapse: collapse;
+    width: 100%;
+    background-color: white;
+    text-align: left; /* Alinea el contenido a la izquierda */
+}
+
+/* Encabezado de la tabla */
+.styled-table thead th {
+    background-color: lightgrey !important;
+    color: black;
+    font-weight: bold;
+    padding: 10px;
+    text-align: left !important; /* Alinear títulos al inicio */
+    border-bottom: none !important; /* Quitar la línea inferior del encabezado */
+}
+
+/* Celdas de la tabla alineadas a la izquierda */
+.styled-table td {
+    text-align: left !important; /* Alinear contenido al inicio */
+    padding: 8px 12px; /* Espaciado interno para mejor visualización */
+    border: none !important; /* Eliminar todas las líneas */
+}
+
+/* Pie de la tabla */
+.styled-table tfoot td {
+    background-color: lightgrey !important;
+    font-weight: bold;
+    text-align: center; /* Centrar el contenido del pie de tabla */
+    border-top: none !important; /* Quitar la línea superior del pie de tabla */
 }

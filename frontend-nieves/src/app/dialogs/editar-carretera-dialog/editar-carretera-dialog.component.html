@@ -3,18 +3,19 @@
     <mat-divider></mat-divider>
     <div mat-dialog-content>
         <form [formGroup]="form">
+            <!-- Nombre bloqueado (se define en el FormGroup como disabled) -->
             <mat-form-field appearance="outline">
                 <mat-label>Nombre de la Carretera</mat-label>
-                <input matInput formControlName="nombre" readonly>
+                <input matInput formControlName="nombre">
             </mat-form-field>
 
+            <!-- Prioridad bloqueada (se define en el FormGroup como disabled) -->
             <mat-form-field appearance="outline">
                 <mat-label>Prioridad</mat-label>
-                <mat-select formControlName="prioridad">
-                    <mat-option *ngFor="let p of prioridades" [value]="p">{{ p }}</mat-option>
-                </mat-select>
+                <input matInput formControlName="prioridad">
             </mat-form-field>
 
+            <!-- Estado editable -->
             <mat-form-field appearance="outline">
                 <mat-label>Estado</mat-label>
                 <mat-select formControlName="estado">
@@ -30,4 +31,3 @@
         </form>
     </div>
 </div>
-

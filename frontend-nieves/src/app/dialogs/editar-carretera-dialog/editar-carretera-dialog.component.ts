@@ -11,7 +11,6 @@ import { Carretera } from 'src/app/interfaces/carretera';
 export class EditarCarreteraDialogComponent {
     form: FormGroup;
 
-    prioridades = [1, 2, 3, 4, 5];
     estados = ['ABIERTO / IREKITA', 'CERRADO / ITXITA', 'CADENAS / KATEAK'];
 
     constructor(
@@ -20,15 +19,15 @@ export class EditarCarreteraDialogComponent {
         private fb: FormBuilder
     ) {
         this.form = this.fb.group({
-            nombre: [{ value: data.nombre, disabled: true }],
-            prioridad: [data.prioridad, Validators.required],
-            estado: [data.estado, Validators.required]
+            nombre: [{ value: data.nombre, disabled: true }, Validators.required], // 🔹 Nombre bloqueado
+            prioridad: [{ value: data.prioridad, disabled: true }, Validators.required], // 🔹 Prioridad bloqueada
+            estado: [data.estado, Validators.required] // 🔹 Estado editable
         });
     }
 
     guardarCambios() {
         if (this.form.valid) {
-            this.dialogRef.close({ ...this.data, ...this.form.value });
+            this.dialogRef.close({ ...this.data, estado: this.form.value.estado }); // 🔹 Solo cambia el estado
         }
     }
 
