@@ -9,97 +9,60 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.updateCarretera = exports.postCarretera = exports.deleteCarretera = exports.getCarretera = exports.getCarreteras = void 0;
+exports.putEstadoCarretera = exports.getCarreterasPorPrioridad = exports.getCarreterasPorNombre = exports.getCarreteras = void 0;
+const carreteras_1 = require("../models/carreteras");
 const getCarreteras = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        res.json({
-            msg: 'get carreteras'
+        const carreteras = yield (0, carreteras_1.getAllCarreteras)();
+        res.status(200).json({
+            msg: '✅ Consulta exitosa',
+            data: carreteras,
         });
     }
     catch (error) {
-        if (error instanceof Error) {
-            res.status(500).json({ error: error.message });
-        }
-        else {
-            res.status(500).json({ error: 'Unknown error' });
-        }
+        console.error('❌ Error al obtener carreteras:', error);
+        res.status(500).json({
+            msg: '❌ Error interno en la API',
+            error: error instanceof Error ? error.message : error,
+        });
     }
 });
 exports.getCarreteras = getCarreteras;
-const getCarretera = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { id } = req.params;
+const getCarreterasPorNombre = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        res.json({
-            msg: 'get carretera',
-            id
-        });
+        const { nombre } = req.params;
+        const data = yield (0, carreteras_1.getCarreterasByNombre)(nombre);
+        res.json({ msg: "✅ Carreteras encontradas", data });
     }
     catch (error) {
-        if (error instanceof Error) {
-            res.status(500).json({ error: error.message });
-        }
-        else {
-            res.status(500).json({ error: 'Unknown error' });
-        }
+        res.status(500).json({ msg: "❌ Error en la consulta", error });
     }
 });
-exports.getCarretera = getCarretera;
-const deleteCarretera = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { id } = req.params;
+exports.getCarreterasPorNombre = getCarreterasPorNombre;
+const getCarreterasPorPrioridad = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        res.json({
-            msg: 'delete carretera',
-            id
-        });
+        const { prioridad } = req.params;
+        const data = yield (0, carreteras_1.getCarreterasByPrioridad)(Number(prioridad));
+        res.json({ msg: "✅ Carreteras encontradas", data });
     }
     catch (error) {
-        if (error instanceof Error) {
-            res.status(500).json({ error: error.message });
-        }
-        else {
-            res.status(500).json({ error: 'Unknown error' });
-        }
+        res.status(500).json({ msg: "❌ Error en la consulta", error });
     }
 });
-exports.deleteCarretera = deleteCarretera;
-const postCarretera = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    console.log('REQ.BODY:', req.body); // ✅ Verificar en consola
-    if (!req.body || Object.keys(req.body).length === 0) {
-        res.status(400).json({ error: 'No se recibió un cuerpo en la solicitud' });
-        return; // ✅ Asegurar que la función termina aquí
-    }
+exports.getCarreterasPorPrioridad = getCarreterasPorPrioridad;
+const putEstadoCarretera = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        res.json({
-            msg: 'post carretera',
-            receivedBody: req.body // ✅ Confirmar los datos recibidos
-        });
+        const { prioridad, carretera, estadoNombre } = req.body;
+        if (!prioridad || !estadoNombre) {
+            res.status(400).json({ msg: "❌ Falta prioridad o estadoNombre" });
+            return;
+        }
+        yield (0, carreteras_1.updateEstadoCarreteras)(prioridad, carretera, estadoNombre);
+        res.json({ msg: "✅ Estado actualizado correctamente" });
     }
     catch (error) {
-        res.status(500).json({ error: error instanceof Error ? error.message : 'Unknown error' });
+        console.error("❌ Error en putEstadoCarretera:", error);
+        res.status(500).json({ msg: "❌ Error al actualizar el estado", error });
     }
 });
-exports.postCarretera = postCarretera;
-const updateCarretera = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { id } = req.params; // ✅ Extraer el ID de los parámetros
-    console.log('REQ.BODY:', req.body);
-    console.log('REQ.PARAMS:', req.params);
-    if (!id) {
-        res.status(400).json({ error: 'No se proporcionó un ID válido' });
-        return;
-    }
-    if (!req.body || Object.keys(req.body).length === 0) {
-        res.status(400).json({ error: 'No se recibió un cuerpo en la solicitud' });
-        return;
-    }
-    try {
-        // Simulación de actualización
-        res.json({
-            msg: `Carretera con ID ${id} actualizada correctamente`,
-            updatedData: req.body // ✅ Mostrar los datos recibidos
-        });
-    }
-    catch (error) {
-        res.status(500).json({ error: error instanceof Error ? error.message : 'Unknown error' });
-    }
-});
-exports.updateCarretera = updateCarretera;
+exports.putEstadoCarretera = putEstadoCarretera;

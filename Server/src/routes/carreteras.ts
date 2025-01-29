@@ -1,12 +1,11 @@
 import { Router } from 'express';
-import { deleteCarretera, getCarretera, getCarreteras, postCarretera, updateCarretera } from '../controllers/carreteras';
+import { getCarreterasPorNombre, getCarreterasPorPrioridad, getCarreteras, putEstadoCarretera } from '../controllers/carreteras';
 
 const router = Router();
 
 router.get('/', getCarreteras)
-router.get('/:id', getCarretera)
-router.delete('/:id', deleteCarretera)
-router.put('/:id', updateCarretera);
-router.post('/', postCarretera)
+router.get('/nombre/:nombre', getCarreterasPorNombre);
+router.get('/prioridad/:prioridad', getCarreterasPorPrioridad);
+router.put('/estado', putEstadoCarretera);
 
 export default router;

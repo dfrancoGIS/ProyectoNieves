@@ -9,97 +9,66 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.updateEquipo = exports.postEquipo = exports.deleteEquipo = exports.getEquipo = exports.getEquipos = void 0;
+exports.getTurnosTrabajoController = exports.registrarTurno = exports.getEquipo = exports.getEquipos = void 0;
+const equipos_1 = require("../models/equipos");
+// ✅ Obtener lista de equipos
 const getEquipos = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        res.json({
-            msg: 'get equipos'
-        });
+        const equipos = yield (0, equipos_1.getAllEquipos)();
+        res.json(equipos);
     }
     catch (error) {
-        if (error instanceof Error) {
-            res.status(500).json({ error: error.message });
-        }
-        else {
-            res.status(500).json({ error: 'Unknown error' });
-        }
+        console.error("❌ Error al obtener los equipos:", error);
+        res.status(500).json({ msg: "❌ Error al obtener los equipos", error });
     }
 });
 exports.getEquipos = getEquipos;
+// ✅ Obtener datos de un equipo específico
 const getEquipo = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.params;
     try {
-        res.json({
-            msg: 'get equipo',
-            id
-        });
+        const equipo = yield (0, equipos_1.getEquipoById)(Number(id));
+        if (!equipo.length) {
+            res.status(404).json({ msg: "❌ Equipo no encontrado" });
+            return;
+        }
+        res.json(equipo[0]);
     }
     catch (error) {
-        if (error instanceof Error) {
-            res.status(500).json({ error: error.message });
-        }
-        else {
-            res.status(500).json({ error: 'Unknown error' });
-        }
+        console.error("❌ Error al obtener el equipo:", error);
+        res.status(500).json({ msg: "❌ Error al obtener el equipo", error });
     }
 });
 exports.getEquipo = getEquipo;
-const deleteEquipo = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { id } = req.params;
+// ✅ Registrar un turno de trabajo
+const registrarTurno = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        res.json({
-            msg: 'delete equipo',
-            id
-        });
-    }
-    catch (error) {
-        if (error instanceof Error) {
-            res.status(500).json({ error: error.message });
+        console.log("📥 Datos recibidos en la solicitud:", req.body);
+        const { recursoEquipo, fechaInicio, horaInicio, fechaFin, horaFin, responsable, vehiculo } = req.body;
+        // ✅ Verifica si todos los valores están presentes
+        if (!recursoEquipo || !fechaInicio || !horaInicio || !fechaFin || !horaFin || responsable === undefined || !vehiculo) {
+            res.status(400).json({ msg: "❌ Todos los campos son obligatorios" });
+            return;
         }
-        else {
-            res.status(500).json({ error: 'Unknown error' });
-        }
-    }
-});
-exports.deleteEquipo = deleteEquipo;
-const postEquipo = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    console.log('REQ.BODY:', req.body); // ✅ Verificar en consola
-    if (!req.body || Object.keys(req.body).length === 0) {
-        res.status(400).json({ error: 'No se recibió un cuerpo en la solicitud' });
-        return; // ✅ Asegurar que la función termina aquí
-    }
-    try {
-        res.json({
-            msg: 'post equipo',
-            receivedBody: req.body // ✅ Confirmar los datos recibidos
-        });
+        // ✅ Llama a la función para insertar el turno
+        yield (0, equipos_1.registrarTurnoEquipo)(recursoEquipo, fechaInicio, horaInicio, fechaFin, horaFin, responsable, vehiculo);
+        res.json({ msg: "✅ Turno registrado correctamente" });
     }
     catch (error) {
-        res.status(500).json({ error: error instanceof Error ? error.message : 'Unknown error' });
+        console.error("❌ Error al registrar el turno:", error);
+        res.status(500).json({ msg: "❌ Error al registrar el turno", error });
     }
 });
-exports.postEquipo = postEquipo;
-const updateEquipo = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { id } = req.params; // ✅ Extraer el ID de los parámetros
-    console.log('REQ.BODY:', req.body);
-    console.log('REQ.PARAMS:', req.params);
-    if (!id) {
-        res.status(400).json({ error: 'No se proporcionó un ID válido' });
-        return;
-    }
-    if (!req.body || Object.keys(req.body).length === 0) {
-        res.status(400).json({ error: 'No se recibió un cuerpo en la solicitud' });
-        return;
-    }
+exports.registrarTurno = registrarTurno;
+// ✅ Obtener turnos de trabajo registrados
+const getTurnosTrabajoController = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        // Simulación de actualización
-        res.json({
-            msg: `Equipo con ID ${id} actualizado correctamente`,
-            updatedData: req.body // ✅ Mostrar los datos recibidos
-        });
+        const turnos = yield (0, equipos_1.getTurnosTrabajo)();
+        res.json(turnos);
     }
     catch (error) {
-        res.status(500).json({ error: error instanceof Error ? error.message : 'Unknown error' });
+        console.error("❌ Error al obtener los turnos de trabajo:", error);
+        res.status(500).json({ msg: "❌ Error al obtener los turnos", error });
     }
 });
-exports.updateEquipo = updateEquipo;
+exports.getTurnosTrabajoController = getTurnosTrabajoController;

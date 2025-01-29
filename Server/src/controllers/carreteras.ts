@@ -1,94 +1,56 @@
 import {Request, Response, RequestHandler} from 'express'
+import { getAllCarreteras, getCarreterasByNombre, getCarreterasByPrioridad, updateEstadoCarreteras } from '../models/carreteras';
 
-export const getCarreteras = async (req: Request, res: Response) => {
+export const getCarreteras = async (req: Request, res: Response): Promise<void> => {
     try {
-        res.json({
-            msg: 'get carreteras'
-        });
+      const carreteras = await getAllCarreteras();
+      res.status(200).json({
+        msg: '✅ Consulta exitosa',
+        data: carreteras,
+      });
     } catch (error) {
-        if (error instanceof Error) {
-            res.status(500).json({error: error.message});
-        } else {
-            res.status(500).json({error: 'Unknown error'});
+      console.error('❌ Error al obtener carreteras:', error);
+      res.status(500).json({
+        msg: '❌ Error interno en la API',
+        error: error instanceof Error ? error.message : error,
+      });
+    }
+}
+
+export const getCarreterasPorNombre = async (req: Request, res: Response) => {
+    try {
+      const { nombre } = req.params;
+      const data = await getCarreterasByNombre(nombre);
+      res.json({ msg: "✅ Carreteras encontradas", data });
+    } catch (error) {
+      res.status(500).json({ msg: "❌ Error en la consulta", error });
+    }
+}
+
+export const getCarreterasPorPrioridad = async (req: Request, res: Response) => {
+    try {
+      const { prioridad } = req.params;
+      const data = await getCarreterasByPrioridad(Number(prioridad));
+      res.json({ msg: "✅ Carreteras encontradas", data });
+    } catch (error) {
+      res.status(500).json({ msg: "❌ Error en la consulta", error });
+    }
+}
+
+export const putEstadoCarretera = async (req: Request, res: Response): Promise<void> => {
+    try {
+        const { prioridad, carretera, estadoNombre } = req.body;
+
+        if (!prioridad || !estadoNombre) {
+            res.status(400).json({ msg: "❌ Falta prioridad o estadoNombre" });
+            return;
         }
-    }
-}
 
-export const getCarretera = async (req: Request, res: Response) => {
-    const { id } = req.params;
-
-    try {
-        res.json({
-            msg: 'get carretera',
-            id
-        });
+        await updateEstadoCarreteras(prioridad, carretera, estadoNombre);
+        res.json({ msg: "✅ Estado actualizado correctamente" });
     } catch (error) {
-        if (error instanceof Error) {
-            res.status(500).json({error: error.message});
-        } else {
-            res.status(500).json({error: 'Unknown error'});
-        }
+        console.error("❌ Error en putEstadoCarretera:", error);
+        res.status(500).json({ msg: "❌ Error al actualizar el estado", error });
     }
 }
 
-export const deleteCarretera = async (req: Request, res: Response) => {
-    const { id } = req.params;
-
-    try {
-        res.json({
-            msg: 'delete carretera',
-            id
-        });
-    } catch (error) {
-        if (error instanceof Error) {
-            res.status(500).json({error: error.message});
-        } else {
-            res.status(500).json({error: 'Unknown error'});
-        }
-    }
-}
-
-
-export const postCarretera: RequestHandler = async (req, res): Promise<void> => {
-    console.log('REQ.BODY:', req.body);  // ✅ Verificar en consola
-
-    if (!req.body || Object.keys(req.body).length === 0) {
-        res.status(400).json({ error: 'No se recibió un cuerpo en la solicitud' });
-        return; // ✅ Asegurar que la función termina aquí
-    }
-
-    try {
-        res.json({
-            msg: 'post carretera',
-            receivedBody: req.body  // ✅ Confirmar los datos recibidos
-        });
-    } catch (error) {
-        res.status(500).json({ error: error instanceof Error ? error.message : 'Unknown error' });
-    }
-}
-
-export const updateCarretera: RequestHandler = async (req, res): Promise<void> => {
-    const { id } = req.params;  // ✅ Extraer el ID de los parámetros
-    console.log('REQ.BODY:', req.body);  
-    console.log('REQ.PARAMS:', req.params);  
-
-    if (!id) {
-        res.status(400).json({ error: 'No se proporcionó un ID válido' });
-        return;
-    }
-
-    if (!req.body || Object.keys(req.body).length === 0) {
-        res.status(400).json({ error: 'No se recibió un cuerpo en la solicitud' });
-        return;
-    }
-
-    try {
-        // Simulación de actualización
-        res.json({
-            msg: `Carretera con ID ${id} actualizada correctamente`,
-            updatedData: req.body  // ✅ Mostrar los datos recibidos
-        });
-    } catch (error) {
-        res.status(500).json({ error: error instanceof Error ? error.message : 'Unknown error' });
-    }
-}

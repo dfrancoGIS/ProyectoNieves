@@ -5,6 +5,8 @@ import routesComunicaciones from '../routes/comunicaciones';
 import routesCuadrillas from '../routes/cuadrillas';
 import routesRetenes from '../routes/retenes';
 
+import db from '../db/connection';
+
 class Server {
     private app: Application;
     private port: string;
@@ -16,6 +18,8 @@ class Server {
         this.middlewares();
         this.routes();
         this.listen();
+        this.dbConnect();
+
     }
 
     listen() {
@@ -38,7 +42,14 @@ class Server {
     }
 
     middlewares() {
-        this.app.use(express.json()); // Middleware para parsear JSON
+        this.app.use(express.json()); // 👈 Esto debe estar antes de las rutas
+        this.app.use(express.urlencoded({ extended: true })); // 👈 También necesario para `x-www-form-urlencoded`
+    }
+    
+
+    async dbConnect() {
+        await db.authenticate();
+        console.log('Base de datos conectada');
     }
 }
 

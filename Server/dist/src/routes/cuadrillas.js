@@ -1,0 +1,11 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const cuadrillas_1 = require("../controllers/cuadrillas");
+const router = (0, express_1.Router)();
+router.get('/', cuadrillas_1.getCuadrillas);
+router.get('/:id', cuadrillas_1.getCuadrilla);
+router.delete('/:id', cuadrillas_1.deleteCuadrilla);
+router.put('/:id', cuadrillas_1.updateCuadrilla);
+router.post('/', cuadrillas_1.postCuadrilla);
+exports.default = router;

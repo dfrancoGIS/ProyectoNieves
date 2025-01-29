@@ -1,94 +1,71 @@
-import {Request, Response, RequestHandler} from 'express'
+import { Request, RequestHandler, Response } from 'express';
+import {
+    getAllEquipos,
+    getEquipoById,
+    registrarTurnoEquipo,
+    getTurnosTrabajo
+} from '../models/equipos';
 
-export const getEquipos = async (req: Request, res: Response) => {
+// ✅ Obtener lista de equipos
+export const getEquipos = async (req: Request, res: Response): Promise<void> => {
     try {
-        res.json({
-            msg: 'get equipos'
-        });
+        const equipos = await getAllEquipos();
+        res.json(equipos);
     } catch (error) {
-        if (error instanceof Error) {
-            res.status(500).json({error: error.message});
-        } else {
-            res.status(500).json({error: 'Unknown error'});
-        }
+        console.error("❌ Error al obtener los equipos:", error);
+        res.status(500).json({ msg: "❌ Error al obtener los equipos", error });
     }
-}
+};
 
-export const getEquipo = async (req: Request, res: Response) => {
+// ✅ Obtener datos de un equipo específico
+export const getEquipo = async (req: Request, res: Response): Promise<void> => {
     const { id } = req.params;
-
     try {
-        res.json({
-            msg: 'get equipo',
-            id
-        });
-    } catch (error) {
-        if (error instanceof Error) {
-            res.status(500).json({error: error.message});
-        } else {
-            res.status(500).json({error: 'Unknown error'});
+        const equipo = await getEquipoById(Number(id));
+        if (!equipo.length) {
+            res.status(404).json({ msg: "❌ Equipo no encontrado" });
+            return;
         }
-    }
-}
-
-export const deleteEquipo = async (req: Request, res: Response) => {
-    const { id } = req.params;
-
-    try {
-        res.json({
-            msg: 'delete equipo',
-            id
-        });
+        res.json(equipo[0]);
     } catch (error) {
-        if (error instanceof Error) {
-            res.status(500).json({error: error.message});
-        } else {
-            res.status(500).json({error: 'Unknown error'});
+        console.error("❌ Error al obtener el equipo:", error);
+        res.status(500).json({ msg: "❌ Error al obtener el equipo", error });
+    }
+};
+
+// ✅ Registrar un turno de trabajo
+export const registrarTurno = async (req: Request, res: Response): Promise<void> => {
+    try {
+        console.log("📥 Datos recibidos en la solicitud:", req.body);
+
+        const { recursoEquipo, fechaInicio, horaInicio, fechaFin, horaFin, responsable, vehiculo } = req.body;
+
+        // ✅ Verifica si todos los valores están presentes
+        if (!recursoEquipo || !fechaInicio || !horaInicio || !fechaFin || !horaFin || responsable === undefined || !vehiculo) {
+            res.status(400).json({ msg: "❌ Todos los campos son obligatorios" });
+            return;
         }
-    }
-}
 
+        // ✅ Llama a la función para insertar el turno
+        await registrarTurnoEquipo(recursoEquipo, fechaInicio, horaInicio, fechaFin, horaFin, responsable, vehiculo);
 
-export const postEquipo: RequestHandler = async (req, res): Promise<void> => {
-    console.log('REQ.BODY:', req.body);  // ✅ Verificar en consola
-
-    if (!req.body || Object.keys(req.body).length === 0) {
-        res.status(400).json({ error: 'No se recibió un cuerpo en la solicitud' });
-        return; // ✅ Asegurar que la función termina aquí
-    }
-
-    try {
-        res.json({
-            msg: 'post equipo',
-            receivedBody: req.body  // ✅ Confirmar los datos recibidos
-        });
+        res.json({ msg: "✅ Turno registrado correctamente" });
     } catch (error) {
-        res.status(500).json({ error: error instanceof Error ? error.message : 'Unknown error' });
+        console.error("❌ Error al registrar el turno:", error);
+        res.status(500).json({ msg: "❌ Error al registrar el turno", error });
     }
-}
+};
 
-export const updateEquipo: RequestHandler = async (req, res): Promise<void> => {
-    const { id } = req.params;  // ✅ Extraer el ID de los parámetros
-    console.log('REQ.BODY:', req.body);  
-    console.log('REQ.PARAMS:', req.params);  
 
-    if (!id) {
-        res.status(400).json({ error: 'No se proporcionó un ID válido' });
-        return;
-    }
-
-    if (!req.body || Object.keys(req.body).length === 0) {
-        res.status(400).json({ error: 'No se recibió un cuerpo en la solicitud' });
-        return;
-    }
-
+// ✅ Obtener turnos de trabajo registrados
+export const getTurnosTrabajoController = async (req: Request, res: Response): Promise<void> => {
     try {
-        // Simulación de actualización
-        res.json({
-            msg: `Equipo con ID ${id} actualizado correctamente`,
-            updatedData: req.body  // ✅ Mostrar los datos recibidos
-        });
+        const turnos = await getTurnosTrabajo();
+        res.json(turnos);
     } catch (error) {
-        res.status(500).json({ error: error instanceof Error ? error.message : 'Unknown error' });
+        console.error("❌ Error al obtener los turnos de trabajo:", error);
+        res.status(500).json({ msg: "❌ Error al obtener los turnos", error });
     }
-}
+};
+
+

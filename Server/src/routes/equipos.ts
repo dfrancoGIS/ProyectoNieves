@@ -1,12 +1,18 @@
 import { Router } from 'express';
-import { deleteEquipo, getEquipo, getEquipos, postEquipo, updateEquipo } from '../controllers/equipos';
+import { getEquipo, getEquipos, registrarTurno, getTurnosTrabajoController } from '../controllers/equipos';
 
 const router = Router();
 
-router.get('/', getEquipos)
-router.get('/:id', getEquipo)
-router.delete('/:id', deleteEquipo)
-router.put('/:id', updateEquipo);
-router.post('/', postEquipo)
+// ✅ Obtener todos los equipos
+router.get('/', getEquipos);
+
+// ✅ Obtener un equipo por ID
+router.get('/:id', getEquipo);
+
+// ✅ Registrar turno de trabajo
+router.post('/turno', registrarTurno);
+
+// ✅ Obtener turnos de trabajo registrados
+router.get('/turnos', getTurnosTrabajoController);
 
 export default router;
