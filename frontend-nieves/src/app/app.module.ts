@@ -57,6 +57,8 @@ import { EquiposEntrantesComponent } from './components/equipos-entrantes/equipo
 import { ComunicacionesComponent } from './components/comunicaciones/comunicaciones.component';
 import { RetenesComponent } from './components/retenes/retenes.component';
 import { CuadrillasComponent } from './components/cuadrillas/cuadrillas.component';
+import { ConfiguracionComponent } from './components/configuracion/configuracion.component';
+import { NuevaCampaniaDialogComponent } from './dialogs/nueva-campania-dialog/nueva-campania-dialog.component';
 
 @NgModule({
   declarations: [
@@ -74,7 +76,9 @@ import { CuadrillasComponent } from './components/cuadrillas/cuadrillas.componen
     EquiposEntrantesComponent,
     ComunicacionesComponent,
     RetenesComponent,
-    CuadrillasComponent, 
+    CuadrillasComponent,
+    ConfiguracionComponent,
+    NuevaCampaniaDialogComponent, 
   ],
   imports: [
     BrowserModule,

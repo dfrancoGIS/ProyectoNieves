@@ -41,4 +41,6 @@ export class AppComponent {
   abrirPaneles() { this.router.navigate(['/paneles']); }
   abrirFundentes() { this.router.navigate(['/fundentes']); }
   abrirVisor() { this.router.navigate(['/visor']); }
+  irAConfiguracion() {this.router.navigate(['/configuracion']);}
+  
 }

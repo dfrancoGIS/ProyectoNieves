@@ -1,0 +1,20 @@
+<mat-sidenav-content>
+    <div class="inicio">  
+        <button mat-raised-button (click)="abrirMantenimientoTablas()">       
+            <div class="button-contenido"> 
+                <img src="assets/img/mantenimientoBDD.png">
+                <label>Mantenimiento de tablas</label>
+            </div>  
+        </button>
+  
+        <button mat-raised-button (click)="abrirNuevaCampania()">         
+            <div class="button-contenido"> 
+                <img src="assets/img/campaña.png">
+                <label>Crear nueva campaña</label>
+            </div>  
+        </button>
+    </div>
+  
+    <router-outlet></router-outlet>
+  
+  </mat-sidenav-content>
