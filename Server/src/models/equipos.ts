@@ -31,7 +31,7 @@ export const getEquipoById = async (idEquipo: number) => {
 /**
  * Obtiene la última campaña activa (la más reciente con fecha de inicio pasada o actual).
  */
-const getLastCampaignId = async (): Promise<number | null> => {
+export const getLastCampaignId = async (): Promise<number | null> => {
     const [campaniaValida]: any = await sequelize.query(
         `SELECT TOP 1 Id_Campania 
          FROM Campañas 

@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getTurnosTrabajo = exports.registrarTurnoEquipo = exports.getEquipoById = exports.getAllEquipos = void 0;
+exports.getTurnosTrabajo = exports.registrarTurnoEquipo = exports.getLastCampaignId = exports.getEquipoById = exports.getAllEquipos = void 0;
 const connection_1 = __importDefault(require("../db/connection"));
 const sequelize_1 = require("sequelize");
 /**
@@ -46,11 +46,12 @@ const getLastCampaignId = () => __awaiter(void 0, void 0, void 0, function* () {
          ORDER BY Inicio_Campania DESC`, { type: sequelize_1.QueryTypes.SELECT });
     return campaniaValida ? campaniaValida.Id_Campania : null;
 });
+exports.getLastCampaignId = getLastCampaignId;
 /**
  * Registra un turno de trabajo en la tabla Equipos.
  */
 const registrarTurnoEquipo = (recursoEquipo, fechaInicio, horaInicio, fechaFin, horaFin, responsable, vehiculo) => __awaiter(void 0, void 0, void 0, function* () {
-    const idCampania = yield getLastCampaignId();
+    const idCampania = yield (0, exports.getLastCampaignId)();
     if (!idCampania) {
         throw new Error("No hay campañas activas en la base de datos.");
     }

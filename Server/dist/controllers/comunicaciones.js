@@ -9,97 +9,74 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.updateComunicacion = exports.postComunicacion = exports.deleteComunicacion = exports.getComunicacion = exports.getComunicaciones = void 0;
+exports.postComunicacion = exports.getComunicacion = exports.getComunicaciones = void 0;
+const comunicaciones_1 = require("../models/comunicaciones");
+/**
+ * Obtiene todas las comunicaciones activas.
+ */
 const getComunicaciones = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        res.json({
-            msg: 'get comunicaciones'
+        const comunicaciones = yield (0, comunicaciones_1.getAllComunicaciones)();
+        res.status(200).json({
+            msg: "✅ Comunicaciones obtenidas correctamente",
+            data: comunicaciones
         });
     }
     catch (error) {
-        if (error instanceof Error) {
-            res.status(500).json({ error: error.message });
-        }
-        else {
-            res.status(500).json({ error: 'Unknown error' });
-        }
+        console.error("❌ Error al obtener las comunicaciones:", error);
+        res.status(500).json({
+            msg: "❌ Error al obtener las comunicaciones",
+            error: error instanceof Error ? error.message : error,
+        });
     }
 });
 exports.getComunicaciones = getComunicaciones;
+/**
+ * Obtiene una comunicación por ID.
+ */
 const getComunicacion = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { id } = req.params;
     try {
-        res.json({
-            msg: 'get comunicacion',
-            id
+        const { id } = req.params;
+        if (!id) {
+            res.status(400).json({ msg: "❌ El ID de la comunicación es obligatorio" });
+            return;
+        }
+        const comunicacion = yield (0, comunicaciones_1.getComunicacionById)(Number(id));
+        if (!comunicacion.length) {
+            res.status(404).json({ msg: "❌ Comunicación no encontrada" });
+            return;
+        }
+        res.status(200).json({
+            msg: "✅ Comunicación obtenida correctamente",
+            data: comunicacion[0]
         });
     }
     catch (error) {
-        if (error instanceof Error) {
-            res.status(500).json({ error: error.message });
-        }
-        else {
-            res.status(500).json({ error: 'Unknown error' });
-        }
+        console.error("❌ Error al obtener la comunicación:", error);
+        res.status(500).json({
+            msg: "❌ Error al obtener la comunicación",
+            error: error instanceof Error ? error.message : error,
+        });
     }
 });
 exports.getComunicacion = getComunicacion;
-const deleteComunicacion = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { id } = req.params;
-    try {
-        res.json({
-            msg: 'delete comunicacion',
-            id
-        });
-    }
-    catch (error) {
-        if (error instanceof Error) {
-            res.status(500).json({ error: error.message });
-        }
-        else {
-            res.status(500).json({ error: 'Unknown error' });
-        }
-    }
-});
-exports.deleteComunicacion = deleteComunicacion;
+/**
+ * Registra una nueva comunicación.
+ */
 const postComunicacion = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    console.log('REQ.BODY:', req.body); // ✅ Verificar en consola
-    if (!req.body || Object.keys(req.body).length === 0) {
-        res.status(400).json({ error: 'No se recibió un cuerpo en la solicitud' });
-        return; // ✅ Asegurar que la función termina aquí
-    }
     try {
-        res.json({
-            msg: 'post comunicacion',
-            receivedBody: req.body // ✅ Confirmar los datos recibidos
-        });
+        console.log("📥 Datos recibidos en la solicitud:", req.body);
+        const { equipo, recurso, zona, prioridad, carretera, tarea, estadoCarretera, tenerCta, observaciones } = req.body;
+        if (!equipo || !recurso || !zona || prioridad === undefined || !carretera || !tarea || !estadoCarretera) {
+            res.status(400).json({ msg: "❌ Todos los campos obligatorios deben completarse" });
+            return;
+        }
+        yield (0, comunicaciones_1.registrarComunicacion)(equipo, recurso, zona, prioridad, carretera, tarea, estadoCarretera, tenerCta, observaciones);
+        res.json({ msg: "✅ Comunicación registrada correctamente" });
     }
     catch (error) {
-        res.status(500).json({ error: error instanceof Error ? error.message : 'Unknown error' });
+        console.error("❌ Error al registrar la comunicación:", error);
+        res.status(500).json({ msg: "❌ Error al registrar la comunicación", error });
     }
 });
 exports.postComunicacion = postComunicacion;
-const updateComunicacion = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { id } = req.params; // ✅ Extraer el ID de los parámetros
-    console.log('REQ.BODY:', req.body);
-    console.log('REQ.PARAMS:', req.params);
-    if (!id) {
-        res.status(400).json({ error: 'No se proporcionó un ID válido' });
-        return;
-    }
-    if (!req.body || Object.keys(req.body).length === 0) {
-        res.status(400).json({ error: 'No se recibió un cuerpo en la solicitud' });
-        return;
-    }
-    try {
-        // Simulación de actualización
-        res.json({
-            msg: `Comunicacion con ID ${id} actualizada correctamente`,
-            updatedData: req.body // ✅ Mostrar los datos recibidos
-        });
-    }
-    catch (error) {
-        res.status(500).json({ error: error instanceof Error ? error.message : 'Unknown error' });
-    }
-});
-exports.updateComunicacion = updateComunicacion;

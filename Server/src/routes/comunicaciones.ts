@@ -1,12 +1,13 @@
 import { Router } from 'express';
-import { deleteComunicacion, getComunicaciones, getComunicacion, postComunicacion, updateComunicacion } from '../controllers/comunicaciones';
+import { getComunicaciones, getComunicacion, postComunicacion } from '../controllers/comunicaciones';
 
 const router = Router();
 
-router.get('/', getComunicaciones)
-router.get('/:id', getComunicacion)
-router.delete('/:id', deleteComunicacion)
-router.put('/:id', updateComunicacion);
-router.post('/', postComunicacion)
+/**
+ * Rutas para la gestión de comunicaciones.
+ */
+router.get('/', getComunicaciones);
+router.get('/:id', getComunicacion);
+router.post('/', postComunicacion);
 
 export default router;

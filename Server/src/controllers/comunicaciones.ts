@@ -1,94 +1,74 @@
-import {Request, Response, RequestHandler} from 'express'
+import { Request, Response } from 'express';
+import { getAllComunicaciones, getComunicacionById, registrarComunicacion } from '../models/comunicaciones';
 
-export const getComunicaciones = async (req: Request, res: Response) => {
+/**
+ * Obtiene todas las comunicaciones activas.
+ */
+export const getComunicaciones = async (req: Request, res: Response): Promise<void> => {
     try {
-        res.json({
-            msg: 'get comunicaciones'
+        const comunicaciones = await getAllComunicaciones();
+        res.status(200).json({
+            msg: "✅ Comunicaciones obtenidas correctamente",
+            data: comunicaciones
         });
     } catch (error) {
-        if (error instanceof Error) {
-            res.status(500).json({error: error.message});
-        } else {
-            res.status(500).json({error: 'Unknown error'});
+        console.error("❌ Error al obtener las comunicaciones:", error);
+        res.status(500).json({
+            msg: "❌ Error al obtener las comunicaciones",
+            error: error instanceof Error ? error.message : error,
+        });
+    }
+};
+
+/**
+ * Obtiene una comunicación por ID.
+ */
+export const getComunicacion = async (req: Request, res: Response): Promise<void> => {
+    try {
+        const { id } = req.params;
+        if (!id) {
+            res.status(400).json({ msg: "❌ El ID de la comunicación es obligatorio" });
+            return;
         }
-    }
-}
 
-export const getComunicacion = async (req: Request, res: Response) => {
-    const { id } = req.params;
-
-    try {
-        res.json({
-            msg: 'get comunicacion',
-            id
-        });
-    } catch (error) {
-        if (error instanceof Error) {
-            res.status(500).json({error: error.message});
-        } else {
-            res.status(500).json({error: 'Unknown error'});
+        const comunicacion = await getComunicacionById(Number(id));
+        if (!comunicacion.length) {
+            res.status(404).json({ msg: "❌ Comunicación no encontrada" });
+            return;
         }
-    }
-}
 
-export const deleteComunicacion = async (req: Request, res: Response) => {
-    const { id } = req.params;
-
-    try {
-        res.json({
-            msg: 'delete comunicacion',
-            id
+        res.status(200).json({
+            msg: "✅ Comunicación obtenida correctamente",
+            data: comunicacion[0]
         });
     } catch (error) {
-        if (error instanceof Error) {
-            res.status(500).json({error: error.message});
-        } else {
-            res.status(500).json({error: 'Unknown error'});
+        console.error("❌ Error al obtener la comunicación:", error);
+        res.status(500).json({
+            msg: "❌ Error al obtener la comunicación",
+            error: error instanceof Error ? error.message : error,
+        });
+    }
+};
+
+/**
+ * Registra una nueva comunicación.
+ */
+export const postComunicacion = async (req: Request, res: Response): Promise<void> => {
+    try {
+        console.log("📥 Datos recibidos en la solicitud:", req.body);
+
+        const { equipo, recurso, zona, prioridad, carretera, tarea, estadoCarretera, tenerCta, observaciones } = req.body;
+
+        if (!equipo || !recurso || !zona || prioridad === undefined || !carretera || !tarea || !estadoCarretera) {
+            res.status(400).json({ msg: "❌ Todos los campos obligatorios deben completarse" });
+            return;
         }
-    }
-}
 
+        await registrarComunicacion(equipo, recurso, zona, prioridad, carretera, tarea, estadoCarretera, tenerCta, observaciones);
 
-export const postComunicacion: RequestHandler = async (req, res): Promise<void> => {
-    console.log('REQ.BODY:', req.body);  // ✅ Verificar en consola
-
-    if (!req.body || Object.keys(req.body).length === 0) {
-        res.status(400).json({ error: 'No se recibió un cuerpo en la solicitud' });
-        return; // ✅ Asegurar que la función termina aquí
-    }
-
-    try {
-        res.json({
-            msg: 'post comunicacion',
-            receivedBody: req.body  // ✅ Confirmar los datos recibidos
-        });
+        res.json({ msg: "✅ Comunicación registrada correctamente" });
     } catch (error) {
-        res.status(500).json({ error: error instanceof Error ? error.message : 'Unknown error' });
+        console.error("❌ Error al registrar la comunicación:", error);
+        res.status(500).json({ msg: "❌ Error al registrar la comunicación", error });
     }
-}
-
-export const updateComunicacion: RequestHandler = async (req, res): Promise<void> => {
-    const { id } = req.params;  // ✅ Extraer el ID de los parámetros
-    console.log('REQ.BODY:', req.body);  
-    console.log('REQ.PARAMS:', req.params);  
-
-    if (!id) {
-        res.status(400).json({ error: 'No se proporcionó un ID válido' });
-        return;
-    }
-
-    if (!req.body || Object.keys(req.body).length === 0) {
-        res.status(400).json({ error: 'No se recibió un cuerpo en la solicitud' });
-        return;
-    }
-
-    try {
-        // Simulación de actualización
-        res.json({
-            msg: `Comunicacion con ID ${id} actualizada correctamente`,
-            updatedData: req.body  // ✅ Mostrar los datos recibidos
-        });
-    } catch (error) {
-        res.status(500).json({ error: error instanceof Error ? error.message : 'Unknown error' });
-    }
-}
+};

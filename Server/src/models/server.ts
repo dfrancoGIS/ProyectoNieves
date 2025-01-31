@@ -4,6 +4,17 @@ import routesCarreteras from '../routes/carreteras';
 import routesComunicaciones from '../routes/comunicaciones';
 import routesCuadrillas from '../routes/cuadrillas';
 import routesRetenes from '../routes/retenes';
+import routesVehiculos from '../routes/vehiculos'; 
+import routesEstados from '../routes/estados';
+import routesZonas from '../routes/zonas';
+import routesTareas from '../routes/tareas';
+import routesTablasMantenimiento from '../routes/tablasMantenimiento';
+import routesRecursos from '../routes/recursos';
+import routesPersonal from '../routes/personal';
+import routesEstadosComunicacion from '../routes/estadosComunicacion';
+import routesEquipoPersonal  from '../routes/equipoPersonal';
+import routesCarreterasRecursoCuadrilla from '../routes/carreterasRecursoCuadrilla';
+import routesTenerCta from '../routes/tenerCta';
 
 import db from '../db/connection';
 
@@ -39,6 +50,17 @@ class Server {
         this.app.use('/api/comunicaciones', routesComunicaciones);
         this.app.use('/api/cuadrillas', routesCuadrillas);
         this.app.use('/api/retenes', routesRetenes);
+        this.app.use('/api/vehiculos', routesVehiculos);
+        this.app.use('/api/estados', routesEstados);
+        this.app.use('/api/zonas', routesZonas);
+        this.app.use('/api/tareas', routesTareas);
+        this.app.use('/api/tablas-mantenimiento', routesTablasMantenimiento);
+        this.app.use('/api/recursos', routesRecursos);
+        this.app.use('/api/personal', routesPersonal);
+        this.app.use('/api/estadosComunicacion', routesEstadosComunicacion);
+        this.app.use('/api/equipoPersonal', routesEquipoPersonal);
+        this.app.use('/api/carreteras-recurso-cuadrilla', routesCarreterasRecursoCuadrilla);
+        this.app.use('/api/tener-cta', routesTenerCta);
     }
 
     middlewares() {

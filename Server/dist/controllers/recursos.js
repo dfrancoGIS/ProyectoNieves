@@ -9,16 +9,25 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const carreteras_1 = require("./src/models/carreteras");
-function probarInsertCarretera() {
-    return __awaiter(this, void 0, void 0, function* () {
-        try {
-            const resultado = yield (0, carreteras_1.insertCarretera)('Carretera de Prueba', 'Norte', 0, 100, 1, 'Zona 1', 1, 123, 456);
-            console.log('✅ Inserción exitosa:', resultado);
-        }
-        catch (error) {
-            console.error('❌ Error al insertar la carretera:', error);
-        }
-    });
-}
-probarInsertCarretera();
+exports.getRecursos = void 0;
+const recursos_1 = require("../models/recursos");
+/**
+ * Controlador para obtener todos los recursos.
+ */
+const getRecursos = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const recursos = yield (0, recursos_1.getAllRecursos)();
+        res.status(200).json({
+            msg: '✅ Recursos obtenidos correctamente',
+            data: recursos,
+        });
+    }
+    catch (error) {
+        console.error('❌ Error al obtener recursos:', error);
+        res.status(500).json({
+            msg: '❌ Error al obtener recursos',
+            error: error instanceof Error ? error.message : error,
+        });
+    }
+});
+exports.getRecursos = getRecursos;

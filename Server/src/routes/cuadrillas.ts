@@ -1,12 +1,11 @@
 import { Router } from 'express';
-import { deleteCuadrilla, getCuadrilla, getCuadrillas, postCuadrilla, updateCuadrilla } from '../controllers/cuadrillas';
+import { getCuadrillas } from '../controllers/cuadrillas';
 
 const router = Router();
 
-router.get('/', getCuadrillas)
-router.get('/:id', getCuadrilla)
-router.delete('/:id', deleteCuadrilla)
-router.put('/:id', updateCuadrilla);
-router.post('/', postCuadrilla)
+/**
+ * Ruta para obtener todas las cuadrillas.
+ */
+router.get('/', getCuadrillas);
 
 export default router;
