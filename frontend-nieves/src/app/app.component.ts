@@ -10,6 +10,9 @@ import { Router } from '@angular/router';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
+  title(title: any) {
+    throw new Error('Method not implemented.');
+  }
   @ViewChild('sidenav') sidenav!: MatSidenav;
 
   constructor(public router: Router, private dialog: MatDialog) {

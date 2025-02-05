@@ -10,6 +10,10 @@ export class RetenesComponent {
   selectedTeam: string = '';
   selectedHistory: string = '';
 
+  retenes = { // ✅ Agregar esta propiedad
+    responsable: false
+  };
+
   displayedTeams: string[] = ['COPO 7', 'COPO 11', 'COPO 20', 'COPO 1'];
   historyOptions: string[] = ['Historial 1', 'Historial 2', 'Historial 3'];
   color: string = '#d3d3d3';

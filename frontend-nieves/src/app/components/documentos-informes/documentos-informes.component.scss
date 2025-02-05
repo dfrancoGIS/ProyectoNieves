@@ -1,0 +1,113 @@
+:host {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+  
+  .toolbar-item-spacer {
+    flex: 1 1 auto;
+  }
+  
+  img {
+    cursor: pointer;
+  }
+  
+  mat-sidenav-container {
+    flex: 1;
+  
+    mat-sidenav {
+        width: 260px;
+        //background: linear-gradient(white, lightgray);   
+        background-color: lightgray;
+  
+        .full-parent-menu {
+            background-color: lightgray;
+        }
+  
+        .full-width {
+            width: 100%;
+        }
+        
+        .info-class {
+            float: right;
+            padding-left: 0.4rem;
+        }
+  
+        .menu-button.rotated {
+            transform: rotate(180deg);
+        }
+        
+        .submenu {
+            overflow-y: hidden;
+            transition: transform 300ms ease;
+            transform: scaleY(0);
+            transform-origin: top;
+            //padding-left: 30px;
+        }
+        
+        .submenu.expanded {
+            transform: scaleY(1);
+            background-color: white;
+        }             
+  
+        .parent.highlighted {
+            background-color: #AD1457;
+            opacity: 90%;
+        }
+    }
+  }
+  
+  mat-sidenav-content {
+  
+    .inicio {
+      display: flex;
+      flex-wrap: wrap; /* Permite que los botones se adapten al tamaño de la pantalla */
+      justify-content: center; /* Centra horizontalmente */
+      align-items: center; /* Centra verticalmente */
+      width: 100%; /* Asegura que ocupe todo el ancho */
+      margin-top: 2rem; /* Espaciado superior */
+    }
+  
+    button {
+        width: 320px;
+        height: 120px;
+        margin: 1rem;
+        border: 1px solid black !important;
+  
+        .button-contenido {
+            display: flex;
+            /* flex-direction: row; */
+            /* justify-content: space-evenly; */
+            align-items: center;
+        }
+  
+          // Ajustar tamaño de los iconos dentro de los botones
+  .button-contenido img {
+    max-width: 64px; // Tamaño estándar para los iconos
+    height: auto;
+    object-fit: contain;
+  }
+  
+  
+        label {
+            margin-top: 1rem;
+            font-size: 15px;
+        }
+  
+        img {
+            padding-right: 2rem;
+        }          
+    }
+  
+     /*.last-button {      
+            width: 400px;   
+            margin-left: 39.7%;
+            margin-top: 2%;
+        }*/
+  }
+  
+  .logoApp{
+      max-width: 50px;
+  }
+  
+  

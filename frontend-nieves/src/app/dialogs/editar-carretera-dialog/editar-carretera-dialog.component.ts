@@ -11,7 +11,11 @@ import { Carretera } from 'src/app/interfaces/carretera';
 export class EditarCarreteraDialogComponent {
     form: FormGroup;
 
-    estados = ['ABIERTO / IREKITA', 'CERRADO / ITXITA', 'CADENAS / KATEAK'];
+    estados = [
+        'ABIERTO / IREKITA', 'CERRADO / ITXITA', 'CADENAS / KATEAK',
+        'ABIERTA PRECAUCIÓN / IREKITA KONTUZ', 'ALERTA NIEVE / KONTA ETA ELURRA',
+        'CERRADA ACCIDENTE / ITXITA ISTRIPUAGATIK', 'CERRADA PESADOS / ITXITA IBILGAILU ASTUNENTZAT'
+    ];
 
     constructor(
         public dialogRef: MatDialogRef<EditarCarreteraDialogComponent>,

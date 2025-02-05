@@ -1,0 +1,24 @@
+<div class="container">
+    <h1 mat-dialog-title>Modificar cantidad de {{ data.tipo | titlecase }}</h1>
+    <mat-divider></mat-divider>
+    <div mat-dialog-content>
+        <form [formGroup]="form">
+            <!-- Campo para ingresar la cantidad -->
+            <mat-form-field appearance="outline">
+                <mat-label>Ingrese la cantidad (kg)</mat-label>
+                <input matInput type="number" formControlName="cantidad">
+            </mat-form-field>
+
+            <div mat-dialog-actions>
+                <button mat-raised-button mat-dialog-close color="warn" (click)="cancelar()">Cerrar</button>
+                <button mat-raised-button color="primary" [disabled]="form.invalid" (click)="modificarCantidad(true)">
+                    Añadir cantidad
+                </button>
+                <button mat-raised-button color="accent" [disabled]="form.invalid" (click)="modificarCantidad(false)">
+                    Quitar cantidad
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+

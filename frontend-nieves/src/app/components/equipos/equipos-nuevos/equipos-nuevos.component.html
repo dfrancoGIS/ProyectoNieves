@@ -1,3 +1,6 @@
+<div class="referencia">
+    <p>Equipos / Gestión de Equipos</p>         
+</div>
 <div class="contenedor-principal">
     <h2 class="titulo-principal">VIALIDAD INVERNAL</h2>
 
@@ -7,8 +10,6 @@
         <button class="boton-zona">SOS DEIAK</button>
         <button class="boton-zona">PRIVADO</button>
         <button class="boton-zona">RVI</button>
-        <button class="boton-zona">COPO 0</button>
-        <button class="boton-zona">AUC</button>
     </div>
 
     <!-- Tabla de zonas -->
@@ -94,15 +95,17 @@
             <input matInput [(ngModel)]="nuevoEquipo.vehiculo" name="vehiculo">
         </mat-form-field>
             <!-- 📌 Contenedor de los botones de acción -->
-        <button mat-icon-button matTooltip="Añadir nuevo registro" (click)="agregarRegistro()">
-            <img src="assets/img/view.png" alt="Añadir">
-        </button>
-        <button mat-icon-button matTooltip="Editar registro" (click)="editarRegistro()">
-            <img src="assets/img/edit.png" alt="Editar">
-        </button>
-        <button mat-icon-button matTooltip="Eliminar registro" (click)="editarRegistro()">
-            <img src="assets/img/delete.png" alt="Eliminar">
-        </button>
+            <div class="acciones">
+                <button mat-raised-button color="accent" (click)="agregarEquipo()">
+                    <mat-icon>add</mat-icon> Nuevo equipo
+                </button>
+                <button mat-raised-button color="primary" (click)="editarRegistro()">
+                    <mat-icon>edit</mat-icon> Editar
+                </button>
+                <button mat-raised-button color="warn" (click)="eliminarRegistro()">
+                    <mat-icon>delete</mat-icon> Eliminar
+                </button>
+            </div>
     </div>
 
         <!-- Tabla de registros -->
@@ -136,5 +139,3 @@
             style="background-color: lightgrey !important;">
         </mat-paginator>
         </div>
-        
-

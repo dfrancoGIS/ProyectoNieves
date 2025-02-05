@@ -29,6 +29,7 @@ const estadosComunicacion_1 = __importDefault(require("../routes/estadosComunica
 const equipoPersonal_1 = __importDefault(require("../routes/equipoPersonal"));
 const carreterasRecursoCuadrilla_1 = __importDefault(require("../routes/carreterasRecursoCuadrilla"));
 const tenerCta_1 = __importDefault(require("../routes/tenerCta"));
+const stationRoutes_1 = __importDefault(require("../routes/stationRoutes"));
 const connection_1 = __importDefault(require("../db/connection"));
 class Server {
     constructor() {
@@ -65,6 +66,7 @@ class Server {
         this.app.use('/api/equipoPersonal', equipoPersonal_1.default);
         this.app.use('/api/carreteras-recurso-cuadrilla', carreterasRecursoCuadrilla_1.default);
         this.app.use('/api/tener-cta', tenerCta_1.default);
+        this.app.use('/api', stationRoutes_1.default);
     }
     middlewares() {
         this.app.use(express_1.default.json()); // 👈 Esto debe estar antes de las rutas

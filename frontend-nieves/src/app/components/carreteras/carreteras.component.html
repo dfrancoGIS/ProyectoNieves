@@ -10,14 +10,18 @@
         <div class="tabla-carreteras">
             <div class="columna" *ngFor="let prioridad of prioridades">
                 <h3>Prioridad {{ prioridad }}</h3>
-                <div *ngFor="let carretera of obtenerCarreterasPorPrioridad(prioridad)" class="carretera">
-                    <span class="nombre-carretera">{{ carretera.nombre }}</span>
-                    <span class="separador">|</span>
-                    <span class="estado-carretera">{{ carretera.estado }}</span>
-                    <span class="separador">|</span>
-                    <button mat-icon-button matTooltip="Editar Estado" (click)="editarCarretera(carretera)">
-                        <mat-icon>edit</mat-icon>
-                    </button>
+                <div class="lista-carreteras">
+                    <div *ngFor="let carretera of obtenerCarreterasPorPrioridad(prioridad)" 
+                         class="carretera"
+                         (click)="editarCarretera(carretera)">
+                        <span class="nombre-carretera">{{ carretera.nombre }}</span>
+                        <span class="separador">|</span>
+                        <span class="estado-carretera" [ngClass]="getEstadoClase(carretera.estado)">
+                            {{ carretera.estado }}
+                        </span>
+                        <span class="separador">|</span>
+                        <span class="direccion-carretera">{{ carretera.direccion }}</span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -49,9 +53,12 @@
             <mat-form-field appearance="outline">
                 <mat-label>Seleccionar Nuevo Estado</mat-label>
                 <mat-select [(value)]="nuevoEstado">
-                    <mat-option *ngFor="let estado of estados" [value]="estado">{{ estado }}</mat-option>
+                    <mat-option *ngFor="let estado of estados" [value]="estado" [ngClass]="getEstadoClase(estado)">
+                        {{ estado }}
+                    </mat-option>
                 </mat-select>
             </mat-form-field>
+            
         
             <!-- Botón de Aplicar Cambio -->
             <div class="boton-guardar">
@@ -59,7 +66,6 @@
             </div>
         </div>
         
-
     </mat-sidenav-content>
 </mat-sidenav-container>
 

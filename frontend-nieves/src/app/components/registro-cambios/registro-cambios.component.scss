@@ -1,0 +1,70 @@
+/* Ajuste para que la página ocupe toda la pantalla sin scroll */
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+/* Contenedor principal sin fondo rosa */
+.contenedor-principal {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* Alinea todo el contenido a la izquierda */
+    width: 90%;
+    margin: auto;
+    padding-left: 2rem;
+}
+
+/* Título principal */
+.titulo-principal {
+    font-size: 15px;
+    margin-left: 2rem;
+    margin-top: 1rem;
+}
+/* Tabla */
+.mat-elevation-z8 {
+    width: 90%;
+    margin: 0 auto;
+    margin-top: 10px;
+}
+
+/* Encabezados */
+.header-cell {
+    background-color: lightgrey !important;
+    color: black;
+    font-weight: bold;
+    padding: 10px;
+    text-align: left;
+    border: none;
+}
+
+/* Celdas de la tabla alineadas a la izquierda */
+.styled-table td {
+    text-align: left !important;
+    padding: 8px 12px;
+    border: none !important;
+}
+
+/* Pie de la tabla */
+.styled-table tfoot td {
+    background-color: lightgrey !important;
+    font-weight: bold;
+    text-align: center;
+}
+
+/* Estilo del filtro */
+.filtro {
+    width: 200px;
+    margin-top: 27px;
+}
+
+/* Contenedor del título y filtro */
+.encabezado {
+    margin-top: 0%;
+    display: flex;
+    justify-content: space-between; /* Título a la izquierda, filtro a la derecha */
+    align-items: center;
+    width: 100%;
+    padding-right: 2rem; /* Asegura que el filtro no esté pegado al borde */
+}

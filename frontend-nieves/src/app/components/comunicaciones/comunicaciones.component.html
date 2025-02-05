@@ -16,8 +16,6 @@
                 <button class="boton-zona">SOS DEIAK</button>
                 <button class="boton-zona">PRIVADO</button>
                 <button class="boton-zona">RVI</button>
-                <button class="boton-zona">COPO 0</button>
-                <button class="boton-zona">AUC</button>
             </div>
         
             <!-- Tabla de zonas -->
@@ -106,6 +104,18 @@
                 <mat-label>Hora</mat-label>
                 <input matInput type="time">
             </mat-form-field>
+                    <!-- Botones de acción -->
+        <div class="acciones">
+            <button mat-raised-button color="accent" (click)="nuevaComunicacion()">
+                <mat-icon>add</mat-icon> Nueva Comunicación
+            </button>
+            <button mat-raised-button color="primary" (click)="editarComunicacion()">
+                <mat-icon>edit</mat-icon> Editar
+            </button>
+            <button mat-raised-button color="warn" (click)="borrarComunicacion()">
+                <mat-icon>delete</mat-icon> Eliminar
+            </button>
+        </div>
         </div>
 
         <!-- Filtros adicionales -->
@@ -162,18 +172,7 @@
             </mat-form-field>
         </div>
 
-        <!-- Botones de acción -->
-        <div class="acciones">
-            <button mat-raised-button color="accent" (click)="nuevaComunicacion()">
-                <mat-icon>add</mat-icon> Nueva Comunicación
-            </button>
-            <button mat-raised-button color="primary" (click)="nuevaComunicacion()">
-                <mat-icon>edit</mat-icon> Editar
-            </button>
-            <button mat-raised-button color="warn" (click)="borrarComunicacion()">
-                <mat-icon>delete</mat-icon> Eliminar
-            </button>
-        </div>
+
     </mat-sidenav-content>
 </mat-sidenav-container>
 

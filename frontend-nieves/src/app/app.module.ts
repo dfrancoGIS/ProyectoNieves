@@ -48,7 +48,7 @@ import { EquiposBajaComponent } from './components/equipos/equipos-baja/equipos-
 import { DetalleEquipoComponent } from './components/equipos/detalle-equipo/detalle-equipo.component';
 import { BusquedaEquipoComponent } from './components/equipos/busqueda-equipo/busqueda-equipo.component';
 import { CarreterasComponent } from './components/carreteras/carreteras.component';
-
+import { FundentesComponent } from './components/fundentes/fundentes.component';
 // Diálogos
 import { NuevoEquipoDialogComponent } from './dialogs/nuevo-equipo-dialog/nuevo-equipo-dialog.component';
 import { NuevaComunicacionDialogComponent } from './dialogs/nueva-comunicacion-dialog/nueva-comunicacion-dialog.component';
@@ -59,6 +59,11 @@ import { RetenesComponent } from './components/retenes/retenes.component';
 import { CuadrillasComponent } from './components/cuadrillas/cuadrillas.component';
 import { ConfiguracionComponent } from './components/configuracion/configuracion.component';
 import { NuevaCampaniaDialogComponent } from './dialogs/nueva-campania-dialog/nueva-campania-dialog.component';
+import { EditarSalmueraDialogComponent } from './dialogs/editar-salmuera-dialog/editar-salmuera-dialog.component';
+import { EditarSalDialogComponent } from './dialogs/editar-sal-dialog/editar-sal-dialog.component';
+import { RegistroCambiosComponent } from './components/registro-cambios/registro-cambios.component';
+import { DocumentosInformesComponent } from './components/documentos-informes/documentos-informes.component';
+
 
 @NgModule({
   declarations: [
@@ -78,7 +83,12 @@ import { NuevaCampaniaDialogComponent } from './dialogs/nueva-campania-dialog/nu
     RetenesComponent,
     CuadrillasComponent,
     ConfiguracionComponent,
-    NuevaCampaniaDialogComponent, 
+    NuevaCampaniaDialogComponent,
+    FundentesComponent,
+    EditarSalmueraDialogComponent,
+    EditarSalDialogComponent,
+    RegistroCambiosComponent,
+    DocumentosInformesComponent, 
   ],
   imports: [
     BrowserModule,

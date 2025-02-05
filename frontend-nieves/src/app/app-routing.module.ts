@@ -20,10 +20,15 @@ import { ComunicacionesComponent } from './components/comunicaciones/comunicacio
 
 // Componente de Retenes 
 import { RetenesComponent } from './components/retenes/retenes.component';
+// Componente de fundentes
+import { FundentesComponent } from './components/fundentes/fundentes.component';
+
 
 // Componente de Cuadrillas
 import { CuadrillasComponent } from './components/cuadrillas/cuadrillas.component';
 import { ConfiguracionComponent } from './components/configuracion/configuracion.component';
+import { RegistroCambiosComponent } from './components/registro-cambios/registro-cambios.component';
+import { DocumentosInformesComponent } from './components/documentos-informes/documentos-informes.component';
 
 const routes: Routes = [
   { path: '', component: EquiposComponent }, // Página de inicio en Equipos
@@ -42,6 +47,9 @@ const routes: Routes = [
   { path: 'retenes', component: RetenesComponent }, // Nueva ruta para Retenes
   { path: 'cuadrillas', component: CuadrillasComponent }, // Nueva ruta para Cuadrillas
   { path: 'configuracion', component: ConfiguracionComponent }, //Ruta para configuraciones
+  { path: 'fundentes', component: FundentesComponent },
+  { path: 'registro-cambios', component: RegistroCambiosComponent },
+  { path: 'documentos-informes', component: DocumentosInformesComponent },
   // { path: 'pagina-web', component: PaginaWebComponent },
   // { path: 'mantenimiento-tablas', component: MantenimientoTablasComponent },
   // { path: 'nueva-campaña', component: NuevaCampañaComponent },

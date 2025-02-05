@@ -27,10 +27,11 @@
 /* Contenedor de prioridades */
 .tabla-carreteras {
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: nowrap; /* Mantiene las prioridades en una fila */
     justify-content: space-around;
     margin: 2rem;
     gap: 1rem;
+    overflow-x: auto; /* Scroll horizontal si hay muchas prioridades */
 }
 
 /* Cada prioridad en su columna */
@@ -39,19 +40,23 @@
     background-color: #f5f5f5;
     padding: 1rem;
     border-radius: 5px;
-    min-width: 200px;
+    min-width: 250px;
+    max-height: 500px;
+
     text-align: center;
     box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-/* Títulos de cada prioridad */
+/* Títulos de cada prioridad (fijos arriba) */
 .columna h3 {
-    background-color: #d3d3d3;
+    background-color: #d3d3d3; /* Color de fondo para cubrir el scroll */
     padding: 0.5rem;
     font-size: 16px;
     font-weight: bold;
-    margin-bottom: 0.5rem;
     border-radius: 5px;
+    position: sticky;
+    top: 0;
+    z-index: 10; /* Asegura que el título esté por encima de las carreteras */
 }
 
 /* Carreteras dentro de cada prioridad */
@@ -66,6 +71,7 @@
     box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
     transition: background-color 0.2s;
 }
+
 
 .carretera:hover {
     background-color: #f0f0f0;
@@ -134,4 +140,17 @@
 
 .boton-guardar button:hover {
     background-color: #9c0e4e;
+}
+
+.estado-verde { color: green; }
+.estado-rojo { color: red; }
+.estado-negro { color: black; }
+.estado-amarillo { color: rgb(180, 180, 84); }
+
+.lista-carreteras {
+    flex-grow: 1;
+    overflow-y: auto;
+    padding-right: 5px;
+    max-height: 450px; /* Ajusta para que no se desborde */
+    background-color: white; /* Asegura que el fondo de la lista sea sólido */
 }

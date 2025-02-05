@@ -15,6 +15,7 @@ import routesEstadosComunicacion from '../routes/estadosComunicacion';
 import routesEquipoPersonal  from '../routes/equipoPersonal';
 import routesCarreterasRecursoCuadrilla from '../routes/carreterasRecursoCuadrilla';
 import routesTenerCta from '../routes/tenerCta';
+import stationRoutes from '../routes/stationRoutes';
 
 import db from '../db/connection';
 
@@ -61,6 +62,7 @@ class Server {
         this.app.use('/api/equipoPersonal', routesEquipoPersonal);
         this.app.use('/api/carreteras-recurso-cuadrilla', routesCarreterasRecursoCuadrilla);
         this.app.use('/api/tener-cta', routesTenerCta);
+        this.app.use('/api', stationRoutes);
     }
 
     middlewares() {

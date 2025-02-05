@@ -22,4 +22,8 @@ export class ConfiguracionComponent {
       data: {}
     });
   }
+
+  abrirRegistroCambios() {
+    this.router.navigate(['/registro-cambios']);
+  }
 }

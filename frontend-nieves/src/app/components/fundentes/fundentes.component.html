@@ -1,0 +1,28 @@
+<mat-sidenav-content>
+    <div class="inicio">  
+        <!-- Botón para control de Sal -->
+        <div class="fundente-card">
+            <button mat-raised-button (click)="abrirControlSal()">       
+                <div class="button-contenido"> 
+                    <img src="assets/img/sal.png">
+                    <label>Existencias de Sal</label>
+                </div>  
+            </button>
+            <p class="cantidad">Cantidad actual: <strong>{{ kilosSal }} kg</strong></p>
+        </div>
+
+        <!-- Botón para control de Salmuera -->
+        <div class="fundente-card">
+            <button mat-raised-button (click)="abrirControlSalmuera()">         
+                <div class="button-contenido"> 
+                    <img src="assets/img/salmuera.png">
+                    <label>Existencias de Salmuera</label>
+                </div>  
+            </button>
+            <p class="cantidad">Cantidad actual: <strong>{{ kilosSalmuera }} kg</strong></p>
+        </div>
+    </div>
+  
+    <router-outlet></router-outlet>
+</mat-sidenav-content>
+

@@ -1,0 +1,21 @@
+<mat-sidenav-content>
+    <div class="inicio">  
+        <button mat-raised-button (click)="generarDocumentoVialidad()">       
+            <div class="button-contenido"> 
+                <img src="assets/img/invierno.png">
+                <label>Vialidad invernal</label>
+            </div>  
+        </button>
+  
+        <button mat-raised-button (click)="generarDocumentoRetenes()">         
+            <div class="button-contenido"> 
+                <img src="assets/img/documentoReten.png">
+                <label>Retenes</label>
+            </div>  
+        </button>
+    </div>
+  
+    <router-outlet></router-outlet>
+  
+  </mat-sidenav-content>
+

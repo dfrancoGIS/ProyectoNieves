@@ -19,7 +19,14 @@ html, body {
     width: 90%;
     margin: 0 auto;
 }
-
+/* Estilos del título de la página */
+.referencia {
+    display: flex;
+    justify-content: flex-start;
+    margin-left: 2rem;
+    font-size: 15px;
+    margin-top: 1rem;
+}
 /* Título principal */
 .titulo-principal {
     font-size: 22px;
@@ -224,4 +231,11 @@ mat-form-field {
     border-top: none !important; /* Quitar la línea superior del pie de tabla */
 }
 
-
+.acciones {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 5px;
+    margin-bottom: 1.5rem;
+    margin-left: auto;
+}
