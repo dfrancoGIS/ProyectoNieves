@@ -1,0 +1,45 @@
+<h1 mat-dialog-title>Histórico de {{ data.ubicacion }}</h1>
+
+<div mat-dialog-content>
+    <p><span class="bold">Carretera:</span> {{ data.carretera }}</p>
+    <p><span class="bold">PK:</span> {{ data.pk }}</p>
+    <hr>
+
+    <!-- Selección de variable -->
+    <mat-form-field appearance="outline">
+        <mat-label>Seleccionar Variable</mat-label>
+        <mat-select [(value)]="variableSeleccionada">
+            <mat-option *ngFor="let variable of variables" [value]="variable">
+                {{ variable }}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <!-- Selección de periodo temporal -->
+    <mat-form-field appearance="outline">
+        <mat-label>Seleccionar Periodo</mat-label>
+        <mat-select [(value)]="periodoSeleccionado">
+            <mat-option *ngFor="let periodo of periodos" [value]="periodo">
+                {{ periodo }}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <!-- Botón para consultar histórico -->
+    <button mat-raised-button color="primary" (click)="consultarHistorico()">Consultar Histórico</button>
+
+    <!-- Mostrar datos históricos -->
+    <div *ngIf="datosHistoricos.length > 0">
+        <hr>
+        <h3>Datos Históricos</h3>
+        <ul>
+            <li *ngFor="let dato of datosHistoricos">
+                {{ dato.fecha }} - {{ dato.valor }} {{ unidadMedida }}
+            </li>
+        </ul>
+    </div>
+</div>
+
+<div mat-dialog-actions align="end">
+    <button mat-raised-button mat-dialog-close color="warn">Cerrar</button>
+</div>

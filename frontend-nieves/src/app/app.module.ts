@@ -63,6 +63,9 @@ import { EditarSalmueraDialogComponent } from './dialogs/editar-salmuera-dialog/
 import { EditarSalDialogComponent } from './dialogs/editar-sal-dialog/editar-sal-dialog.component';
 import { RegistroCambiosComponent } from './components/registro-cambios/registro-cambios.component';
 import { DocumentosInformesComponent } from './components/documentos-informes/documentos-informes.component';
+import { MantenimientoTablasDialogComponent } from './dialogs/mantenimiento-tablas-dialog/mantenimiento-tablas-dialog.component';
+import { EstacionesMeteorologicasComponent } from './components/estaciones-meteorologicas/estaciones-meteorologicas.component';
+import { HistorialEstacionDialogComponent } from './dialogs/historial-estacion-dialog/historial-estacion-dialog.component';
 
 
 @NgModule({
@@ -88,7 +91,10 @@ import { DocumentosInformesComponent } from './components/documentos-informes/do
     EditarSalmueraDialogComponent,
     EditarSalDialogComponent,
     RegistroCambiosComponent,
-    DocumentosInformesComponent, 
+    DocumentosInformesComponent,
+    MantenimientoTablasDialogComponent,
+    EstacionesMeteorologicasComponent,
+    HistorialEstacionDialogComponent, 
   ],
   imports: [
     BrowserModule,

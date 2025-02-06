@@ -22,13 +22,15 @@ import { ComunicacionesComponent } from './components/comunicaciones/comunicacio
 import { RetenesComponent } from './components/retenes/retenes.component';
 // Componente de fundentes
 import { FundentesComponent } from './components/fundentes/fundentes.component';
-
+// Componente de estaiones meteorologicas
+import { EstacionesMeteorologicasComponent } from './components/estaciones-meteorologicas/estaciones-meteorologicas.component';
 
 // Componente de Cuadrillas
 import { CuadrillasComponent } from './components/cuadrillas/cuadrillas.component';
 import { ConfiguracionComponent } from './components/configuracion/configuracion.component';
 import { RegistroCambiosComponent } from './components/registro-cambios/registro-cambios.component';
 import { DocumentosInformesComponent } from './components/documentos-informes/documentos-informes.component';
+
 
 const routes: Routes = [
   { path: '', component: EquiposComponent }, // Página de inicio en Equipos
@@ -50,9 +52,7 @@ const routes: Routes = [
   { path: 'fundentes', component: FundentesComponent },
   { path: 'registro-cambios', component: RegistroCambiosComponent },
   { path: 'documentos-informes', component: DocumentosInformesComponent },
-  // { path: 'pagina-web', component: PaginaWebComponent },
-  // { path: 'mantenimiento-tablas', component: MantenimientoTablasComponent },
-  // { path: 'nueva-campaña', component: NuevaCampañaComponent },
+  { path: 'estaciones-meteorologicas', component: EstacionesMeteorologicasComponent },
 
   // Ruta 404 - Página no encontrada
   { path: '**', redirectTo: '/' } // Si la URL no existe, redirige a la raíz

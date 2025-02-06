@@ -1,0 +1,69 @@
+<div class="estaciones-container">
+
+    <div class="estaciones-container">
+
+        <!-- Paneles superiores -->
+        <div class="estaciones-superior">
+            <div class="estacion-card" *ngFor="let estacion of estacionesSuperiores" 
+                 (click)="abrirDialogoEstacion(estacion)">
+                <h3>{{ estacion.ubicacion }}</h3>
+                <p class="carretera-pk">({{ estacion.carretera }}, PK: {{ estacion.pk }})</p>
+                <p class="fecha-hora">{{ fechaHoraGlobal.fecha }} - {{ fechaHoraGlobal.hora }}</p>
+                <hr>
+                <p><span class="bold">Temperatura:</span> {{ estacion.temperatura }}°C</p>
+                <p><span class="bold">Visibilidad:</span> {{ estacion.visibilidad }} m</p>
+                <p><span class="bold">Humedad:</span> {{ estacion.humedad }}%</p>
+                <p><span class="bold">Viento:</span> {{ estacion.viento }} km/h</p>
+            </div>
+        </div>
+    
+        <!-- Paneles inferiores centrados -->
+        <div class="estaciones-inferior">
+            <div class="estacion-card" *ngFor="let estacion of estacionesInferiores" 
+                 (click)="abrirDialogoEstacion(estacion)">
+                <h3>{{ estacion.ubicacion }}</h3>
+                <p class="carretera-pk">({{ estacion.carretera }}, PK: {{ estacion.pk }})</p>
+                <p class="fecha-hora">{{ fechaHoraGlobal.fecha }} - {{ fechaHoraGlobal.hora }}</p>
+                <hr>
+                <p><span class="bold">Temperatura:</span> {{ estacion.temperatura }}°C</p>
+                <p><span class="bold">Visibilidad:</span> {{ estacion.visibilidad }} m</p>
+                <p><span class="bold">Humedad:</span> {{ estacion.humedad }}%</p>
+                <p><span class="bold">Viento:</span> {{ estacion.viento }} km/h</p>
+            </div>
+        </div>
+    
+    </div>
+    
+
+    <!-- Sección Inferior: Configuración de Alertas -->
+    <div class="configuracion-alertas">
+        <h3>Configuración de Alertas</h3>
+        
+        <div class="alertas-form">
+            <mat-form-field appearance="outline">
+                <mat-label>Seleccionar Estación</mat-label>
+                <mat-select [(value)]="estacionSeleccionada">
+                    <mat-option *ngFor="let estacion of estaciones" [value]="estacion.ubicacion">
+                        {{ estacion.ubicacion }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+                <mat-label>Seleccionar Variable</mat-label>
+                <mat-select [(value)]="variableSeleccionada">
+                    <mat-option value="temperatura">Temperatura</mat-option>
+                    <mat-option value="visibilidad">Visibilidad</mat-option>
+                    <mat-option value="humedad">Humedad</mat-option>
+                    <mat-option value="viento">Viento</mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+                <mat-label>Umbral</mat-label>
+                <input matInput type="number" [(ngModel)]="umbral">
+            </mat-form-field>
+
+            <button mat-raised-button color="primary" class="botonAlerta" (click)="guardarAlerta()">Guardar Alerta</button>
+        </div>
+    </div>

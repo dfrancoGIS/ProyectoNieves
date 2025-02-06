@@ -3,12 +3,24 @@
     <mat-divider></mat-divider>
     <div mat-dialog-content>
         <form [formGroup]="form">
+            <!-- Selección de Fecha fin de Campaña anterior -->
+            <mat-form-field appearance="outline">
+                <mat-label>Fecha fin de campaña anterior</mat-label>
+                <input matInput [matDatepicker]="picker" formControlName="fechaInicio">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
             <!-- Selección de Fecha de Inicio -->
             <mat-form-field appearance="outline">
                 <mat-label>Fecha de Inicio</mat-label>
                 <input matInput [matDatepicker]="picker" formControlName="fechaInicio">
                 <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                 <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+            <!-- Añadir titulo de la campaña -->
+            <mat-form-field appearance="outline">
+                <mat-label>Título de la campaña</mat-label>
+                <input matInput formControlName="tituloCampana" required>
             </mat-form-field>
 
             <div mat-dialog-actions>

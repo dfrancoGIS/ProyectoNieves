@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { NuevaCampaniaDialogComponent } from 'src/app/dialogs/nueva-campania-dialog/nueva-campania-dialog.component';
+import { MantenimientoTablasDialogComponent } from 'src/app/dialogs/mantenimiento-tablas-dialog/mantenimiento-tablas-dialog.component';
 
 @Component({
   selector: 'app-configuracion',
@@ -13,7 +14,11 @@ export class ConfiguracionComponent {
   constructor(private router: Router, private dialog: MatDialog) {}
 
   abrirMantenimientoTablas() {
-    this.router.navigate(['/mantenimiento-tablas']); // Redirigir a mantenimiento de tablas
+    this.dialog.open(MantenimientoTablasDialogComponent, {
+      width: '800px',
+      height: '700px',
+      disableClose: true
+    });
   }
 
   abrirNuevaCampania() {

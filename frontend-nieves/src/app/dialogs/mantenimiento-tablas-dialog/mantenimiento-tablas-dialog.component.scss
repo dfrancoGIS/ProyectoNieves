@@ -1,0 +1,112 @@
+h1 {
+    text-align: center;
+    font-weight: bold;
+    font-size: 18px;
+    background-color: lightgray;
+    padding: 1rem;
+}
+
+/* Evitar scroll en el diálogo */
+.mat-dialog-container {
+    overflow: hidden !important;
+    max-width: 750px;
+}
+
+/* Contenedor de selección de tabla y filtro */
+.filtro-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    margin: 0 1.5rem;
+}
+
+/* Ajuste de los mat-form-field para que no queden pegados */
+.filtro-container mat-form-field {
+    width: 48%;
+}
+
+/* Estilizar el input del filtro con un icono de lupa */
+.filtro-container mat-form-field input {
+    padding-right: 2rem;
+}
+
+/* Contenedor de la tabla con scroll */
+.tabla-container {
+    margin: 1rem 1.5rem;
+    border-radius: 5px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+    background-color: white;
+    max-height: 350px; /* Limitamos la altura */
+    padding: 1rem;
+    overflow-x: auto;
+}
+
+/* Contenedor del scroll solo para las filas */
+.tabla-scroll {
+    max-height: 300px; /* Ajusta para que el encabezado se mantenga visible */
+    overflow-y: auto;
+    overflow-x: auto;
+    position: relative;
+}
+
+/* Asegurar que la tabla ocupe todo el ancho disponible */
+.styled-table {
+    border-collapse: collapse;
+    width: 100%;
+    min-width: 700px; /* Permitir scroll horizontal */
+    background-color: white;
+    table-layout: fixed; /* Asegurar que las columnas mantengan su ancho */
+}
+
+/* Fijar el encabezado */
+.styled-table thead {
+    position: sticky;
+    top: 0;
+    background-color: lightgrey !important;
+    color: black;
+    font-weight: bold;
+    z-index: 100;
+}
+
+/* Fijar las celdas del encabezado */
+.styled-table th {
+    background-color: lightgrey !important;
+    color: black;
+    font-weight: bold;
+    padding: 10px;
+    text-align: left;
+    border-bottom: 2px solid #ccc;
+}
+
+/* Asegurar alineación correcta */
+.styled-table tbody tr td {
+    text-align: left;
+    padding: 8px 12px;
+    border-bottom: 1px solid #ddd;
+}
+
+/* Eliminar display block en tbody */
+.styled-table tbody {
+    display: block;
+    max-height: 250px;
+    overflow-y: auto;
+    width: 100%;
+}
+
+.styled-table thead,
+.styled-table tbody tr {
+    display: table;
+    width: 100%;
+    table-layout: fixed; /* Importante para alinear correctamente */
+}
+
+
+/* Centrar los botones y darles separación */
+.acciones {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    padding: 1rem;
+    margin-top: 1rem;
+}
