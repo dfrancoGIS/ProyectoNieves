@@ -105,17 +105,29 @@
                 <input matInput type="time">
             </mat-form-field>
                     <!-- Botones de acción -->
-        <div class="acciones">
-            <button mat-raised-button color="accent" (click)="nuevaComunicacion()">
-                <mat-icon>add</mat-icon> Nueva Comunicación
-            </button>
-            <button mat-raised-button color="primary" (click)="editarComunicacion()">
-                <mat-icon>edit</mat-icon> Editar
-            </button>
-            <button mat-raised-button color="warn" (click)="borrarComunicacion()">
-                <mat-icon>delete</mat-icon> Eliminar
-            </button>
-        </div>
+                    <div class="acciones">
+                        <ng-container *ngIf="!modoAlta && !modoEdicion">
+                            <button mat-raised-button color="accent" (click)="iniciarAltaComunicacion()">
+                                <mat-icon>add</mat-icon> Nueva Comunicación
+                            </button>
+                            <button mat-raised-button color="primary" (click)="iniciarEdicionComunicacion(nuevaComunicacion)">
+                                <mat-icon>edit</mat-icon> Editar
+                            </button>
+                            <button mat-raised-button color="warn" (click)="borrarComunicacion(nuevaComunicacion)">
+                                <mat-icon>delete</mat-icon> Eliminar
+                            </button>
+                        </ng-container>
+                    
+                        <ng-container *ngIf="modoAlta || modoEdicion">
+                            <button mat-raised-button color="success" (click)="confirmarAccion()">
+                                <mat-icon>check</mat-icon> Confirmar
+                            </button>
+                            <button mat-raised-button color="warn" (click)="cancelarAccion()">
+                                <mat-icon>close</mat-icon> Cancelar
+                            </button>
+                        </ng-container>
+                    </div>
+                    
         </div>
 
         <!-- Filtros adicionales -->

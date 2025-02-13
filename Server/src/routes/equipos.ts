@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import { getEquipo, getEquipos, registrarTurno, getTurnosTrabajoController } from '../controllers/equipos';
 
+
 const router = Router();
 
 // ✅ Obtener todos los equipos

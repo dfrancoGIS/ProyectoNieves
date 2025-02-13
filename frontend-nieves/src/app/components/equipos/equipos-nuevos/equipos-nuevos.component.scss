@@ -184,6 +184,10 @@ mat-form-field {
     width: 90%; /* Ocupar todo el ancho del div padre */
     margin: 0 auto;
     margin-top: 3px;
+
+    button[color="success"] {
+        color: green !important;
+    }
 }
 
 .vehiculo-input {
@@ -231,11 +235,35 @@ mat-form-field {
     border-top: none !important; /* Quitar la línea superior del pie de tabla */
 }
 
-.acciones {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    gap: 5px;
-    margin-bottom: 1.5rem;
+.botones{
+    margin-top: 7px;
     margin-left: auto;
+
+    button{
+        margin-left: 10px;
+    }
+
+    button[color="success"] {
+        color: green !important;
+    }
 }
+
+.custom-field {
+    width: 900px; /* Ajusta el tamaño al deseado */
+    display: inline-block;
+  }
+  
+  .styled-table mat-form-field {
+    width: 650px; /* Ajusta el ancho del campo a tu preferencia */
+    font-size: 12px; /* Ajusta el tamaño del texto si es necesario */
+}
+
+.styled-table mat-select {
+    width: 100%; /* Asegura que el select ocupe todo el espacio del form-field */
+}
+
+.styled-table mat-option {
+    white-space: normal; /* Permite que las opciones sean más largas y se ajusten al contenido */
+    word-wrap: break-word; /* Evita desbordamiento del texto */
+}
+

@@ -10,16 +10,21 @@
 /* Título */
 .referencia {
     display: flex;
-    justify-content: flex-start;
+    justify-content: space-between;
     margin-left: 2rem;
     font-size: 15px;
     margin-top: 1rem;
 }
 
+.search-field{
+    width: 100px;
+    height: 100px;
+}
+
 .mat-mdc-form-field {
     font-size: 14px;
-    width: 30%;
-    height: 69px;
+    width: 28%;
+    height: 65px;
     margin-left: 2rem;
     margin-right: 2rem;
 }
@@ -29,8 +34,6 @@
     display: flex;
     flex-wrap: nowrap; /* Mantiene las prioridades en una fila */
     justify-content: space-around;
-    margin: 2rem;
-    gap: 1rem;
     overflow-x: auto; /* Scroll horizontal si hay muchas prioridades */
 }
 
@@ -42,7 +45,6 @@
     border-radius: 5px;
     min-width: 250px;
     max-height: 500px;
-
     text-align: center;
     box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
 }
@@ -70,8 +72,8 @@
     border-radius: 5px;
     box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
     transition: background-color 0.2s;
+    word-wrap: break-word;
 }
-
 
 .carretera:hover {
     background-color: #f0f0f0;
@@ -88,6 +90,10 @@
 /* Estados */
 .estado-carretera {
     font-weight: bold;
+    text-align: center;
+    overflow-wrap: break-word; /* Rompe las palabras largas */
+    word-break: break-word; /* Rompe si es necesario */
+    white-space: normal; /* Permite el ajuste de líneas */
 }
 
 .estado-carretera.cerrado {
@@ -104,9 +110,8 @@
     align-items: center;
     justify-content: center;
     flex-wrap: wrap; // Permite ajuste en pantallas más pequeñas
-    gap: 1rem;
-    margin: 2rem;
-    padding: 1rem;
+    margin: 0.5rem;
+    padding: 0.5rem;
     background-color: #f9f9f9;
     border-radius: 10px;
     box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
@@ -124,6 +129,7 @@
     align-items: center;
     justify-content: center;
     height: 100%;
+    margin-bottom: 15px;
 }
 
 .boton-guardar button {
@@ -148,9 +154,8 @@
 .estado-amarillo { color: rgb(180, 180, 84); }
 
 .lista-carreteras {
-    flex-grow: 1;
-    overflow-y: auto;
-    padding-right: 5px;
-    max-height: 450px; /* Ajusta para que no se desborde */
-    background-color: white; /* Asegura que el fondo de la lista sea sólido */
+    overflow-y: auto; /* Scroll interno si es necesario */
+    max-height: 400px; /* Ajusta para mantenerlo dentro de la columna */
+    padding-right: 10px;
+    margin-top: 10px;
 }

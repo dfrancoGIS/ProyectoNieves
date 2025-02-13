@@ -6,8 +6,7 @@ import { QueryTypes } from 'sequelize';
  */
 export function getAllRecursos() {
   return sequelize.query(
-    `SELECT Id_Recurso, Empresa_Recurso, Id_Campania_Recursos 
-     FROM Recursos`,
-    { type: QueryTypes.SELECT }
+      `SELECT * FROM obtener_recursos();`,
+      { type: QueryTypes.SELECT }
   );
 }

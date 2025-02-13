@@ -206,6 +206,10 @@ td {
     gap: 5px;
     margin-bottom: 1.5rem;
     margin-left: auto;
+
+    button[color="success"] {
+        color: green !important;
+    }
 }
 
 /* Ajustar el tamaño del filtrado */

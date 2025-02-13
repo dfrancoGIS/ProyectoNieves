@@ -30,6 +30,8 @@ const equipoPersonal_1 = __importDefault(require("../routes/equipoPersonal"));
 const carreterasRecursoCuadrilla_1 = __importDefault(require("../routes/carreterasRecursoCuadrilla"));
 const tenerCta_1 = __importDefault(require("../routes/tenerCta"));
 const stationRoutes_1 = __importDefault(require("../routes/stationRoutes"));
+const cors_1 = __importDefault(require("cors"));
+const historialEquipos_1 = __importDefault(require("../routes/historialEquipos"));
 const connection_1 = __importDefault(require("../db/connection"));
 class Server {
     constructor() {
@@ -67,10 +69,14 @@ class Server {
         this.app.use('/api/carreteras-recurso-cuadrilla', carreterasRecursoCuadrilla_1.default);
         this.app.use('/api/tener-cta', tenerCta_1.default);
         this.app.use('/api', stationRoutes_1.default);
+        this.app.use('/api/historial', historialEquipos_1.default);
     }
     middlewares() {
         this.app.use(express_1.default.json()); // 👈 Esto debe estar antes de las rutas
         this.app.use(express_1.default.urlencoded({ extended: true })); // 👈 También necesario para `x-www-form-urlencoded`
+        this.app.use((0, cors_1.default)({
+            origin: 'http://localhost:4200', // Permitir peticiones solo desde tu aplicación Angular
+        }));
     }
     dbConnect() {
         return __awaiter(this, void 0, void 0, function* () {

@@ -8,5 +8,6 @@ const connection_1 = __importDefault(require("../db/connection"));
 const sequelize_1 = require("sequelize");
 // ✅ Obtener todos los estados
 function getAllEstados() {
-    return connection_1.default.query(`SELECT Id_Estado, Descripcion_Estado FROM Estados`, { type: sequelize_1.QueryTypes.SELECT });
+    return connection_1.default.query(`SELECT id_estado, descripcion_estado FROM dbo.estados`, // Incluye el esquema
+    { type: sequelize_1.QueryTypes.SELECT });
 }

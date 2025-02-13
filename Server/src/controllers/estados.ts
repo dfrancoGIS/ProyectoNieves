@@ -6,10 +6,12 @@ export const getEstados = async (req: Request, res: Response): Promise<void> => 
     try {
         const estados = await getAllEstados();
 
-        // 📌 Formatear la respuesta para relacionar nombre y número
+        // Verifica el contenido de los datos obtenidos
+        console.log("Datos obtenidos desde la base de datos:", estados);
+
         const estadosMap = estados.map((estado: any) => ({
-            id: estado.Id_Estado,
-            nombre: estado.Descripcion_Estado
+            id: estado.id_estado, // Verifica que estas claves existen en los objetos devueltos
+            nombre: estado.descripcion_estado, // Verifica que estas claves existen en los objetos devueltos
         }));
 
         res.json({ msg: "✅ Estados obtenidos correctamente", data: estadosMap });

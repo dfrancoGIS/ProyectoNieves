@@ -4,7 +4,8 @@ import { QueryTypes } from 'sequelize';
 // ✅ Obtener todos los estados
 export function getAllEstados() {
   return sequelize.query(
-    `SELECT Id_Estado, Descripcion_Estado FROM Estados`, 
+    `SELECT id_estado, descripcion_estado FROM dbo.estados`, // Incluye el esquema
     { type: QueryTypes.SELECT }
   );
 }
+

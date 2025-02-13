@@ -29,6 +29,7 @@ import { MatRadioModule } from '@angular/material/radio';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { MatCardModule } from '@angular/material/card';
 import { MatTabsModule } from '@angular/material/tabs';
+import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 
 // Módulos de Formularios y HTTP
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -43,10 +44,6 @@ import { CommonModule } from '@angular/common';
 // Componentes
 import { EquiposComponent } from './components/equipos/equipos.component';
 import { EquiposNuevosComponent } from './components/equipos/equipos-nuevos/equipos-nuevos.component';
-import { EquiposModificacionComponent } from './components/equipos/equipos-modificacion/equipos-modificacion.component';
-import { EquiposBajaComponent } from './components/equipos/equipos-baja/equipos-baja.component';
-import { DetalleEquipoComponent } from './components/equipos/detalle-equipo/detalle-equipo.component';
-import { BusquedaEquipoComponent } from './components/equipos/busqueda-equipo/busqueda-equipo.component';
 import { CarreterasComponent } from './components/carreteras/carreteras.component';
 import { FundentesComponent } from './components/fundentes/fundentes.component';
 // Diálogos
@@ -66,6 +63,7 @@ import { DocumentosInformesComponent } from './components/documentos-informes/do
 import { MantenimientoTablasDialogComponent } from './dialogs/mantenimiento-tablas-dialog/mantenimiento-tablas-dialog.component';
 import { EstacionesMeteorologicasComponent } from './components/estaciones-meteorologicas/estaciones-meteorologicas.component';
 import { HistorialEstacionDialogComponent } from './dialogs/historial-estacion-dialog/historial-estacion-dialog.component';
+import { ConfirmDialogComponent } from './dialogs/confirm-dialog/confirm-dialog.component';
 
 
 @NgModule({
@@ -73,10 +71,6 @@ import { HistorialEstacionDialogComponent } from './dialogs/historial-estacion-d
     AppComponent,
     EquiposComponent,
     EquiposNuevosComponent,
-    EquiposModificacionComponent,
-    EquiposBajaComponent,
-    DetalleEquipoComponent,
-    BusquedaEquipoComponent,
     NuevoEquipoDialogComponent,
     NuevaComunicacionDialogComponent,
     CarreterasComponent,
@@ -94,7 +88,8 @@ import { HistorialEstacionDialogComponent } from './dialogs/historial-estacion-d
     DocumentosInformesComponent,
     MantenimientoTablasDialogComponent,
     EstacionesMeteorologicasComponent,
-    HistorialEstacionDialogComponent, 
+    HistorialEstacionDialogComponent,
+    ConfirmDialogComponent, 
   ],
   imports: [
     BrowserModule,
@@ -130,7 +125,8 @@ import { HistorialEstacionDialogComponent } from './dialogs/historial-estacion-d
     MatRadioModule,
     DragDropModule,
     MatCardModule,
-    MatTabsModule
+    MatTabsModule,
+    NgxMatSelectSearchModule
   ],
   providers: [],
   bootstrap: [AppComponent]

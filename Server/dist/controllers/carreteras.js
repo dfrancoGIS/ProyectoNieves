@@ -9,11 +9,11 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.putEstadoCarretera = exports.getCarreterasPorPrioridad = exports.getCarreterasPorNombre = exports.getCarreteras = void 0;
+exports.actualizarEstadoCarretera = exports.getCarreteras = void 0;
 const carreteras_1 = require("../models/carreteras");
 const getCarreteras = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const carreteras = yield (0, carreteras_1.getAllCarreteras)();
+        const carreteras = yield (0, carreteras_1.getCarreterasConEstado)();
         res.status(200).json({
             msg: '✅ Consulta exitosa',
             data: carreteras,
@@ -28,41 +28,19 @@ const getCarreteras = (req, res) => __awaiter(void 0, void 0, void 0, function* 
     }
 });
 exports.getCarreteras = getCarreteras;
-const getCarreterasPorNombre = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+const actualizarEstadoCarretera = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { id_carretera, nuevo_estado } = req.body;
+    if (!id_carretera || !nuevo_estado) {
+        res.status(400).json({ msg: '❌ Faltan parámetros' });
+        return;
+    }
     try {
-        const { nombre } = req.params;
-        const data = yield (0, carreteras_1.getCarreterasByNombre)(nombre);
-        res.json({ msg: "✅ Carreteras encontradas", data });
+        yield (0, carreteras_1.updateEstadoCarretera)(id_carretera, nuevo_estado);
+        res.status(200).json({ msg: '✅ Estado actualizado correctamente' });
     }
     catch (error) {
-        res.status(500).json({ msg: "❌ Error en la consulta", error });
+        console.error('❌ Error al actualizar estado:', error);
+        res.status(500).json({ msg: '❌ Error interno en la API', error });
     }
 });
-exports.getCarreterasPorNombre = getCarreterasPorNombre;
-const getCarreterasPorPrioridad = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    try {
-        const { prioridad } = req.params;
-        const data = yield (0, carreteras_1.getCarreterasByPrioridad)(Number(prioridad));
-        res.json({ msg: "✅ Carreteras encontradas", data });
-    }
-    catch (error) {
-        res.status(500).json({ msg: "❌ Error en la consulta", error });
-    }
-});
-exports.getCarreterasPorPrioridad = getCarreterasPorPrioridad;
-const putEstadoCarretera = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    try {
-        const { prioridad, carretera, estadoNombre } = req.body;
-        if (!prioridad || !estadoNombre) {
-            res.status(400).json({ msg: "❌ Falta prioridad o estadoNombre" });
-            return;
-        }
-        yield (0, carreteras_1.updateEstadoCarreteras)(prioridad, carretera, estadoNombre);
-        res.json({ msg: "✅ Estado actualizado correctamente" });
-    }
-    catch (error) {
-        console.error("❌ Error en putEstadoCarretera:", error);
-        res.status(500).json({ msg: "❌ Error al actualizar el estado", error });
-    }
-});
-exports.putEstadoCarretera = putEstadoCarretera;
+exports.actualizarEstadoCarretera = actualizarEstadoCarretera;

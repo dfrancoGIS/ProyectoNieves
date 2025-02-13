@@ -11,21 +11,19 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getZonas = void 0;
 const zonas_1 = require("../models/zonas");
-/**
- * Controlador para obtener todas las zonas.
- */
+// Función para obtener todas las zonas
 const getZonas = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const zonas = yield (0, zonas_1.getAllZonas)();
+        const zonas = yield (0, zonas_1.getZonasCarretera)();
         res.status(200).json({
-            msg: '✅ Zonas obtenidas correctamente',
+            msg: '✅ Consulta exitosa',
             data: zonas,
         });
     }
     catch (error) {
         console.error('❌ Error al obtener zonas:', error);
         res.status(500).json({
-            msg: '❌ Error al obtener zonas',
+            msg: '❌ Error interno en la API',
             error: error instanceof Error ? error.message : error,
         });
     }

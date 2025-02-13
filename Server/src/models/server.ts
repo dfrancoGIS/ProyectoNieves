@@ -16,6 +16,8 @@ import routesEquipoPersonal  from '../routes/equipoPersonal';
 import routesCarreterasRecursoCuadrilla from '../routes/carreterasRecursoCuadrilla';
 import routesTenerCta from '../routes/tenerCta';
 import stationRoutes from '../routes/stationRoutes';
+import cors from 'cors';
+import routesHistorialEquipos from '../routes/historialEquipos'; 
 
 import db from '../db/connection';
 
@@ -63,11 +65,15 @@ class Server {
         this.app.use('/api/carreteras-recurso-cuadrilla', routesCarreterasRecursoCuadrilla);
         this.app.use('/api/tener-cta', routesTenerCta);
         this.app.use('/api', stationRoutes);
+        this.app.use('/api/historial', routesHistorialEquipos); 
     }
 
     middlewares() {
         this.app.use(express.json()); // 👈 Esto debe estar antes de las rutas
         this.app.use(express.urlencoded({ extended: true })); // 👈 También necesario para `x-www-form-urlencoded`
+        this.app.use(cors({
+            origin: 'http://localhost:4200', // Permitir peticiones solo desde tu aplicación Angular
+        }));
     }
     
 

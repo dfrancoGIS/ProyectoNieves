@@ -9,6 +9,8 @@ import { EstacionMeteorologica } from 'src/app/interfaces/estacion-meteorologica
   styleUrls: ['./estaciones-meteorologicas.component.scss']
 })
 export class EstacionesMeteorologicasComponent implements OnInit, OnDestroy {
+
+  umbral: string = '';
   
   fechaHoraGlobal: { fecha: string; hora: string } = this.obtenerFechaHoraActual();
   private intervaloTiempo!: any;
@@ -33,7 +35,7 @@ export class EstacionesMeteorologicasComponent implements OnInit, OnDestroy {
   // Variables para la configuración de alertas
   estacionSeleccionada = "";
   variableSeleccionada = "";
-  umbral: number = 0;
+
 
   constructor(private dialog: MatDialog) {
     // Dividimos las estaciones en dos grupos (5 superiores y 4 inferiores)
@@ -85,4 +87,11 @@ export class EstacionesMeteorologicasComponent implements OnInit, OnDestroy {
     console.log(`Alerta guardada para ${this.estacionSeleccionada} en ${this.variableSeleccionada} con umbral ${this.umbral}`);
     // Aquí puedes integrar lógica para guardar las alertas
   }
+  validarUmbral() {
+    const regex = /^(<=|>=|<|>|=)?\s*-?\d+(\.\d+)?$/; // Acepta operadores <, >, <=, >=, = y números positivos/negativos
+    if (!regex.test(this.umbral)) {
+      this.umbral = this.umbral.slice(0, -1); // Si el valor es inválido, elimina el último carácter ingresado
+    }
+  }
+
 }

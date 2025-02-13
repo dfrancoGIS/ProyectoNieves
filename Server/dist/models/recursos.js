@@ -10,6 +10,5 @@ const sequelize_1 = require("sequelize");
  * Obtiene todos los recursos.
  */
 function getAllRecursos() {
-    return connection_1.default.query(`SELECT Id_Recurso, Empresa_Recurso, Id_Campania_Recursos 
-     FROM Recursos`, { type: sequelize_1.QueryTypes.SELECT });
+    return connection_1.default.query(`SELECT * FROM obtener_recursos();`, { type: sequelize_1.QueryTypes.SELECT });
 }

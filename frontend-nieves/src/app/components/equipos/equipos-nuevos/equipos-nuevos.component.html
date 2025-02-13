@@ -16,13 +16,8 @@
     <table class="tabla-vialidad">
         <thead>
             <tr>
-                <th>ZONA N-622</th>
-                <th>ZONA N-1 EGUINO</th>
-                <th>ZONA N-1 CASTILLA</th>
-                <th>ZONA N-240</th>
-                <th>ZONA A-132</th>
-                <th>ZONA AYALA</th>
-                <th>ZONA RIOJA</th>
+                <!-- Cabeceras generadas dinámicamente -->
+                <th *ngFor="let zona of zonas">{{ zona.id_zona }}</th>
             </tr>
         </thead>
         <tbody>
@@ -38,104 +33,210 @@
     </table>
 </div>
 
-    <!-- Formulario para agregar nuevos equipos -->
-    <div class="formulario-container">
-        <mat-form-field appearance="outline" class="foe large-select">
-            <mat-label>Equipos dados de alta</mat-label>
-            <mat-select [(value)]="selectedTeam">
-                <mat-option *ngFor="let team of displayedTeams" [value]="team">{{ team }}</mat-option>
-            </mat-select>
-        </mat-form-field>
-        <mat-form-field appearance="outline" class="foe large-select">
-            <mat-label>Historico de equipos</mat-label>
-            <mat-select [(value)]="selectedTeam">
-                <mat-option *ngFor="let team of displayedTeams" [value]="team">{{ team }}</mat-option>
-            </mat-select>
-        </mat-form-field>
-        
+<!-- Formulario para agregar nuevos equipos -->
+<div class="formulario-container">
+    <mat-form-field appearance="outline" class="foe large-select">
+        <mat-label>Equipos dados de alta</mat-label>
+        <mat-select [(value)]="selectedTeam">
+            <mat-option *ngFor="let team of displayedTeams" [value]="team">{{ team }}</mat-option>
+        </mat-select>
+    </mat-form-field>
+<!-- Formulario para seleccionar el histórico de equipos -->
+<mat-form-field appearance="outline" class="foe large-select">
+    <mat-label>Histórico de equipos</mat-label>
+    <mat-select [(value)]="selectedEquipo" (selectionChange)="onEquipoSeleccionado($event.value)">
+      <!-- Campo de búsqueda dentro del desplegable -->
+      <mat-option>
+        <input 
+          matInput 
+          placeholder="Buscar equipo..." 
+          [formControl]="filtroEquipos" 
+          (keydown)="$event.stopPropagation()" 
+          (click)="$event.stopPropagation()" />
+      </mat-option>
+      <!-- Opciones filtradas -->
+      <mat-option *ngFor="let equipo of historialEquiposFiltrados" [value]="equipo">
+        {{ equipo.recurso_equipo }} - {{ equipo.fecha_inicio | date:'dd/MM/yyyy' }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  
+
+</div>
+
+<!-- Formulario de Recursos y Fechas -->
+<div class="formulario-container">
+    <mat-form-field appearance="outline" floatLabel="auto">
+        <mat-label>Recurso</mat-label>
+        <mat-select [(value)]="nuevoEquipo.recurso" (selectionChange)="onRecursoSeleccionado($event.value)" [disabled]="!modoAlta">
+          <!-- Campo de búsqueda dentro del desplegable -->
+          <mat-option>
+            <input 
+              matInput 
+              placeholder="Buscar recurso..." 
+              [formControl]="filtroRecursos" 
+              (keydown)="$event.stopPropagation()" 
+              (click)="$event.stopPropagation()" />
+          </mat-option>
+          <!-- Opciones filtradas -->
+          <mat-option *ngFor="let recurso of recursosFiltrados" [value]="recurso.recurso">
+            {{ recurso.recurso }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    
+    <mat-form-field appearance="outline">
+        <mat-label>Fecha Inicio</mat-label>
+        <input matInput [matDatepicker]="pickerInicio" [disabled]="!modoAlta">
+        <mat-datepicker-toggle matSuffix [for]="pickerInicio"></mat-datepicker-toggle>
+        <mat-datepicker #pickerInicio></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+        <mat-label>Hora Inicio</mat-label>
+        <input matInput type="time" [disabled]="!modoAlta">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+        <mat-label>Fecha Fin</mat-label>
+        <input matInput [matDatepicker]="pickerFin" [disabled]="!modoAlta">
+        <mat-datepicker-toggle matSuffix [for]="pickerFin"></mat-datepicker-toggle>
+        <mat-datepicker #pickerFin></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+        <mat-label>Hora Fin</mat-label>
+        <input matInput type="time" [disabled]="!modoAlta">
+    </mat-form-field>
+    <mat-form-field appearance="outline" floatLabel="auto">
+        <mat-label>Zona Inicio</mat-label>
+        <mat-select [(value)]="nuevoEquipo.zonaInicio" [disabled]="!modoAlta">
+          <!-- Opciones sin filtro -->
+          <mat-option *ngFor="let zona of zonas" [value]="zona.id_zona">
+            {{ zona.id_zona }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      
+      
+
+    <mat-checkbox [(ngModel)]="nuevoEquipo.responsable" [disabled]="!modoAlta">Responsable</mat-checkbox>
+</div>
+
+<!-- Vehículo -->
+<div class="vehiculo">
+    <mat-form-field appearance="outline" floatLabel="auto" class="custom-field">
+        <mat-label>Vehículo</mat-label>
+        <mat-select [(value)]="nuevoEquipo.vehiculo" [disabled]="!modoAlta">
+          <!-- Campo de búsqueda dentro del desplegable -->
+          <mat-option>
+            <input 
+              matInput 
+              placeholder="Buscar vehículo..." 
+              [formControl]="filtroVehiculos" 
+              (keydown)="$event.stopPropagation()" 
+              (click)="$event.stopPropagation()" />
+          </mat-option>
+          <!-- Opciones filtradas -->
+          <mat-option *ngFor="let vehiculo of vehiculosFiltrados" [value]="vehiculo.vehiculo_matricula">
+            {{ vehiculo.vehiculo_descripcion }} ({{ vehiculo.vehiculo_matricula }}) ({{ vehiculo.recurso_vehiculo }})
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      
+      
+      
+    <div class="botones">
+        <!-- Si NO estamos en modo alta ni en modo edición, mostramos los botones normales -->
+        <ng-container *ngIf="!modoAlta && !modoEdicion">
+            <button mat-raised-button color="accent" (click)="iniciarAltaEquipo()">
+                <mat-icon>add</mat-icon> Alta equipo
+            </button>
+            <button mat-raised-button color="primary" (click)="iniciarEdicionRegistro()">
+                <mat-icon>edit</mat-icon> Editar
+            </button>
+            <button mat-raised-button color="warn" (click)="eliminarRegistro()">
+                <mat-icon>delete</mat-icon> Eliminar
+            </button>
+        </ng-container>
+            <!-- Si estamos en modo alta o modo edición, mostramos Confirmar y Cancelar con estilos normales -->
+    <ng-container *ngIf="modoAlta || modoEdicion">
+        <button mat-raised-button color="success" (click)="confirmarAccion()">
+            <mat-icon>check</mat-icon> Confirmar
+        </button>
+        <button mat-raised-button color="warn" (click)="cancelarAccion()">
+            <mat-icon>close</mat-icon> Cancelar
+        </button>
+    </ng-container>
     </div>
+</div>
 
-    <!-- Formulario de Recursos y Fechas -->
-    <div class="formulario-container">
-        <mat-form-field appearance="outline">
-            <mat-label>Recurso</mat-label>
-            <input matInput [(ngModel)]="nuevoEquipo.recurso" name="recurso">
-        </mat-form-field>
 
-        <mat-form-field appearance="outline">
-            <mat-label>Fecha Inicio</mat-label>
-            <input matInput [matDatepicker]="pickerInicio">
-            <mat-datepicker-toggle matSuffix [for]="pickerInicio"></mat-datepicker-toggle>
-            <mat-datepicker #pickerInicio></mat-datepicker>
-        </mat-form-field>
-
-        <mat-form-field appearance="outline">
-            <mat-label>Hora Inicio</mat-label>
-            <input matInput type="time">
-        </mat-form-field>
-
-        <mat-form-field appearance="outline">
-            <mat-label>Fecha Fin</mat-label>
-            <input matInput [matDatepicker]="pickerFin">
-            <mat-datepicker-toggle matSuffix [for]="pickerFin"></mat-datepicker-toggle>
-            <mat-datepicker #pickerFin></mat-datepicker>
-        </mat-form-field>
-
-        <mat-form-field appearance="outline">
-            <mat-label>Hora Fin</mat-label>
-            <input matInput type="time">
-        </mat-form-field>
-
-        <mat-checkbox [(ngModel)]="nuevoEquipo.responsable">Responsable</mat-checkbox>
-    </div>
-
-    <div class="vehiculo">
-        <mat-form-field appearance="outline" class="vehiculo-input">
-            <mat-label>Vehículo</mat-label>
-            <input matInput [(ngModel)]="nuevoEquipo.vehiculo" name="vehiculo">
-        </mat-form-field>
-            <!-- 📌 Contenedor de los botones de acción -->
-            <div class="acciones">
-                <button mat-raised-button color="accent" (click)="agregarEquipo()">
-                    <mat-icon>add</mat-icon> Nuevo equipo
-                </button>
-                <button mat-raised-button color="primary" (click)="editarRegistro()">
-                    <mat-icon>edit</mat-icon> Editar
-                </button>
-                <button mat-raised-button color="warn" (click)="eliminarRegistro()">
-                    <mat-icon>delete</mat-icon> Eliminar
-                </button>
-            </div>
-    </div>
-
-        <!-- Tabla de registros -->
-        <div class="mat-elevation-z8">
-            <table mat-table [dataSource]="dataSource" matSort class="styled-table">
-                <!-- Definir las columnas de la tabla -->
-                <ng-container *ngFor="let column of columns" [matColumnDef]="column.columnDef">
-                    <th mat-header-cell *matHeaderCellDef class="header-cell">
-                        {{ column.header }}
-                    </th>
-                    <td mat-cell *matCellDef="let row">
-                        {{ column.cell(row) }}
-                    </td>
-                </ng-container>
+<!-- Tabla de registros -->
+<div class="mat-elevation-z8">
+    <table mat-table [dataSource]="dataSource" matSort class="styled-table">
+        <!-- Definir las columnas de la tabla -->
+        <ng-container matColumnDef="nombre">
+            <th mat-header-cell *matHeaderCellDef class="header-cell">Nombre</th>
+            <td mat-cell *matCellDef="let row">
+                <mat-form-field appearance="outline" class="nombre-field">
+                    <mat-select [(ngModel)]="row.nombre" (selectionChange)="onPersonalSeleccionado(row, $event.value)">
+                        <!-- Campo de búsqueda dentro del desplegable -->
+                        <mat-option>
+                            <input 
+                                matInput 
+                                placeholder="Buscar nombre..." 
+                                [formControl]="filtroNombres" 
+                                (keydown)="$event.stopPropagation()" 
+                                (click)="$event.stopPropagation()">
+                        </mat-option>
+                        <!-- Opciones filtradas -->
+                        <mat-option *ngFor="let personal of personalFiltrado" [value]="personal">
+                            {{ personal.nombre }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </td>
+        </ng-container>
         
-                <!-- Encabezado de la tabla -->
-                <tr mat-header-row *matHeaderRowDef="displayedColumns" class="header-row"></tr>
-                <!-- Filas de la tabla -->
-                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        <ng-container matColumnDef="extension">
+            <th mat-header-cell *matHeaderCellDef class="header-cell">Extensión</th>
+            <td mat-cell *matCellDef="let row">
+                <span>{{ row.extension }}</span>
+            </td>
+        </ng-container>
         
-                <!-- Mensaje cuando no hay datos -->
-                <tr class="mat-row" *matNoDataRow>
-                    <td class="mat-cell" colspan="6">No hay datos disponibles</td>
-                </tr>
-            </table>
-            
-            <!-- Paginador -->
-            <mat-paginator 
-            [pageSizeOptions]="[10, 25, 100]" 
-            aria-label="Select page of users"
-            style="background-color: lightgrey !important;">
-        </mat-paginator>
-        </div>
+        <ng-container matColumnDef="telefono1">
+            <th mat-header-cell *matHeaderCellDef class="header-cell">Teléfono 1</th>
+            <td mat-cell *matCellDef="let row">
+                <span>{{ row.telefono1 }}</span>
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef="telefono2">
+            <th mat-header-cell *matHeaderCellDef class="header-cell">Teléfono 2</th>
+            <td mat-cell *matCellDef="let row">{{ row.telefono2 }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="ocupacion">
+            <th mat-header-cell *matHeaderCellDef class="header-cell">Ocupación</th>
+            <td mat-cell *matCellDef="let row">{{ row.ocupacion }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="departamento">
+            <th mat-header-cell *matHeaderCellDef class="header-cell">Departamento</th>
+            <td mat-cell *matCellDef="let row">{{ row.departamento }}</td>
+        </ng-container>
+
+        <!-- Encabezado de la tabla -->
+        <tr mat-header-row *matHeaderRowDef="displayedColumns" class="header-row"></tr>
+        <!-- Filas de la tabla -->
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+        <!-- Mensaje cuando no hay datos -->
+        <tr class="mat-row" *matNoDataRow>
+            <td class="mat-cell" colspan="6">Pulsa en Alta equipo para añadir integrantes</td>
+        </tr>
+    </table>
+</div>
+

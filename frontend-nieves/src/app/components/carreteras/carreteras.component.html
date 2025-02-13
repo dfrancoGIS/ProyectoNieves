@@ -3,7 +3,12 @@
 
     <mat-sidenav-content>
         <div class="referencia">
-            <p>Estado de las Carreteras</p>         
+            <p>Estado de las Carreteras</p>
+            <!-- Campo de búsqueda -->
+            <mat-form-field class="search-field" appearance="outline">
+                <mat-label>Buscar carretera</mat-label>
+                <input matInput (input)="filtrarPorNombreODireccion($event)" placeholder="Nombre o Dirección">
+            </mat-form-field>         
         </div>
 
         <!-- Contenedor de las prioridades -->
@@ -59,7 +64,6 @@
                 </mat-select>
             </mat-form-field>
             
-        
             <!-- Botón de Aplicar Cambio -->
             <div class="boton-guardar">
                 <button mat-raised-button color="primary" (click)="actualizarEstados()">Guardar Cambios</button>
