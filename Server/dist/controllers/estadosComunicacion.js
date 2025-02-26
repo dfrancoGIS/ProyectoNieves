@@ -9,14 +9,36 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.registrarEstadoComunicacion = exports.getEstadosComunicacion = void 0;
+exports.editarEstadoComunicacionHandler = exports.insertarEstadoComunicacionController = exports.eliminarEstadoComunicacionHandler = exports.obtenerEstadosComunicacionPorCampania = exports.getEstadosComunicacion = void 0;
 const estadosComunicacion_1 = require("../models/estadosComunicacion");
-/**
- * Controlador para obtener todos los estados de comunicación de la última campaña activa.
- */
 const getEstadosComunicacion = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const estados = yield (0, estadosComunicacion_1.getAllEstadosComunicacion)();
+        const estadosComunicacion = yield (0, estadosComunicacion_1.getEstadosComunicacionUltimaCampania)();
+        res.status(200).json({
+            msg: '✅ Estados de comunicación obtenidos correctamente',
+            data: estadosComunicacion,
+        });
+    }
+    catch (error) {
+        console.error('❌ Error al obtener estados de comunicación:', error);
+        res.status(500).json({
+            msg: '❌ Error interno en la API',
+            error: error instanceof Error ? error.message : error,
+        });
+    }
+});
+exports.getEstadosComunicacion = getEstadosComunicacion;
+/**
+ * Controlador para obtener estados de comunicación por campaña
+ */
+const obtenerEstadosComunicacionPorCampania = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const { tituloCampana } = req.query;
+        if (!tituloCampana) {
+            res.status(400).json({ msg: '⚠️ Debes proporcionar un título de campaña' });
+            return;
+        }
+        const estados = yield (0, estadosComunicacion_1.getEstadosComunicacionPorCampania)(tituloCampana);
         res.status(200).json({
             msg: '✅ Estados de comunicación obtenidos correctamente',
             data: estados,
@@ -25,29 +47,67 @@ const getEstadosComunicacion = (req, res) => __awaiter(void 0, void 0, void 0, f
     catch (error) {
         console.error('❌ Error al obtener estados de comunicación:', error);
         res.status(500).json({
-            msg: '❌ Error al obtener estados de comunicación',
+            msg: '❌ Error interno en la API',
             error: error instanceof Error ? error.message : error,
         });
     }
 });
-exports.getEstadosComunicacion = getEstadosComunicacion;
-/**
- * Controlador para registrar un nuevo estado de comunicación.
- */
-const registrarEstadoComunicacion = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+exports.obtenerEstadosComunicacionPorCampania = obtenerEstadosComunicacionPorCampania;
+const eliminarEstadoComunicacionHandler = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        console.log("📥 Datos recibidos en la solicitud:", req.body);
-        const { descripcion } = req.body;
-        if (!descripcion) {
-            res.status(400).json({ msg: "❌ La descripción del estado es obligatoria" });
-            return;
-        }
-        yield (0, estadosComunicacion_1.registrarNuevoEstadoComunicacion)(descripcion);
-        res.json({ msg: "✅ Estado de comunicación registrado correctamente" });
+        const { id_estado_comunicacion } = req.params; // ID del estado de comunicación desde la URL
+        console.log('ID recibido para eliminar en el backend:', id_estado_comunicacion); // Debug
+        yield (0, estadosComunicacion_1.eliminarEstadoComunicacion)(Number(id_estado_comunicacion)); // Llamada a la función del modelo
+        res.status(200).json({
+            msg: '✅ Estado de comunicación eliminado correctamente',
+        });
     }
     catch (error) {
-        console.error("❌ Error al registrar el estado de comunicación:", error);
-        res.status(500).json({ msg: "❌ Error al registrar el estado de comunicación", error });
+        console.error('❌ Error al eliminar estado de comunicación:', error);
+        res.status(500).json({
+            msg: '❌ Error interno en la API',
+            error: error instanceof Error ? error.message : error,
+        });
     }
 });
-exports.registrarEstadoComunicacion = registrarEstadoComunicacion;
+exports.eliminarEstadoComunicacionHandler = eliminarEstadoComunicacionHandler;
+const insertarEstadoComunicacionController = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { descripcion_estado_comunicacion, id_campania_estados_comunicacion } = req.body;
+    try {
+        yield (0, estadosComunicacion_1.insertarEstadoComunicacion)(descripcion_estado_comunicacion, id_campania_estados_comunicacion);
+        res.status(200).json({ msg: '✅ Estado de comunicación añadido correctamente' });
+    }
+    catch (error) {
+        console.error('❌ Error al añadir estado de comunicación:', error);
+        res.status(500).json({
+            msg: '❌ Error interno en la API',
+            error: error instanceof Error ? error.message : error,
+        });
+    }
+});
+exports.insertarEstadoComunicacionController = insertarEstadoComunicacionController;
+// Controlador para editar el registro de estado_comunicacion
+const editarEstadoComunicacionHandler = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { id } = req.params; // Extrae el ID del estado de comunicación desde los parámetros de la URL
+    const datos = req.body; // Los datos de la actualización vienen en el cuerpo de la solicitud
+    // Asegúrate de que el ID esté presente
+    if (!id) {
+        res.status(400).json({ msg: '❌ Falta el ID del estado de comunicación a editar' });
+        return;
+    }
+    try {
+        // Llama al modelo para realizar la actualización
+        yield (0, estadosComunicacion_1.editarEstadoComunicacion)(id, datos);
+        res.status(200).json({ msg: '✅ Registro actualizado correctamente' });
+    }
+    catch (error) {
+        // Maneja los errores de manera apropiada
+        if (error instanceof Error) {
+            res.status(500).json({ msg: '❌ Error al actualizar el registro', error: error.message });
+        }
+        else {
+            res.status(500).json({ msg: '❌ Error desconocido al actualizar el registro' });
+        }
+    }
+});
+exports.editarEstadoComunicacionHandler = editarEstadoComunicacionHandler;

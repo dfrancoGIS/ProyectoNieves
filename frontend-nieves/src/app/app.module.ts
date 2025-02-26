@@ -64,6 +64,10 @@ import { MantenimientoTablasDialogComponent } from './dialogs/mantenimiento-tabl
 import { EstacionesMeteorologicasComponent } from './components/estaciones-meteorologicas/estaciones-meteorologicas.component';
 import { HistorialEstacionDialogComponent } from './dialogs/historial-estacion-dialog/historial-estacion-dialog.component';
 import { ConfirmDialogComponent } from './dialogs/confirm-dialog/confirm-dialog.component';
+import { AddMatenimientoDialogComponent } from './dialogs/add-matenimiento-dialog/add-matenimiento-dialog.component';
+import { EditMantenimientoDialogComponent } from './dialogs/edit-mantenimiento-dialog/edit-mantenimiento-dialog.component';
+import { HistoricoMantenimientoTablasComponent } from './dialogs/historico-mantenimiento-tablas/historico-mantenimiento-tablas.component';
+
 
 
 @NgModule({
@@ -89,7 +93,10 @@ import { ConfirmDialogComponent } from './dialogs/confirm-dialog/confirm-dialog.
     MantenimientoTablasDialogComponent,
     EstacionesMeteorologicasComponent,
     HistorialEstacionDialogComponent,
-    ConfirmDialogComponent, 
+    ConfirmDialogComponent,
+    AddMatenimientoDialogComponent,
+    EditMantenimientoDialogComponent,
+    HistoricoMantenimientoTablasComponent,
   ],
   imports: [
     BrowserModule,
@@ -126,7 +133,7 @@ import { ConfirmDialogComponent } from './dialogs/confirm-dialog/confirm-dialog.
     DragDropModule,
     MatCardModule,
     MatTabsModule,
-    NgxMatSelectSearchModule
+    NgxMatSelectSearchModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

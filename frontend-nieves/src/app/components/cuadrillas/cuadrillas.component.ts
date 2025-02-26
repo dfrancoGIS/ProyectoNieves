@@ -6,6 +6,26 @@ import { Component } from '@angular/core';
   styleUrls: ['./cuadrillas.component.scss']
 })
 export class CuadrillasComponent {
+modoAlta: any;
+modoEdicion: any;
+iniciarAltaTurno() {
+throw new Error('Method not implemented.');
+}
+cancelarAccion() {
+throw new Error('Method not implemented.');
+}
+confirmarAccion() {
+throw new Error('Method not implemented.');
+}
+eliminarEquipo() {
+throw new Error('Method not implemented.');
+}
+iniciarEdicionEquipo() {
+throw new Error('Method not implemented.');
+}
+iniciarAltaEquipo() {
+throw new Error('Method not implemented.');
+}
   selectedEquipo: any = null;
   selectedCarretera: any = null;
   selectedTurno: any = null;

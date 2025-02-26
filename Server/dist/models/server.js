@@ -32,6 +32,8 @@ const tenerCta_1 = __importDefault(require("../routes/tenerCta"));
 const stationRoutes_1 = __importDefault(require("../routes/stationRoutes"));
 const cors_1 = __importDefault(require("cors"));
 const historialEquipos_1 = __importDefault(require("../routes/historialEquipos"));
+const campanias_1 = __importDefault(require("../routes/campanias"));
+const recursosCuadrillas_1 = __importDefault(require("../routes/recursosCuadrillas"));
 const connection_1 = __importDefault(require("../db/connection"));
 class Server {
     constructor() {
@@ -63,6 +65,7 @@ class Server {
         this.app.use('/api/tareas', tareas_1.default);
         this.app.use('/api/tablas-mantenimiento', tablasMantenimiento_1.default);
         this.app.use('/api/recursos', recursos_1.default);
+        this.app.use('/api/recursosCuadrillas', recursosCuadrillas_1.default);
         this.app.use('/api/personal', personal_1.default);
         this.app.use('/api/estadosComunicacion', estadosComunicacion_1.default);
         this.app.use('/api/equipoPersonal', equipoPersonal_1.default);
@@ -70,6 +73,7 @@ class Server {
         this.app.use('/api/tener-cta', tenerCta_1.default);
         this.app.use('/api', stationRoutes_1.default);
         this.app.use('/api/historial', historialEquipos_1.default);
+        this.app.use('/api/campanias', campanias_1.default);
     }
     middlewares() {
         this.app.use(express_1.default.json()); // 👈 Esto debe estar antes de las rutas

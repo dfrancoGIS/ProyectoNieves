@@ -5,7 +5,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { FormControl } from '@angular/forms'; // Para el filtro en selectores
 import { ConfirmDialogComponent } from '../../../dialogs/confirm-dialog/confirm-dialog.component';
 import { PersonalService } from '../../../services/personal.service';
-import { HistorialEquiposService } from '../../../services/historial-equipos.service';
+
 
 @Component({
   selector: 'app-equipos-nuevos',
@@ -22,11 +22,6 @@ export class EquiposNuevosComponent implements OnInit, OnDestroy {
   personalData: any[] = [];
   filtroNombres = new FormControl('');
   personalFiltrado: any[] = [];
-  historialEquipos: any[] = [];  // Para almacenar el historial de equipos
-  selectedEquipo: any = null;
-  filtroEquipos = new FormControl(''); // Control de filtro para los equipos
-  historialEquiposFiltrados: any[] = []; // Equipos filtrados para el desplegable
-
   
 
   // 🔹 Control de modos
@@ -39,12 +34,8 @@ export class EquiposNuevosComponent implements OnInit, OnDestroy {
     recurso: '',
     responsable: false,
     vehiculo: '',
-    estado: 'pendiente',
+    estado: 'pendiente', 
     zonaInicio: '',
-    fechaInicio: '',
-    horaInicio: '',
-    fechaFin: '',
-    horaFin: ''
   };
 
   // 🔹 Gestión de recursos y vehículos
@@ -61,7 +52,6 @@ export class EquiposNuevosComponent implements OnInit, OnDestroy {
     private equiposService: EquiposService,
     public dialog: MatDialog,
     private personalService: PersonalService,
-    private historialEquiposService: HistorialEquiposService
   ) {}
 
   ngOnInit() {
@@ -71,8 +61,6 @@ export class EquiposNuevosComponent implements OnInit, OnDestroy {
     // Inicializar recursos y vehículos desde el backend
     this.cargarRecursos();
     this.cargarVehiculos();
-
-    this.obtenerHistorialEquipos();
 
     // Filtrar recursos en tiempo real
     this.filtroRecursos.valueChanges.subscribe({
@@ -111,14 +99,6 @@ export class EquiposNuevosComponent implements OnInit, OnDestroy {
         error: (err) => {
           console.error('Error al cargar las zonas:', err);
         }
-      });
-      this.filtroEquipos.valueChanges.subscribe({
-        next: (value) => {
-          this.historialEquiposFiltrados = this.historialEquipos.filter((equipo) =>
-            equipo.recurso_equipo.toLowerCase().includes(value?.toLowerCase() || '')
-          );
-        },
-        error: (err) => console.error('Error en filtro de equipos:', err),
       });
   }
 
@@ -225,10 +205,6 @@ export class EquiposNuevosComponent implements OnInit, OnDestroy {
       vehiculo: '',
       estado: 'pendiente',
       zonaInicio: '',
-      fechaInicio: '',
-      horaInicio: '',
-      fechaFin: '',
-      horaFin: ''
     };
   }
 
@@ -330,39 +306,7 @@ export class EquiposNuevosComponent implements OnInit, OnDestroy {
       }
     ];
   }
-  obtenerHistorialEquipos(): void {
-    this.historialEquiposService.getHistorialEquipos().subscribe(
-      (response) => {
-        this.historialEquipos = response.data || [];  // Asegúrate de que esta respuesta sea la correcta
-        this.historialEquiposFiltrados = [...this.historialEquipos]; // Llenamos los equipos filtrados
-      },
-      (error) => {
-        console.error('Error al obtener historial de equipos:', error);
-      }
-    );
-  }
 
-  // Método para seleccionar el equipo y actualizar los campos
-  onEquipoSeleccionado(equipo: any): void {
-    this.selectedEquipo = equipo; // Establece el equipo seleccionado
-    this.actualizarCamposEquipo();  // Llama a la función para actualizar los campos
-  }
-  
-  actualizarCamposEquipo(): void {
-    if (this.selectedEquipo) {
-      this.nuevoEquipo.recurso = this.selectedEquipo.recurso_equipo;
-      this.nuevoEquipo.fechaInicio = this.selectedEquipo.fecha_inicio;
-      this.nuevoEquipo.horaInicio = this.selectedEquipo.hora_inicio;
-      this.nuevoEquipo.fechaFin = this.selectedEquipo.fecha_fin;
-      this.nuevoEquipo.horaFin = this.selectedEquipo.hora_fin;
-      this.nuevoEquipo.zonaInicio = this.selectedEquipo.zona_inicio;
-      this.nuevoEquipo.vehiculo = this.selectedEquipo.descripcion_vehiculo;
-      this.nuevoEquipo.responsable = this.selectedEquipo.responsable;
-      this.dataSource.data = this.selectedEquipo.personal || [];
-    }
-  }
   
 }
-  
-
 

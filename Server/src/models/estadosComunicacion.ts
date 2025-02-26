@@ -1,42 +1,86 @@
 import sequelize from '../db/connection';
 import { QueryTypes } from 'sequelize';
-import { getLastCampaignId } from './equipos';
 
-/**
- * Obtiene todos los estados de comunicación disponibles en la última campaña activa.
- */
-export async function getAllEstadosComunicacion() {
-    const idCampania = await getLastCampaignId();
-    if (!idCampania) {
-        throw new Error("No hay campañas activas disponibles.");
-    }
-
-    return sequelize.query(
-        `SELECT Id_Estado_Comunicacion, Descripcion_Estado_Comunicacion, Id_Campania_Estados_Comunicacion
-         FROM Estados_Comunicacion
-         WHERE Id_Campania_Estados_Comunicacion = :idCampania`,
-        { 
-            replacements: { idCampania }, 
-            type: QueryTypes.SELECT 
-        }
-    );
+// Función para obtener los estados de comunicación asociados al último id_campania_estados_comunicacion
+export function getEstadosComunicacionUltimaCampania() {
+  return sequelize.query(
+    `
+    SELECT *
+    FROM dbo.estados_comunicacion
+    WHERE id_campania_estados_comunicacion = (
+      SELECT MAX(id_campania_estados_comunicacion)
+      FROM dbo.estados_comunicacion
+    )
+    `,
+    { type: QueryTypes.SELECT }
+  );
 }
 
 /**
- * Inserta un nuevo estado de comunicación en la base de datos.
+ * Obtener los estados de comunicación filtrados por campaña llamando a la función almacenada
  */
-export async function registrarNuevoEstadoComunicacion(descripcion: string) {
-    const idCampania = await getLastCampaignId();
-    if (!idCampania) {
-        throw new Error("No hay campañas activas disponibles.");
+export function getEstadosComunicacionPorCampania(tituloCampana: string) {
+  return sequelize.query(
+    `
+    SELECT * FROM dbo.filtrar_estados_comunicacion_por_campania(:tituloCampana);
+    `,
+    {
+      replacements: { tituloCampana },
+      type: QueryTypes.SELECT,
     }
+  );
+}
 
-    return sequelize.query(
-        `INSERT INTO Estados_Comunicacion (Descripcion_Estado_Comunicacion, Id_Campania_Estados_Comunicacion)
-         VALUES (:descripcion, :idCampania)`,
-        {
-            replacements: { descripcion, idCampania },
-            type: QueryTypes.INSERT,
-        }
-    );
+// Función para eliminar un estado de comunicación por su ID
+export function eliminarEstadoComunicacion(id_estado_comunicacion: number): Promise<void> {
+  return sequelize.query(
+    `
+    CALL dbo.eliminar_estado_comunicacion(:id_estado_comunicacion);
+    `,
+    {
+      replacements: { id_estado_comunicacion },  // Usar la variable de reemplazo para evitar inyección
+      type: QueryTypes.RAW,
+    }
+  ).then(() => {
+    // No necesitamos devolver nada, solo indicamos que se completó
+  });
+}
+
+// Función para insertar un nuevo estado de comunicación
+export function insertarEstadoComunicacion(descripcion_estado_comunicacion: string, id_campania_estados_comunicacion: number) {
+  return sequelize.query(
+    'CALL dbo.insertar_estado_comunicacion(:descripcion_estado_comunicacion, :id_campania_estados_comunicacion)',
+    {
+      replacements: { descripcion_estado_comunicacion, id_campania_estados_comunicacion },
+      type: QueryTypes.RAW,
+    }
+  );
+}
+
+export async function editarEstadoComunicacion(id: string, datos: any): Promise<void> {
+  try {
+    // Realizamos la consulta para actualizar el estado de comunicación
+    await sequelize.query(
+      `
+      UPDATE dbo.estados_comunicacion
+      SET 
+        descripcion_estado_comunicacion = :descripcion_estado_comunicacion,
+        id_campania_estados_comunicacion = :id_campania_estados_comunicacion
+      WHERE id_estado_comunicacion = :id
+      `,
+      {
+        replacements: {
+          id,
+          descripcion_estado_comunicacion: datos.descripcion_estado_comunicacion,
+          id_campania_estados_comunicacion: datos.id_campania_estados_comunicacion
+        },
+        type: QueryTypes.UPDATE,
+      });
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      throw new Error('Error al actualizar el estado de comunicación: ' + error.message);
+    } else {
+      throw new Error('Error desconocido al actualizar el estado de comunicación');
+    }
+  }
 }

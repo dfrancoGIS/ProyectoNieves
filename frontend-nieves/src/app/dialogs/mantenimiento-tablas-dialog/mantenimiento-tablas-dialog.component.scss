@@ -31,7 +31,7 @@ h1 {
     padding-right: 2rem;
 }
 
-/* Contenedor de la tabla con scroll */
+/* Asegurar scroll horizontal en el contenedor */
 .tabla-container {
     margin: 1rem 1.5rem;
     border-radius: 5px;
@@ -39,24 +39,27 @@ h1 {
     background-color: white;
     max-height: 350px; /* Limitamos la altura */
     padding: 1rem;
-    overflow-x: auto;
+    overflow-x: auto; /* Habilitar scroll horizontal */
+    overflow-y: hidden; /* Evitar scroll vertical en el contenedor principal */
 }
+
 
 /* Contenedor del scroll solo para las filas */
 .tabla-scroll {
     max-height: 300px; /* Ajusta para que el encabezado se mantenga visible */
-    overflow-y: auto;
-    overflow-x: auto;
+    overflow-y: auto; /* Scroll vertical solo para las filas */
+    overflow-x: auto; /* Scroll horizontal activado */
     position: relative;
+    white-space: nowrap; /* Evitar que las columnas se rompan en líneas */
 }
 
 /* Asegurar que la tabla ocupe todo el ancho disponible */
 .styled-table {
     border-collapse: collapse;
     width: 100%;
-    min-width: 700px; /* Permitir scroll horizontal */
+    min-width: 1000px; /* Ancho mínimo de la tabla para habilitar scroll horizontal */
     background-color: white;
-    table-layout: fixed; /* Asegurar que las columnas mantengan su ancho */
+    table-layout: auto; /* Ajustar dinámicamente el ancho de las columnas */
 }
 
 /* Fijar el encabezado */
@@ -77,6 +80,12 @@ h1 {
     padding: 10px;
     text-align: left;
     border-bottom: 2px solid #ccc;
+}
+
+.styled-table td {
+    text-align: left;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
 }
 
 /* Asegurar alineación correcta */
@@ -110,3 +119,9 @@ h1 {
     padding: 1rem;
     margin-top: 1rem;
 }
+
+/* Estilo para la fila seleccionada */
+tr.selected {
+    background-color: lightblue;
+  }
+  

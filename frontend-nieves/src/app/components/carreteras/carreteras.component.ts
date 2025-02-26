@@ -48,7 +48,7 @@ export class CarreterasComponent implements OnInit {
     cargarEstados() {
         this.carreterasService.getEstados().subscribe({
             next: (response: any) => {
-                this.estados = response.data.map((estado: any) => estado.nombre); // Extrae solo los nombres de los estados
+                this.estados = response.data.map((estado: any) => estado.descripcion_estado); // Extrae solo los nombres de los estados
                 console.log('Estados cargados:', this.estados); // Para depuración
             },
             error: (error) => {

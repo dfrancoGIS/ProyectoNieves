@@ -36,70 +36,58 @@
                             </mat-option>
                         </mat-select>
                     </mat-form-field>
+                                    <!-- Botones de acción -->
+                <div class="fila8">
+                    <div class="botones">
+                        <ng-container *ngIf="!modoAlta && !modoEdicion">
+                            <button mat-raised-button color="accent" (click)="iniciarAltaEquipo()">
+                                <mat-icon>add</mat-icon> Alta cuadrilla
+                            </button>
+                            <button mat-raised-button color="primary" (click)="iniciarEdicionEquipo()">
+                                <mat-icon>edit</mat-icon> Modificar
+                            </button>
+                            <button mat-raised-button color="warn" (click)="eliminarEquipo()">
+                                <mat-icon>delete</mat-icon> Eliminar
+                            </button>
+                        </ng-container>
+
+                        <ng-container *ngIf="modoAlta || modoEdicion">
+                            <button mat-raised-button color="success" (click)="confirmarAccion()">
+                                <mat-icon>check</mat-icon> Confirmar
+                            </button>
+                            <button mat-raised-button color="warn" (click)="cancelarAccion()">
+                                <mat-icon>close</mat-icon> Cancelar
+                            </button>
+                        </ng-container>
+                    </div>
                 </div>
+                </div>
+                
 
                 <div class="fila2">
                     <mat-form-field appearance="outline">
                         <mat-label>Nombre equipo</mat-label>
-                        <input matInput [(ngModel)]="equipoActual.nombre">
+                        <input matInput [(ngModel)]="equipoActual.nombre" readonly>
                     </mat-form-field>
                     <mat-form-field appearance="outline">
                         <mat-label>Cuadrilla</mat-label>
-                        <input matInput [(ngModel)]="equipoActual.cuadrilla">
+                        <input matInput [(ngModel)]="equipoActual.cuadrilla" readonly>
                     </mat-form-field>
                     <mat-form-field appearance="outline">
                         <mat-label>Localidad</mat-label>
-                        <input matInput [(ngModel)]="equipoActual.localidad">
+                        <input matInput [(ngModel)]="equipoActual.localidad" readonly>
                     </mat-form-field>
-                    <mat-checkbox [(ngModel)]="equipoActual.responsable">Responsable</mat-checkbox>
-                </div>
-
-                <div class="fila3">
-                    <mat-form-field appearance="outline">
-                        <mat-label>Nombre</mat-label>
-                        <input matInput [(ngModel)]="equipoActual.nombreContacto">
-                    </mat-form-field>
-                    <mat-form-field appearance="outline">
-                        <mat-label>Teléfono 1</mat-label>
-                        <input matInput [(ngModel)]="equipoActual.tfno1">
-                    </mat-form-field>
-                    <mat-form-field appearance="outline">
-                        <mat-label>Teléfono 2</mat-label>
-                        <input matInput [(ngModel)]="equipoActual.tfno2">
-                    </mat-form-field>
-                    <mat-form-field appearance="outline">
-                        <mat-label>Teléfono 3</mat-label>
-                        <input matInput [(ngModel)]="equipoActual.tfno3">
-                    </mat-form-field>
-                </div>
-
-                <div class="fila4">
-                    <mat-form-field appearance="outline">
-                        <mat-label>Nombre</mat-label>
-                        <input matInput [(ngModel)]="equipoActual.nombreContacto">
-                    </mat-form-field>
-                    <mat-form-field appearance="outline">
-                        <mat-label>Teléfono 1</mat-label>
-                        <input matInput [(ngModel)]="equipoActual.tfno1">
-                    </mat-form-field>
-                    <mat-form-field appearance="outline">
-                        <mat-label>Teléfono 2</mat-label>
-                        <input matInput [(ngModel)]="equipoActual.tfno2">
-                    </mat-form-field>
-                    <mat-form-field appearance="outline">
-                        <mat-label>Teléfono 3</mat-label>
-                        <input matInput [(ngModel)]="equipoActual.tfno3">
-                    </mat-form-field>
+                    <mat-checkbox [(ngModel)]="equipoActual.responsable" disabled>Responsable</mat-checkbox>
                 </div>
 
                 <div class="fila6">
                     <mat-form-field appearance="outline">
                         <mat-label>Vehículo</mat-label>
-                        <input matInput [(ngModel)]="equipoActual.vehiculo">
+                        <input matInput [(ngModel)]="equipoActual.vehiculo" readonly>
                     </mat-form-field>
                 </div>
+
                 <div class="fila7">
-                    <!-- Tabla de carreteras a tratar -->
                     <div class="tabla-container">
                         <mat-card-title>Carreteras a tratar</mat-card-title>
                         <table mat-table [dataSource]="carreteras" class="mat-elevation-z8">
@@ -111,19 +99,6 @@
                             <tr mat-header-row *matHeaderRowDef="['nombre']"></tr>
                             <tr mat-row *matRowDef="let row; columns: ['nombre'];"></tr>
                         </table>
-                    </div>
-                
-                    <!-- Botones de acción -->
-                    <div class="acciones">
-                        <button mat-icon-button matTooltip="Visualizar" (click)="visualizarCarretera()">
-                            <mat-icon>visibility</mat-icon>
-                        </button>
-                        <button mat-icon-button matTooltip="Añadir" (click)="agregarCarretera()">
-                            <mat-icon>add</mat-icon>
-                        </button>
-                        <button mat-icon-button matTooltip="Eliminar" (click)="eliminarCarretera()">
-                            <mat-icon>delete</mat-icon>
-                        </button>
                     </div>
                 </div>
             </mat-tab>
@@ -140,6 +115,22 @@
                             </mat-option>
                         </mat-select>
                     </mat-form-field>
+                    <div class="botones">
+                        <ng-container *ngIf="!modoAlta && !modoEdicion">
+                            <button mat-raised-button color="accent" (click)="iniciarAltaTurno()">
+                                <mat-icon>add</mat-icon> Alta turno
+                            </button>
+                        </ng-container>
+                   <!-- Si estamos en modo alta o modo edición, mostramos Confirmar y Cancelar -->
+                        <ng-container *ngIf="modoAlta || modoEdicion">
+                            <button mat-raised-button color="success" (click)="confirmarAccion()">
+                                <mat-icon>check</mat-icon> Confirmar
+                            </button>
+                            <button mat-raised-button color="warn" (click)="cancelarAccion()">
+                                <mat-icon>close</mat-icon> Cancelar
+                            </button>
+                        </ng-container>
+                    </div>
                 </div>
             
                 <!-- Tabla de turnos -->
@@ -148,51 +139,38 @@
                         <table mat-table [dataSource]="turnos" class="mat-elevation-z8">
                             
                             <!-- Fecha Inicio -->
-                            <ng-container matColumnDef="fechaInicio">
-                                <th mat-header-cell *matHeaderCellDef> Fecha Inicio </th>
+                            <ng-container matColumnDef="fechaInicio" >
+                                <th mat-header-cell *matHeaderCellDef style="background-color: lightgrey;"> Fecha Inicio </th>
                                 <td mat-cell *matCellDef="let row"> {{ row.fechaInicio }} </td>
                             </ng-container>
             
                             <!-- Hora Inicio -->
                             <ng-container matColumnDef="horaInicio">
-                                <th mat-header-cell *matHeaderCellDef> Hora Inicio </th>
+                                <th mat-header-cell *matHeaderCellDef style="background-color: lightgrey;"> Hora Inicio </th>
                                 <td mat-cell *matCellDef="let row"> {{ row.horaInicio }} </td>
                             </ng-container>
             
                             <!-- Fecha Fin -->
                             <ng-container matColumnDef="fechaFin">
-                                <th mat-header-cell *matHeaderCellDef> Fecha Fin </th>
+                                <th mat-header-cell *matHeaderCellDef style="background-color: lightgrey;"> Fecha Fin </th>
                                 <td mat-cell *matCellDef="let row"> {{ row.fechaFin }} </td>
                             </ng-container>
             
                             <!-- Hora Fin -->
-                            <ng-container matColumnDef="horaFin">
-                                <th mat-header-cell *matHeaderCellDef> Hora Fin </th>
+                            <ng-container matColumnDef="horaFin" >
+                                <th mat-header-cell *matHeaderCellDef style="background-color: lightgrey;"> Hora Fin </th>
                                 <td mat-cell *matCellDef="let row"> {{ row.horaFin }} </td>
                             </ng-container>
             
                             <!-- Observaciones -->
                             <ng-container matColumnDef="observaciones">
-                                <th mat-header-cell *matHeaderCellDef> Observaciones </th>
+                                <th mat-header-cell *matHeaderCellDef style="background-color: lightgrey;"> Observaciones </th>
                                 <td mat-cell *matCellDef="let row"> {{ row.observaciones }} </td>
                             </ng-container>
             
                             <tr mat-header-row *matHeaderRowDef="['fechaInicio', 'horaInicio', 'fechaFin', 'horaFin', 'observaciones']"></tr>
                             <tr mat-row *matRowDef="let row; columns: ['fechaInicio', 'horaInicio', 'fechaFin', 'horaFin', 'observaciones'];"></tr>
                         </table>
-                    </div>
-            
-                    <!-- Botones de acción -->
-                    <div class="acciones">
-                        <button mat-icon-button matTooltip="Añadir Turno" (click)="agregarTurno()">
-                            <mat-icon>add</mat-icon>
-                        </button>
-                        <button mat-icon-button matTooltip="Editar Turno" (click)="editarTurno(selectedTurno)">
-                            <mat-icon>edit</mat-icon>
-                        </button>
-                        <button mat-icon-button matTooltip="Eliminar Turno" (click)="eliminarTurno(selectedTurno)">
-                            <mat-icon>delete</mat-icon>
-                        </button>
                     </div>
                 </div>
                 <div class="fila8">

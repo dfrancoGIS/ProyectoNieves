@@ -33,7 +33,7 @@ export class EditarCarreteraDialogComponent implements OnInit {
     cargarEstados() {
         this.carreterasService.getEstados().subscribe({
             next: (response: any) => {
-                this.estados = response.data.map((estado: any) => estado.nombre); // Extraer los nombres de los estados
+                this.estados = response.data.map((estado: any) => estado.descripcion_estado); // Extraer los nombres de los estados
             },
             error: (error: any) => {
                 console.error('Error al obtener los estados:', error);

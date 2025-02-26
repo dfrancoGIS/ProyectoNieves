@@ -39,30 +39,63 @@
                     <th mat-header-cell *matHeaderCellDef [style.background-color]="'lightgrey'"> Vehículo </th>
                     <td mat-cell *matCellDef="let row"> {{ row.vehiculo }} </td>
                 </ng-container>
-
+        
                 <tr mat-header-row *matHeaderRowDef="displayedColumnsSuperior"></tr>
-                <tr mat-row *matRowDef="let row; columns: displayedColumnsSuperior;"></tr>
+                <tr
+                mat-row
+                *matRowDef="let row; columns: displayedColumnsSuperior;"
+                [style.background-color]="row === retenSeleccionado ? 'lightblue' : ''"
+                (click)="seleccionarReten(row)"
+              >
+              </tr>
             </table>
         </div>
-
-        <!-- Filtros y selecciones -->
-        <div class="encabezado">
-            <mat-form-field appearance="outline" class="foe large-select">
-                <mat-label>Retenes activados</mat-label>
-                <mat-select [(value)]="selectedTeam" (selectionChange)="newSelectedTeam()">
-                    <mat-option [value]="team" *ngFor="let team of displayedTeams">{{team}}</mat-option>
-                </mat-select>
-            </mat-form-field>
         
-            <mat-form-field appearance="outline" class="foe large-select">
-                <mat-label>Todos los retenes</mat-label>
-                <mat-select [(value)]="selectedHistory">
-                    <mat-option [value]="history" *ngFor="let history of historyOptions">{{history}}</mat-option>
-                </mat-select>
-            </mat-form-field>
+<!-- Filtros y selecciones -->
+<div class="encabezado">
+    <mat-form-field appearance="outline" class="foe large-select">
+        <mat-label>Retenes activados</mat-label>
+        <mat-select [(value)]="selectedTeam" (selectionChange)="newSelectedTeam()">
+            <mat-option [value]="team" *ngFor="let team of displayedTeams">{{ team }}</mat-option>
+        </mat-select>
+    </mat-form-field>
 
-            <mat-checkbox [(ngModel)]="retenes.responsable">Responsable</mat-checkbox>
-        </div>
+    <mat-form-field appearance="outline" class="foe large-select">
+        <mat-label>Todos los retenes</mat-label>
+        <mat-select [(value)]="selectedHistory">
+            <mat-option [value]="history" *ngFor="let history of historyOptions">{{ history }}</mat-option>
+        </mat-select>
+    </mat-form-field>
+
+<!-- Botones de acción -->
+<div class="botones">
+    <!-- Botón "Añadir Retén" -->
+    <ng-container *ngIf="!modoAltaReten && !modoEdicionReten">
+      <button mat-raised-button color="accent" (click)="iniciarAltaReten()">
+        <mat-icon>add</mat-icon> Añadir Retén
+      </button>
+  
+      <!-- Botones "Editar" y "Eliminar" solo si hay un retén seleccionado -->
+      <button mat-raised-button color="primary" *ngIf="retenSeleccionado" (click)="iniciarEdicionReten()">
+        <mat-icon>edit</mat-icon> Editar
+      </button>
+      <button mat-raised-button color="warn" *ngIf="retenSeleccionado" (click)="eliminarReten()">
+        <mat-icon>delete</mat-icon> Eliminar
+      </button>
+    </ng-container>
+  
+    <!-- Botones "Confirmar" y "Cancelar" para alta o edición -->
+    <ng-container *ngIf="modoAltaReten || modoEdicionReten">
+      <button mat-raised-button color="success" (click)="confirmarReten()">
+        <mat-icon>check</mat-icon> Confirmar
+      </button>
+      <button mat-raised-button color="warn" (click)="cancelarReten()">
+        <mat-icon>close</mat-icon> Cancelar
+      </button>
+    </ng-container>
+  </div>
+</div>
+
 
         <!-- Filtros -->
         <div class="filtros">
@@ -94,6 +127,9 @@
                 <mat-label>Hora Fin</mat-label>
                 <input matInput type="time">
             </mat-form-field>
+
+            <mat-checkbox [(ngModel)]="retenes.responsable" style="margin-bottom: 2rem;">Responsable</mat-checkbox>
+
         </div>
 
         <!-- Vehículo y Acciones -->
@@ -113,34 +149,6 @@
                     </th>
                     <td mat-cell *matCellDef="let row">
                         {{column.cell(row)}}
-                    </td>
-                </ng-container>
-
-                <!-- Actions Columns -->
-                <ng-container matColumnDef="action1">
-                    <th mat-header-cell *matHeaderCellDef [style.background-color]="color"></th>
-                    <td mat-cell *matCellDef="let row">
-                        <button mat-icon-button matTooltip="Detalle" [matTooltipShowDelay]="1000" (click)="viewEquipo(row)">
-                            <img src="assets/img/view.png">
-                        </button>
-                    </td>
-                </ng-container>
-
-                <ng-container matColumnDef="action2">
-                    <th mat-header-cell *matHeaderCellDef [style.background-color]="color"></th>
-                    <td mat-cell *matCellDef="let row">
-                        <button mat-icon-button matTooltip="Editar" [matTooltipShowDelay]="1000" (click)="editarEquipo(row)">
-                            <img src="assets/img/edit.png">
-                        </button>
-                    </td>
-                </ng-container>
-
-                <ng-container matColumnDef="action3">
-                    <th mat-header-cell *matHeaderCellDef [style.background-color]="color"></th>
-                    <td mat-cell *matCellDef="let row">
-                        <button mat-icon-button matTooltip="Dar de baja" [matTooltipShowDelay]="1000" (click)="bajaEquipo(row)">
-                            <img src="assets/img/delete.png">
-                        </button>
                     </td>
                 </ng-container>
 

@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { NuevaCampaniaDialogComponent } from 'src/app/dialogs/nueva-campania-dialog/nueva-campania-dialog.component';
 import { MantenimientoTablasDialogComponent } from 'src/app/dialogs/mantenimiento-tablas-dialog/mantenimiento-tablas-dialog.component';
+import { HistoricoMantenimientoTablasComponent } from 'src/app/dialogs/historico-mantenimiento-tablas/historico-mantenimiento-tablas.component';
 
 @Component({
   selector: 'app-configuracion',
@@ -30,5 +31,13 @@ export class ConfiguracionComponent {
 
   abrirRegistroCambios() {
     this.router.navigate(['/registro-cambios']);
+  }
+
+  abrirHistoricoTablas() {
+    this.dialog.open(HistoricoMantenimientoTablasComponent, {
+      width: '800px',
+      height: '700px',
+      disableClose: true
+    });
   }
 }

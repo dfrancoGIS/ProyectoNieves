@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmDialogComponent } from '../../dialogs/confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-retenes',
@@ -9,10 +11,15 @@ export class RetenesComponent {
   showChild: boolean = false;
   selectedTeam: string = '';
   selectedHistory: string = '';
+  modoAltaReten: boolean = false;
+  retenSeleccionado: any = null; 
+  modoEdicionReten: boolean = false;
 
-  retenes = { // ✅ Agregar esta propiedad
+  retenes = { // 
     responsable: false
   };
+
+  constructor(private dialog: MatDialog) {}
 
   displayedTeams: string[] = ['COPO 7', 'COPO 11', 'COPO 20', 'COPO 1'];
   historyOptions: string[] = ['Historial 1', 'Historial 2', 'Historial 3'];
@@ -29,7 +36,7 @@ export class RetenesComponent {
   ];
 
   // Columnas y datos para la tabla inferior
-  displayedColumns: string[] = ['nombre', 'extension', 'telefono1', 'telefono2', 'ocupacion', 'departamento', 'action1', 'action2', 'action3'];
+  displayedColumns: string[] = ['nombre', 'extension', 'telefono1', 'telefono2', 'ocupacion', 'departamento'];
   dataSource = [
     { nombre: 'Ángel López Martínez', extension: '15111', telefono1: '628141559', telefono2: '-', ocupacion: 'Carreteras', departamento: 'Carreteras' },
     { nombre: 'Ander Insagube Perez', extension: '-', telefono1: '-', telefono2: '-', ocupacion: 'Carreteras', departamento: 'Carreteras' }
@@ -44,6 +51,11 @@ export class RetenesComponent {
     { columnDef: 'ocupacion', header: 'Ocupación', cell: (element: any) => `${element.ocupacion}` },
     { columnDef: 'departamento', header: 'Departamento', cell: (element: any) => `${element.departamento}` }
   ];
+
+  seleccionarReten(row: any): void {
+    this.retenSeleccionado = row;
+    console.log('Retén seleccionado:', this.retenSeleccionado);
+  }
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value.trim().toLowerCase();
@@ -69,19 +81,73 @@ export class RetenesComponent {
     }
   }
 
-  viewEquipo(row: any) {
-    console.log('Ver detalles de:', row);
+  // Método para iniciar el modo alta
+iniciarAltaReten(): void {
+  this.modoAltaReten = true;
+  console.log('Iniciando alta de retén');
+}
+
+// Iniciar la edición de un retén
+iniciarEdicionReten(): void {
+  if (!this.retenSeleccionado) {
+    console.warn('No hay ningún retén seleccionado para editar.');
+    return;
+  }
+  this.modoEdicionReten = true;
+  console.log('Editando retén:', this.retenSeleccionado);
+}
+
+eliminarReten(): void {
+  if (!this.retenSeleccionado) {
+    console.warn('No hay ningún retén seleccionado para eliminar.');
+    return;
   }
 
-  editarEquipo(row: any) {
-    console.log('Editar equipo:', row);
+  const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+    width: '400px',
+    data: {
+      mensaje:
+        'Atención: TODOS los datos relacionados con el equipo serán eliminados de la base de datos. ¿Está seguro de que desea eliminar el equipo?',
+    },
+  });
+
+  dialogRef.afterClosed().subscribe((result) => {
+    if (result) {
+      console.log('Retén eliminado:', this.retenSeleccionado);
+      this.dataSourceSuperior = this.dataSourceSuperior.filter(
+        (reten) => reten !== this.retenSeleccionado
+      );
+      this.retenSeleccionado = null;
+    } else {
+      console.log('Eliminación cancelada.');
+    }
+  });
+}
+
+
+// Confirmar la acción (alta o edición)
+confirmarReten(): void {
+  if (this.modoAltaReten) {
+    console.log('Confirmar nuevo retén.');
+    // Aquí iría la lógica para guardar el nuevo retén
+    // Por ejemplo, agregarlo a dataSourceSuperior
+    const nuevoReten = { ...this.retenSeleccionado }; // Simulación
+    this.dataSourceSuperior.push(nuevoReten);
+  } else if (this.modoEdicionReten) {
+    console.log('Confirmar edición del retén:', this.retenSeleccionado);
+    // Aquí iría la lógica para guardar los cambios del retén editado
   }
 
-  bajaEquipo(row: any) {
-    console.log('Dar de baja a:', row);
-  }
+  // Resetear los modos
+  this.modoAltaReten = false;
+  this.modoEdicionReten = false;
+}
 
-  generateExcel() {
-    console.log('Generando archivo Excel...');
-  }
+// Cancelar la acción (alta o edición)
+cancelarReten(): void {
+  console.log('Acción cancelada.');
+  this.modoAltaReten = false;
+  this.modoEdicionReten = false;
+}
+
 }

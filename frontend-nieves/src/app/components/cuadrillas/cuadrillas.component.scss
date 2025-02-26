@@ -188,3 +188,23 @@ mat-label {
 
 }
 
+.botones{
+    margin-top: 7px;
+    margin-left: 1rem;
+    margin-bottom: 1.5rem;
+
+    button{
+        margin-left: 10px;
+    }
+
+    button[color="success"] {
+        color: green !important;
+    }
+}
+
+.tituloCarreteras{
+    margin-bottom: 5px;
+    margin-left: 2px;
+    font-style: bold;
+    font-size: 15px;
+}

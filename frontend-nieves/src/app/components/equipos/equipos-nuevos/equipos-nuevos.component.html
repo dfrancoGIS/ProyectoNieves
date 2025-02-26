@@ -41,27 +41,12 @@
             <mat-option *ngFor="let team of displayedTeams" [value]="team">{{ team }}</mat-option>
         </mat-select>
     </mat-form-field>
-<!-- Formulario para seleccionar el histórico de equipos -->
-<mat-form-field appearance="outline" class="foe large-select">
-    <mat-label>Histórico de equipos</mat-label>
-    <mat-select [(value)]="selectedEquipo" (selectionChange)="onEquipoSeleccionado($event.value)">
-      <!-- Campo de búsqueda dentro del desplegable -->
-      <mat-option>
-        <input 
-          matInput 
-          placeholder="Buscar equipo..." 
-          [formControl]="filtroEquipos" 
-          (keydown)="$event.stopPropagation()" 
-          (click)="$event.stopPropagation()" />
-      </mat-option>
-      <!-- Opciones filtradas -->
-      <mat-option *ngFor="let equipo of historialEquiposFiltrados" [value]="equipo">
-        {{ equipo.recurso_equipo }} - {{ equipo.fecha_inicio | date:'dd/MM/yyyy' }}
-      </mat-option>
-    </mat-select>
-  </mat-form-field>
-  
-
+    <mat-form-field appearance="outline" class="foe large-select">
+        <mat-label>Historico de equipos</mat-label>
+        <mat-select [(value)]="selectedTeam">
+            <mat-option *ngFor="let team of displayedTeams" [value]="team">{{ team }}</mat-option>
+        </mat-select>
+    </mat-form-field>
 </div>
 
 <!-- Formulario de Recursos y Fechas -->
@@ -143,7 +128,6 @@
           </mat-option>
         </mat-select>
       </mat-form-field>
-      
       
       
     <div class="botones">

@@ -3,29 +3,34 @@
     <mat-divider></mat-divider>
     <div mat-dialog-content>
         <form [formGroup]="form">
-            <!-- Selección de Fecha fin de Campaña anterior -->
+            <!-- Fecha Fin de Campaña Anterior (Editable) -->
             <mat-form-field appearance="outline">
                 <mat-label>Fecha fin de campaña anterior</mat-label>
-                <input matInput [matDatepicker]="picker" formControlName="fechaInicio">
-                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                <mat-datepicker #picker></mat-datepicker>
+                <input matInput [matDatepicker]="pickerFinAnterior" formControlName="fechaFinAnterior">
+                <mat-datepicker-toggle matSuffix [for]="pickerFinAnterior"></mat-datepicker-toggle>
+                <mat-datepicker #pickerFinAnterior></mat-datepicker>
             </mat-form-field>
+
             <!-- Selección de Fecha de Inicio -->
             <mat-form-field appearance="outline">
                 <mat-label>Fecha de Inicio</mat-label>
-                <input matInput [matDatepicker]="picker" formControlName="fechaInicio">
-                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                <mat-datepicker #picker></mat-datepicker>
+                <input matInput [matDatepicker]="pickerInicio" formControlName="fechaInicio">
+                <mat-datepicker-toggle matSuffix [for]="pickerInicio"></mat-datepicker-toggle>
+                <mat-datepicker #pickerInicio></mat-datepicker>
             </mat-form-field>
-            <!-- Añadir titulo de la campaña -->
+
+            <!-- Añadir Título de la Campaña -->
             <mat-form-field appearance="outline">
                 <mat-label>Título de la campaña</mat-label>
-                <input matInput formControlName="tituloCampana" required>
+                <input matInput formControlName="tituloCampana">
             </mat-form-field>
 
             <div mat-dialog-actions>
-                <button mat-raised-button mat-dialog-close color="warn" (click)="cancelar()">Cerrar</button>
-                <button mat-raised-button color="primary" [disabled]="form.invalid" (click)="guardar()">Guardar</button>
+                <button mat-raised-button color="warn" (click)="cancelar()">Cerrar</button>
+                <button mat-raised-button color="primary" [disabled]="form.invalid || isLoading" (click)="guardar()">
+                    <mat-spinner *ngIf="isLoading" diameter="20"></mat-spinner>
+                    <span *ngIf="!isLoading">Guardar</span>
+                </button>
             </div>
         </form>
     </div>

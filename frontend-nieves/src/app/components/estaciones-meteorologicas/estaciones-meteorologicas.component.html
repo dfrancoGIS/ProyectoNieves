@@ -7,8 +7,6 @@
             <div class="estacion-card" *ngFor="let estacion of estacionesSuperiores" 
                  (click)="abrirDialogoEstacion(estacion)">
                 <h3>{{ estacion.ubicacion }}</h3>
-                <p class="carretera-pk">({{ estacion.carretera }}, PK: {{ estacion.pk }})</p>
-                <p class="fecha-hora">{{ fechaHoraGlobal.fecha }} - {{ fechaHoraGlobal.hora }}</p>
                 <hr>
                 <p><span class="bold">Temperatura:</span> {{ estacion.temperatura }}°C</p>
                 <p><span class="bold">Visibilidad:</span> {{ estacion.visibilidad }} m</p>
@@ -22,8 +20,7 @@
             <div class="estacion-card" *ngFor="let estacion of estacionesInferiores" 
                  (click)="abrirDialogoEstacion(estacion)">
                 <h3>{{ estacion.ubicacion }}</h3>
-                <p class="carretera-pk">({{ estacion.carretera }}, PK: {{ estacion.pk }})</p>
-                <p class="fecha-hora">{{ fechaHoraGlobal.fecha }} - {{ fechaHoraGlobal.hora }}</p>
+
                 <hr>
                 <p><span class="bold">Temperatura:</span> {{ estacion.temperatura }}°C</p>
                 <p><span class="bold">Visibilidad:</span> {{ estacion.visibilidad }} m</p>

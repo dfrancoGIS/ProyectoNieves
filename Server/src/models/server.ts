@@ -18,6 +18,9 @@ import routesTenerCta from '../routes/tenerCta';
 import stationRoutes from '../routes/stationRoutes';
 import cors from 'cors';
 import routesHistorialEquipos from '../routes/historialEquipos'; 
+import routesCampanias from '../routes/campanias';
+import routesRecurosCuadrillas from '../routes/recursosCuadrillas';
+
 
 import db from '../db/connection';
 
@@ -59,6 +62,7 @@ class Server {
         this.app.use('/api/tareas', routesTareas);
         this.app.use('/api/tablas-mantenimiento', routesTablasMantenimiento);
         this.app.use('/api/recursos', routesRecursos);
+        this.app.use('/api/recursosCuadrillas', routesRecurosCuadrillas);
         this.app.use('/api/personal', routesPersonal);
         this.app.use('/api/estadosComunicacion', routesEstadosComunicacion);
         this.app.use('/api/equipoPersonal', routesEquipoPersonal);
@@ -66,6 +70,8 @@ class Server {
         this.app.use('/api/tener-cta', routesTenerCta);
         this.app.use('/api', stationRoutes);
         this.app.use('/api/historial', routesHistorialEquipos); 
+        this.app.use('/api/campanias', routesCampanias);
+
     }
 
     middlewares() {

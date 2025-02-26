@@ -74,19 +74,19 @@
     min-width: 250px;
 }
 
-/* Botones alineados correctamente */
-.buttonActions {
-    margin-left: 1rem;
-    font-size: 12px;
-    padding: 7px 9px;
-    min-width: 80px;
-    height: 35px;
-    margin-bottom: 20px;
-}
 
 /* Contenedor de la tabla */
 .mat-elevation-z8 {
     margin: 2rem;
+}
+
+.botones{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    button[color="success"] {
+        color: green !important;
+    }
 }
 
 /* Botón de exportar Excel alineado a la derecha */

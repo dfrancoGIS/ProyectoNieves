@@ -2,60 +2,69 @@
 
 <!-- Contenedor de selección de tabla y filtro -->
 <div class="filtro-container">
-    <!-- Selección de la tabla -->
-    <mat-form-field appearance="outline">
-        <mat-label>Tabla</mat-label>
-        <mat-select>
-            <mat-option *ngFor="let tabla of ['Usuarios', 'Clientes', 'Pedidos', 'Productos']" [value]="tabla">
-                {{ tabla }}
-            </mat-option>
-        </mat-select>
-    </mat-form-field>
+  <!-- Selección de la tabla -->
+  <mat-form-field appearance="outline">
+    <mat-label>Tabla</mat-label>
+    <mat-select [(value)]="tablaSeleccionada" (selectionChange)="onTablaSeleccionada()">
+      <mat-option *ngFor="let tabla of tablasPermitidas" [value]="tabla">
+        {{ tabla }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
 
-    <!-- Filtro de búsqueda con icono -->
-    <mat-form-field appearance="outline" class="filtro">
-        <mat-label>Filtrar registros</mat-label>
-        <input matInput (keyup)="applyFilter($event)" placeholder="Buscar...">
-        <mat-icon matSuffix>search</mat-icon>
-    </mat-form-field>
+  <!-- Filtro de búsqueda con icono -->
+  <mat-form-field appearance="outline" class="filtro">
+    <mat-label>Filtrar registros</mat-label>
+    <input matInput (keyup)="applyFilter($event)" placeholder="Buscar..." [disabled]="!tablaSeleccionada">
+    <mat-icon matSuffix>search</mat-icon>
+  </mat-form-field>
+</div>
+
+<!-- Botón Cerrar cuando no hay tabla seleccionada -->
+<div class="acciones" *ngIf="!tablaSeleccionada">
+  <button mat-raised-button color="warn" (click)="cerrarDialog()">Cerrar</button>
 </div>
 
 <!-- Contenedor de la tabla con scroll interno -->
-<div class="tabla-container">
-    <div class="tabla-scroll">
-        <table mat-table [dataSource]="dataSource" matSort class="styled-table">
-            <!-- Definir columnas dinámicamente -->
-            <ng-container *ngFor="let column of columns" [matColumnDef]="column.columnDef">
-                <th mat-header-cell *matHeaderCellDef class="header-cell">
-                    {{ column.header }}
-                </th>
-                <td mat-cell *matCellDef="let row">
-                    {{ column.cell(row) }}
-                </td>
-            </ng-container>
+<div class="tabla-container" *ngIf="tablaSeleccionada">
+  <div class="tabla-scroll">
+    <table mat-table [dataSource]="dataSource" matSort class="styled-table">
+      <!-- Encabezados dinámicos -->
+      <ng-container *ngFor="let column of displayedColumns" [matColumnDef]="column">
+        <th mat-header-cell *matHeaderCellDef>
+          {{ columnasAlias[tablaSeleccionada][column] || column }} 
+        </th>
+        <td mat-cell *matCellDef="let row">{{ row[column] }}</td>
+      </ng-container>
 
-            <!-- Encabezado de la tabla fijo -->
-            <thead class="sticky-header">
-                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-            </thead>
+      <!-- Encabezado de la tabla fijo -->
+      <thead style="position: sticky; top: 0; background: white; z-index: 100;">
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      </thead>
 
-            <!-- Filas de la tabla -->
-            <tbody>
-                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-            </tbody>
+      <!-- Filas de la tabla -->
+      <tbody>
+        <tr 
+          mat-row 
+          *matRowDef="let row; columns: displayedColumns;" 
+          [class.selected]="registroSeleccionado === row" 
+          (click)="seleccionarRegistro(row)">
+        </tr>
+      </tbody>
 
-            <!-- Mensaje cuando no hay datos -->
-            <tr class="mat-row" *matNoDataRow>
-                <td class="mat-cell" colspan="6">No hay datos disponibles</td>
-            </tr>
-        </table>
-    </div>
+      <!-- Mensaje cuando no hay datos -->
+      <tr class="mat-row" *matNoDataRow>
+        <td class="mat-cell" [attr.colspan]="displayedColumns.length">No hay datos disponibles</td>
+      </tr>
+    </table>
+  </div>
 </div>
 
+
 <!-- Botones de acción centrados -->
-<div class="acciones">
-    <button mat-raised-button color="primary">Añadir Registro</button>
-    <button mat-raised-button color="accent">Editar Registro</button>
-    <button mat-raised-button color="warn">Eliminar Registro</button>
-    <button mat-raised-button color="primary" (click)="cerrarDialog()">Cerrar</button>
+<div class="acciones" *ngIf="tablaSeleccionada">
+  <button mat-raised-button color="primary" (click)="openAddDialog()" *ngIf="!['Campañas'].includes(tablaSeleccionada)">Añadir Registro</button>
+  <button mat-raised-button color="accent" (click)="openEditDialog()" [disabled]="!registroSeleccionado" *ngIf="!['Campañas'].includes(tablaSeleccionada)">Editar Registro</button>
+  <button mat-raised-button color="warn" (click)="eliminarRegistro()" *ngIf="!['Carreteras', 'Estados', 'Campañas','Tareas','Estados Comunicación','Tener CTA'].includes(tablaSeleccionada)">Eliminar Registro</button>
+  <button mat-raised-button color="primary" (click)="cerrarDialog()">Cerrar</button>
 </div>

@@ -1,0 +1,234 @@
+<div class="container">
+    <h1 mat-dialog-title>Nuevo Registro</h1>
+    <mat-divider></mat-divider>
+    <div mat-dialog-content>
+      <form [formGroup]="form">
+  
+        <!-- Campos para Personal -->
+        <div *ngIf="data.tablaSeleccionada === 'Personal'">
+          <mat-form-field appearance="outline">
+            <mat-label>Nombre</mat-label>
+            <input matInput formControlName="nombre_personal" placeholder="Nombre" required>
+          </mat-form-field>
+  
+          <mat-form-field appearance="outline">
+            <mat-label>Primer Apellido</mat-label>
+            <input matInput formControlName="apellido1_personal" placeholder="Apellido1">
+          </mat-form-field>
+  
+          <mat-form-field appearance="outline">
+            <mat-label>Segundo Apellido</mat-label>
+            <input matInput formControlName="apellido2_personal" placeholder="Apellido2">
+          </mat-form-field>
+  
+          <mat-form-field appearance="outline">
+            <mat-label>Alias</mat-label>
+            <input matInput formControlName="alias_personal" placeholder="Alias">
+          </mat-form-field>
+  
+          <mat-form-field appearance="outline">
+            <mat-label>Ocupación</mat-label>
+            <input matInput formControlName="ocupacion_personal" placeholder="Ocupación">
+          </mat-form-field>
+  
+          <mat-form-field appearance="outline">
+            <mat-label>Teléfono 1</mat-label>
+            <input matInput formControlName="tfno1_personal" placeholder="Teléfono 1">
+          </mat-form-field>
+  
+          <mat-form-field appearance="outline">
+            <mat-label>Teléfono 2</mat-label>
+            <input matInput formControlName="tfno2_personal" placeholder="Teléfono 2">
+          </mat-form-field>
+  
+          <mat-form-field appearance="outline">
+            <mat-label>Extensión</mat-label>
+            <input matInput formControlName="ext_personal" placeholder="Extensión">
+          </mat-form-field>
+  
+          <mat-form-field appearance="outline">
+            <mat-label>Departamento</mat-label>
+            <input matInput formControlName="departamento_personal" placeholder="Departamento">
+          </mat-form-field>
+  
+          <mat-checkbox formControlName="dfa_personal">DFA Personal</mat-checkbox>
+          <mat-checkbox formControlName="activo">Activo</mat-checkbox>
+  
+          <mat-form-field appearance="outline">
+            <mat-label>ID Campaña</mat-label>
+            <input matInput formControlName="id_campania_personal" placeholder="ID Campaña" type="number">
+          </mat-form-field>
+        </div>
+  
+        <!-- Otros campos para otras tablas (Vehículos, Recursos, etc.)-->
+        <div *ngIf="data.tablaSeleccionada === 'Carreteras'">
+          <mat-form-field appearance="outline">
+            <mat-label>Carretera</mat-label>
+            <input matInput formControlName="carretera" placeholder="Carretera" required>
+          </mat-form-field>
+        
+          <mat-form-field appearance="outline">
+            <mat-label>Dirección de Carretera</mat-label>
+            <input matInput formControlName="direccion_carretera" placeholder="Dirección de Carretera">
+          </mat-form-field>
+        
+          <mat-form-field appearance="outline">
+            <mat-label>PK Inferior</mat-label>
+            <input matInput formControlName="pk_inferior" type="number" placeholder="PK Inferior">
+          </mat-form-field>
+        
+          <mat-form-field appearance="outline">
+            <mat-label>PK Superior</mat-label>
+            <input matInput formControlName="pk_superior" type="number" placeholder="PK Superior">
+          </mat-form-field>
+        
+          <mat-form-field appearance="outline">
+            <mat-label>Prioridad Carretera</mat-label>
+            <input matInput formControlName="prioridad_carretera" type="number" placeholder="Prioridad Carretera">
+          </mat-form-field>
+        
+          <mat-form-field appearance="outline">
+            <mat-label>Zona Carretera</mat-label>
+            <input matInput formControlName="zona_carretera" placeholder="Zona Carretera">
+          </mat-form-field>
+        
+          <mat-form-field appearance="outline">
+            <mat-label>ID Campaña Carretera</mat-label>
+            <input matInput formControlName="id_campania_carreteras" type="number" placeholder="ID Campaña Carretera">
+          </mat-form-field>
+        
+          <mat-form-field appearance="outline">
+            <mat-label>ID Visor</mat-label>
+            <input matInput formControlName="id_visor" type="number" placeholder="ID Visor">
+          </mat-form-field>
+        </div>
+        <div *ngIf="data.tablaSeleccionada === 'Recursos'">
+          <mat-form-field appearance="outline">
+            <mat-label>ID Recurso</mat-label>
+            <input matInput formControlName="id_recurso" placeholder="ID Recurso" required>
+          </mat-form-field>
+        
+          <mat-form-field appearance="outline">
+            <mat-label>Empresa Recurso</mat-label>
+            <input matInput formControlName="empresa_recurso" placeholder="Empresa Recurso" required>
+          </mat-form-field>
+        
+          <mat-form-field appearance="outline">
+            <mat-label>ID Campaña Recurso</mat-label>
+            <input matInput formControlName="id_campania_recursos" type="number" placeholder="ID Campaña Recurso">
+          </mat-form-field>
+        </div>
+        <div *ngIf="data.tablaSeleccionada === 'Vehículos'">
+          <mat-form-field appearance="outline">
+            <mat-label>ID Vehículo</mat-label>
+            <input matInput formControlName="id_vehiculo" placeholder="ID Vehículo" required>
+          </mat-form-field>
+        
+          <mat-form-field appearance="outline">
+            <mat-label>Descripción Vehículo</mat-label>
+            <input matInput formControlName="descripcion_vehiculo" placeholder="Descripción Vehículo" required>
+          </mat-form-field>
+        
+          <mat-form-field appearance="outline">
+            <mat-label>Recurso Vehículo</mat-label>
+            <input matInput formControlName="recurso_vehiculo" placeholder="Recurso Vehículo" required>
+          </mat-form-field>
+        
+          <mat-form-field appearance="outline">
+            <mat-label>Empresa Vehículo</mat-label>
+            <input matInput formControlName="empresa_vehiculo" placeholder="Empresa Vehículo" required>
+          </mat-form-field>
+        
+          <mat-form-field appearance="outline">
+            <mat-label>Teléfono Vehículo</mat-label>
+            <input matInput formControlName="tfno_vehiculo" placeholder="Teléfono Vehículo">
+          </mat-form-field>
+        
+          <mat-form-field appearance="outline">
+            <mat-label>Extensión Vehículo</mat-label>
+            <input matInput formControlName="ext_vehiculo" placeholder="Extensión Vehículo">
+          </mat-form-field>
+        
+          <mat-form-field appearance="outline">
+            <mat-label>ID Campaña Vehículo</mat-label>
+            <input matInput formControlName="id_campania_vehiculos" type="number" placeholder="ID Campaña Vehículo">
+          </mat-form-field>
+        </div>
+        <div *ngIf="data.tablaSeleccionada === 'Tareas'">
+          <mat-form-field appearance="outline">
+            <mat-label>Descripción Tarea</mat-label>
+            <input matInput formControlName="descripcion_tarea" placeholder="Descripción Tarea" required>
+          </mat-form-field>
+        
+          <mat-form-field appearance="outline">
+            <mat-label>Color Tarea (Rojo)</mat-label>
+            <input matInput formControlName="color_tarea_r" type="number" placeholder="Color Tarea Rojo">
+          </mat-form-field>
+        
+          <mat-form-field appearance="outline">
+            <mat-label>Color Tarea (Verde)</mat-label>
+            <input matInput formControlName="color_tarea_g" type="number" placeholder="Color Tarea Verde">
+          </mat-form-field>
+        
+          <mat-form-field appearance="outline">
+            <mat-label>Color Tarea (Azul)</mat-label>
+            <input matInput formControlName="color_tarea_b" type="number" placeholder="Color Tarea Azul">
+          </mat-form-field>
+        
+          <mat-form-field appearance="outline">
+            <mat-label>ID Campaña Tarea</mat-label>
+            <input matInput formControlName="id_campania_tareas" type="number" placeholder="ID Campaña Tarea">
+          </mat-form-field>
+        </div>
+        <div *ngIf="data.tablaSeleccionada === 'Estados'">
+          <mat-form-field appearance="outline">
+            <mat-label>Descripcion estado</mat-label>
+            <input matInput formControlName="descripcion_estado" placeholder="Descripcion de estado" required>
+          </mat-form-field>
+        
+          <mat-form-field appearance="outline">
+            <mat-label>Color Estado (Rojo)</mat-label>
+            <input matInput formControlName="color_estado_r" type="number" placeholder="Color Tarea Rojo">
+          </mat-form-field>
+        
+          <mat-form-field appearance="outline">
+            <mat-label>Color Estado (Verde)</mat-label>
+            <input matInput formControlName="color_estado_g" type="number" placeholder="Color Tarea Verde">
+          </mat-form-field>
+        
+          <mat-form-field appearance="outline">
+            <mat-label>Color Estado (Azul)</mat-label>
+            <input matInput formControlName="color_estado_b" type="number" placeholder="Color Tarea Azul">
+          </mat-form-field>
+        </div>
+        <div *ngIf="data.tablaSeleccionada === 'Estados Comunicación'">
+          <mat-form-field appearance="outline">
+            <mat-label>Descripcion estado comunicacion</mat-label>
+            <input matInput formControlName="descripcion_estado_comunicacion" placeholder="Descripcion de estado comunicacion" required>
+          </mat-form-field>
+        
+          <mat-form-field appearance="outline">
+            <mat-label>ID campaña estados comunicacion</mat-label>
+            <input matInput formControlName="id_campania_estados_comunicacion" type="number" placeholder="ID campaña estados comunicacion"> 
+          </mat-form-field>
+        </div>
+        <div *ngIf="data.tablaSeleccionada === 'Tener CTA'">
+          <mat-form-field appearance="outline">
+            <mat-label>Descripcion Tener CTA</mat-label>
+            <input matInput formControlName="descripcion_tener_cta" placeholder="Descripcion Tener CTA" required>
+          </mat-form-field>
+        
+          <mat-form-field appearance="outline">
+            <mat-label>ID Campaña Tener CTA</mat-label>
+            <input matInput formControlName="id_campania_tener_cta" type="number" placeholder="ID Campaña Tener CTA">
+          </mat-form-field>
+        </div>
+      </form>
+    </div>
+  
+    <mat-dialog-actions style="display: flex; justify-content: space-between;">
+      <button mat-raised-button color="warn" (click)="onClose()">Cerrar</button>
+      <button mat-raised-button color="primary" [disabled]="form.invalid" (click)="onAdd()">Añadir</button>
+    </mat-dialog-actions>
+  </div>
+  

@@ -1,34 +1,18 @@
-import { Component, Inject } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Component } from '@angular/core';
+import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-confirm-dialog',
-  template: `
-    <h2 mat-dialog-title>Confirmación de borrado</h2>
-    <mat-dialog-content>
-      <p>{{ data.mensaje }}</p>
-    </mat-dialog-content>
-    <mat-dialog-actions align="end">
-      <button mat-button (click)="onNoClick()">No</button>
-      <button mat-button color="warn" (click)="onConfirmClick()">Sí</button>
-    </mat-dialog-actions>
-  `,
-  styles: [
-    `mat-dialog-content { font-size: 16px; }
-     mat-dialog-actions { margin-top: 15px; }`
-  ]
+  templateUrl: './confirm-dialog.component.html',
 })
 export class ConfirmDialogComponent {
-  constructor(
-    public dialogRef: MatDialogRef<ConfirmDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: { mensaje: string }
-  ) {}
+  constructor(public dialogRef: MatDialogRef<ConfirmDialogComponent>) {}
 
-  onNoClick(): void {
-    this.dialogRef.close(false);
+  onConfirm(): void {
+    this.dialogRef.close(true); // Cierra el diálogo con un valor true
   }
 
-  onConfirmClick(): void {
-    this.dialogRef.close(true);
+  onCancel(): void {
+    this.dialogRef.close(false); // Cierra el diálogo con un valor false
   }
 }
