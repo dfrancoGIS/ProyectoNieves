@@ -1,0 +1,10 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const activacion_1 = require("../controllers/activacion");
+const router = (0, express_1.Router)();
+router.post('/insertar', activacion_1.insertarActivacionHandler);
+router.get('/obtener', activacion_1.obtenerActivacionesHandler);
+router.put('/editar', activacion_1.editarActivacionHandler);
+router.get('/buscar', activacion_1.buscarActivacionHandler);
+exports.default = router;

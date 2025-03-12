@@ -108,3 +108,13 @@ export async function editarVehiculo(id: string, datos: any): Promise<void> {
   }
 }
 
+export function getVehiculosPorRecurso(recurso: string) {
+  return sequelize.query(
+    `SELECT * FROM dbo.filtrar_vehiculos_por_recurso(:recurso);`,
+    {
+      type: QueryTypes.SELECT,
+      replacements: { recurso },
+    }
+  );
+}
+

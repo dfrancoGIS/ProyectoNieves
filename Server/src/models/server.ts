@@ -20,6 +20,9 @@ import cors from 'cors';
 import routesHistorialEquipos from '../routes/historialEquipos'; 
 import routesCampanias from '../routes/campanias';
 import routesRecurosCuadrillas from '../routes/recursosCuadrillas';
+import routesActivacion from '../routes/activacion'; // ✅ Ahora está en singular
+
+
 
 
 import db from '../db/connection';
@@ -71,6 +74,7 @@ class Server {
         this.app.use('/api', stationRoutes);
         this.app.use('/api/historial', routesHistorialEquipos); 
         this.app.use('/api/campanias', routesCampanias);
+        this.app.use('/api/activacion', routesActivacion);
 
     }
 

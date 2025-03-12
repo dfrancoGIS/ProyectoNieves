@@ -19,6 +19,7 @@ exports.getAllRecursos = getAllRecursos;
 exports.eliminarRecurso = eliminarRecurso;
 exports.insertarRecurso = insertarRecurso;
 exports.editarRecurso = editarRecurso;
+exports.getRecursosPorEmpresa = getRecursosPorEmpresa;
 const connection_1 = __importDefault(require("../db/connection"));
 const sequelize_1 = require("sequelize");
 // Función para obtener los recursos asociados a la última campaña
@@ -100,5 +101,11 @@ function editarRecurso(id, datos) {
                 throw new Error('Error desconocido al actualizar el recurso');
             }
         }
+    });
+}
+function getRecursosPorEmpresa(empresaRecurso) {
+    return connection_1.default.query(`SELECT * FROM dbo.filtrar_recursos_por_empresa(:empresaRecurso);`, {
+        type: sequelize_1.QueryTypes.SELECT,
+        replacements: { empresaRecurso }
     });
 }

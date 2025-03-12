@@ -1,7 +1,11 @@
-import { NgModule } from '@angular/core';
+import { NgModule, LOCALE_ID } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import localeEs from '@angular/common/locales/es';
+import { registerLocaleData } from '@angular/common';
+// Modulos del calendario
+import { DayPilotModule } from '@daypilot/daypilot-lite-angular';
 
 // Módulos de Angular Material
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -30,6 +34,7 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 import { MatCardModule } from '@angular/material/card';
 import { MatTabsModule } from '@angular/material/tabs';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
 // Módulos de Formularios y HTTP
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -46,6 +51,7 @@ import { EquiposComponent } from './components/equipos/equipos.component';
 import { EquiposNuevosComponent } from './components/equipos/equipos-nuevos/equipos-nuevos.component';
 import { CarreterasComponent } from './components/carreteras/carreteras.component';
 import { FundentesComponent } from './components/fundentes/fundentes.component';
+
 // Diálogos
 import { NuevoEquipoDialogComponent } from './dialogs/nuevo-equipo-dialog/nuevo-equipo-dialog.component';
 import { NuevaComunicacionDialogComponent } from './dialogs/nueva-comunicacion-dialog/nueva-comunicacion-dialog.component';
@@ -67,8 +73,11 @@ import { ConfirmDialogComponent } from './dialogs/confirm-dialog/confirm-dialog.
 import { AddMatenimientoDialogComponent } from './dialogs/add-matenimiento-dialog/add-matenimiento-dialog.component';
 import { EditMantenimientoDialogComponent } from './dialogs/edit-mantenimiento-dialog/edit-mantenimiento-dialog.component';
 import { HistoricoMantenimientoTablasComponent } from './dialogs/historico-mantenimiento-tablas/historico-mantenimiento-tablas.component';
+import { CalendarioTurnosComponent } from './components/calendario-turnos/calendario-turnos.component';
+import { EditShiftDialogComponent } from './dialogs/edit-shift-dialog/edit-shift-dialog.component';
+import { SecondStepDialogComponent } from './dialogs/second-step-dialog/second-step-dialog.component';
 
-
+registerLocaleData(localeEs, 'es');
 
 @NgModule({
   declarations: [
@@ -97,6 +106,10 @@ import { HistoricoMantenimientoTablasComponent } from './dialogs/historico-mante
     AddMatenimientoDialogComponent,
     EditMantenimientoDialogComponent,
     HistoricoMantenimientoTablasComponent,
+    CalendarioTurnosComponent,
+    EditShiftDialogComponent,
+    SecondStepDialogComponent,
+    EditShiftDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -116,6 +129,7 @@ import { HistoricoMantenimientoTablasComponent } from './dialogs/historico-mante
     MatButtonModule,
     MatTooltipModule,
     MatTableModule,
+    MatAutocompleteModule,
     MatPaginatorModule,
     MatFormFieldModule,
     MatInputModule,
@@ -134,8 +148,9 @@ import { HistoricoMantenimientoTablasComponent } from './dialogs/historico-mante
     MatCardModule,
     MatTabsModule,
     NgxMatSelectSearchModule,
+    DayPilotModule,
   ],
-  providers: [],
+  providers: [{ provide: LOCALE_ID, useValue: 'es' }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

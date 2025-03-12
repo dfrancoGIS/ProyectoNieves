@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { getVehiculosUltimaCampania, eliminarVehiculo, getAllVehiculos, insertarVehiculo, editarVehiculo, getVehiculosPorCampania } from '../models/vehiculos';
+import { getVehiculosUltimaCampania, eliminarVehiculo, getAllVehiculos, insertarVehiculo, editarVehiculo, getVehiculosPorCampania, getVehiculosPorRecurso } from '../models/vehiculos';
 
 // ✅ Obtener todos los vehículos
 export const getVehiculos = async (req: Request, res: Response): Promise<void> => {
@@ -127,5 +127,29 @@ export const editarVehiculoHandler = async (req: Request, res: Response): Promis
     } else {
       res.status(500).json({ msg: '❌ Error desconocido al actualizar el registro' });
     }
+  }
+};
+
+export const obtenerVehiculosPorRecurso = async (req: Request, res: Response): Promise<void> => {
+  try {
+    const { recurso } = req.query;
+
+    if (!recurso) {
+      res.status(400).json({ msg: '⚠️ Debes proporcionar un recurso' });
+      return;
+    }
+
+    const vehiculos = await getVehiculosPorRecurso(recurso as string);
+
+    res.status(200).json({
+      msg: '✅ Vehículos obtenidos correctamente',
+      data: vehiculos,
+    });
+  } catch (error) {
+    console.error('❌ Error al obtener vehículos por recurso:', error);
+    res.status(500).json({
+      msg: '❌ Error interno en la API',
+      error: error instanceof Error ? error.message : error,
+    });
   }
 };

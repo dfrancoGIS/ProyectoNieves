@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { getRecursosUltimaCampania, getAllRecursos, eliminarRecurso, insertarRecurso, editarRecurso, getRecursosPorCampania, getTareasPorCampania } from '../models/recursos';
+import { getRecursosUltimaCampania, getAllRecursos, eliminarRecurso, insertarRecurso, editarRecurso, getRecursosPorCampania, getTareasPorCampania, getRecursosPorEmpresa } from '../models/recursos';
 
 export const getRecursos = async (req: Request, res: Response): Promise<void> => {
   try {
@@ -149,5 +149,29 @@ export const editarRecursoHandler = async (req: Request, res: Response): Promise
     } else {
       res.status(500).json({ msg: '❌ Error desconocido al actualizar el registro' });
     }
+  }
+};
+
+export const obtenerRecursosPorEmpresa = async (req: Request, res: Response): Promise<void> => {
+  try {
+    const { empresaRecurso } = req.query;
+
+    if (!empresaRecurso) {
+      res.status(400).json({ msg: '⚠️ Debes proporcionar una empresa de recurso' });
+      return;
+    }
+
+    const recursos = await getRecursosPorEmpresa(empresaRecurso as string);
+
+    res.status(200).json({
+      msg: '✅ Recursos obtenidos correctamente',
+      data: recursos,
+    });
+  } catch (error) {
+    console.error('❌ Error al obtener recursos por empresa:', error);
+    res.status(500).json({
+      msg: '❌ Error interno en la API',
+      error: error instanceof Error ? error.message : error,
+    });
   }
 };

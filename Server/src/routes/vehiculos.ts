@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { getVehiculos, getVehiculosDetalle, eliminarVehiculoHandler, insertarVehiculoController,editarVehiculoHandler, obtenerVehiculosPorCampania } from "../controllers/vehiculos";
+import { getVehiculos, getVehiculosDetalle, eliminarVehiculoHandler, insertarVehiculoController,editarVehiculoHandler, obtenerVehiculosPorCampania, obtenerVehiculosPorRecurso } from "../controllers/vehiculos";
 
 const router = Router();
 
@@ -17,6 +17,7 @@ router.post('/insertar', insertarVehiculoController);
 // ✅ Ruta para obtener los vehículos filtrados por título de campaña
 router.get('/filtrar', obtenerVehiculosPorCampania);
 
+router.get('/por-recurso', obtenerVehiculosPorRecurso);
 
 router.put('/editar/:id', editarVehiculoHandler);  
 export default router;

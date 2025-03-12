@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.editarRecursoHandler = exports.insertarRecursoController = exports.eliminarRecursoController = exports.obtenerRecursosPorCampania = exports.getRecursosEquipos = exports.obtenerTareasPorCampania = exports.getRecursos = void 0;
+exports.obtenerRecursosPorEmpresa = exports.editarRecursoHandler = exports.insertarRecursoController = exports.eliminarRecursoController = exports.obtenerRecursosPorCampania = exports.getRecursosEquipos = exports.obtenerTareasPorCampania = exports.getRecursos = void 0;
 const recursos_1 = require("../models/recursos");
 const getRecursos = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
@@ -157,3 +157,25 @@ const editarRecursoHandler = (req, res) => __awaiter(void 0, void 0, void 0, fun
     }
 });
 exports.editarRecursoHandler = editarRecursoHandler;
+const obtenerRecursosPorEmpresa = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const { empresaRecurso } = req.query;
+        if (!empresaRecurso) {
+            res.status(400).json({ msg: '⚠️ Debes proporcionar una empresa de recurso' });
+            return;
+        }
+        const recursos = yield (0, recursos_1.getRecursosPorEmpresa)(empresaRecurso);
+        res.status(200).json({
+            msg: '✅ Recursos obtenidos correctamente',
+            data: recursos,
+        });
+    }
+    catch (error) {
+        console.error('❌ Error al obtener recursos por empresa:', error);
+        res.status(500).json({
+            msg: '❌ Error interno en la API',
+            error: error instanceof Error ? error.message : error,
+        });
+    }
+});
+exports.obtenerRecursosPorEmpresa = obtenerRecursosPorEmpresa;

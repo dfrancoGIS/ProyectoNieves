@@ -97,6 +97,7 @@ id_campania_tener_cta: number | null = this.data?.id_campania_tener_cta || null;
 
     // Inicializamos el formulario dentro del constructor
 this.form = this.fb.group({
+  
   // Campos específicos para Personal
   nombre_personal: [this.data?.nombre_personal || '', Validators.required],  // Solo el nombre es obligatorio
   apellido1_personal: [this.data?.apellido1_personal || ''],
@@ -107,9 +108,10 @@ this.form = this.fb.group({
   tfno2_personal: [this.data?.tfno2_personal || ''],
   ext_personal: [this.data?.ext_personal || ''],
   departamento_personal: [this.data?.departamento_personal || ''],
-  dfa_personal: [this.data?.dfa_personal || false],  // Este es un checkbox
   id_campania_personal: [this.data?.id_campania_personal || null],  // Este campo ya no es obligatorio
-  activo: [this.data?.activo ?? false] ,
+  dfa_personal: [this.obtenerBooleano(this.data?.registroSeleccionado?.dfa_personal)],
+  activo: [this.obtenerBooleano(this.data?.registroSeleccionado?.activo)], 
+
 
   // Campos específicos para Carreteras
   carretera: [this.data?.carretera || '', Validators.required],  // Hacemos obligatorio el campo 'carretera'
@@ -159,6 +161,13 @@ this.form = this.fb.group({
 
 
   });
+
+  // 🔥 Este truco forzará la actualización en Angular
+setTimeout(() => {
+  this.form.patchValue({ activo: this.form.value.activo });
+});
+
+console.log("📌 Valores del formulario al abrir:", this.form.value);
 
       // Configuramos el formulario dinámico según la tabla seleccionada
       this.setupForm();
@@ -835,19 +844,24 @@ onEdit(): void {
 
     console.log('Editando registro:', formData);
 
-    // Verifica que la tabla seleccionada sea la correcta
-    if (this.data.tablaSeleccionada === 'Personal') {
-      // Pasa tanto el ID como los datos del formulario
-      this.personalService.editarPersonal(idPersonal, formData).subscribe(
-        response => {
-          console.log('Registro actualizado correctamente', response);
-          this.snackBar.open('Personal actualizado correctamente', 'Cerrar', { duration: 3000 });
-          this.dialogRef.close();
-          this.registroEditado.emit(true);
-        },
-        error => this.handleError(error)
-      );
-    }
+// Verifica que la tabla seleccionada sea la correcta
+if (this.data.tablaSeleccionada === 'Personal') {
+  const formDataModificado = {
+    ...this.form.value,  // 🔥 Asegura que tomamos los valores del formulario
+    activo: this.form.value.activo ? true : false,  // 🔥 Convertir a booleano
+    dfa_personal: this.form.value.dfa_personal ? true : false,  // 🔥 Convertir a booleano
+  };
+
+  this.personalService.editarPersonal(idPersonal, formDataModificado).subscribe(
+    response => {
+      console.log('✅ Registro actualizado correctamente', response);
+      this.snackBar.open('Personal actualizado correctamente', 'Cerrar', { duration: 3000 });
+      this.dialogRef.close();
+      this.registroEditado.emit(true);
+    },
+    error => this.handleError(error)
+  );
+}
 
     if (this.data.tablaSeleccionada === 'Carreteras') {
       // Pasa tanto el ID como los datos del formulario
@@ -959,6 +973,10 @@ onEdit(): void {
   }
 }
 
+obtenerBooleano(valor: any): boolean {
+  return valor === "Si" ? true : false;
+}
+
 // Método genérico para manejar errores
 handleError(error: any): void {
   console.log('Error al editar el registro:', error);
@@ -977,5 +995,6 @@ ngOnInit(): void {
     console.error('❌ No se recibieron datos correctamente.');
   }
 }
+
 
 }

@@ -35,6 +35,14 @@ export class VehiculosService {
   editarVehiculo(id_vehiculo: string, vehiculo: any): Observable<any> {
     return this.http.put(`${this.apiUrl}/editar/${id_vehiculo}`, vehiculo);
   }
+
+    // Método para obtener vehículos filtrados por recurso
+    getVehiculosPorRecurso(recurso: string): Observable<any> {
+      return this.http.get<any>(`${this.apiUrl}/por-recurso`, {
+        params: { recurso },
+      });
+    }
+  
 }
     
 

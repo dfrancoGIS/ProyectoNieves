@@ -16,4 +16,6 @@ router.put('/editar/:id', recursos_1.editarRecursoHandler);
 router.get('/filtrar', recursos_1.obtenerRecursosPorCampania);
 // Ruta para obtener tareas filtradas por título de campaña
 router.get('/filtrar', recursos_1.obtenerTareasPorCampania);
+// Ruta para obtener los recursos filtrados por empresa
+router.get('/recursos-por-empresa', recursos_1.obtenerRecursosPorEmpresa);
 exports.default = router;

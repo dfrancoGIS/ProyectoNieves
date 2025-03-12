@@ -34,6 +34,7 @@ const cors_1 = __importDefault(require("cors"));
 const historialEquipos_1 = __importDefault(require("../routes/historialEquipos"));
 const campanias_1 = __importDefault(require("../routes/campanias"));
 const recursosCuadrillas_1 = __importDefault(require("../routes/recursosCuadrillas"));
+const activacion_1 = __importDefault(require("../routes/activacion")); // ✅ Ahora está en singular
 const connection_1 = __importDefault(require("../db/connection"));
 class Server {
     constructor() {
@@ -74,6 +75,7 @@ class Server {
         this.app.use('/api', stationRoutes_1.default);
         this.app.use('/api/historial', historialEquipos_1.default);
         this.app.use('/api/campanias', campanias_1.default);
+        this.app.use('/api/activacion', activacion_1.default);
     }
     middlewares() {
         this.app.use(express_1.default.json()); // 👈 Esto debe estar antes de las rutas

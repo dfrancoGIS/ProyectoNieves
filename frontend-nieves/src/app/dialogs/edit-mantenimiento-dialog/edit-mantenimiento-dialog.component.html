@@ -51,8 +51,16 @@
             <input matInput formControlName="departamento_personal" placeholder="Departamento">
           </mat-form-field>
   
-          <mat-checkbox formControlName="dfa_personal">DFA Personal</mat-checkbox>
-          <mat-checkbox formControlName="activo">Activo</mat-checkbox>
+          <mat-checkbox [checked]="form.get('activo')?.value === true || form.get('activo')?.value === 'Si'"
+              (change)="form.get('activo')?.setValue($event.checked)">
+                Activo
+          </mat-checkbox>
+
+          <mat-checkbox [checked]="form.get('dfa_personal')?.value === true || form.get('dfa_personal')?.value === 'Si'"
+              (change)="form.get('dfa_personal')?.setValue($event.checked)">
+                DFA Personal
+          </mat-checkbox>
+          
   
           <mat-form-field appearance="outline">
             <mat-label>ID Campaña</mat-label>

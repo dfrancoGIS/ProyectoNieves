@@ -13,5 +13,6 @@ router.get('/ultima-campania', vehiculos_1.getVehiculosDetalle);
 router.post('/insertar', vehiculos_1.insertarVehiculoController);
 // ✅ Ruta para obtener los vehículos filtrados por título de campaña
 router.get('/filtrar', vehiculos_1.obtenerVehiculosPorCampania);
+router.get('/por-recurso', vehiculos_1.obtenerVehiculosPorRecurso);
 router.put('/editar/:id', vehiculos_1.editarVehiculoHandler);
 exports.default = router;

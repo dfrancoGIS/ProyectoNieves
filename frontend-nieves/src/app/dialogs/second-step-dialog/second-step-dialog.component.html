@@ -1,0 +1,69 @@
+<div class="container">
+  <h1 mat-dialog-title>Asignar Zona y Personal</h1>
+  <mat-divider></mat-divider>
+
+  <div mat-dialog-content>
+    <form [formGroup]="secondStepForm">
+
+      <!-- Zona Asignada con Búsqueda -->
+      <mat-form-field appearance="outline">
+        <mat-label>Zona Asignada</mat-label>
+        <input type="text" matInput formControlName="zona" [matAutocomplete]="autoZona" (keyup)="filtrarZonas($event)">
+        <mat-autocomplete #autoZona="matAutocomplete">
+          <mat-option *ngFor="let zona of filteredZonas" [value]="zona">
+            {{ zona }}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+
+<!-- Personal Asignado 1 con búsqueda -->
+<mat-form-field appearance="outline">
+  <mat-label>Personal Asignado 1*</mat-label>
+  <input type="text" matInput formControlName="personal1"
+         [matAutocomplete]="autoPersonal1"
+         (input)="filtrarPersonal($event)">
+  <mat-autocomplete #autoPersonal1="matAutocomplete" [displayWith]="displayPersona">
+    <mat-option *ngFor="let persona of filteredPersonal" [value]="persona"
+                (onSelectionChange)="setPersonalSeleccionado($event, persona, 'personal1', 'rolPersonal1')">
+      {{ persona.display }}
+    </mat-option>
+  </mat-autocomplete>
+</mat-form-field>
+
+
+<!-- Rol del Personal 1 -->
+<mat-form-field appearance="outline">
+  <mat-label>Ocupación Personal 1</mat-label>
+  <input type="text" matInput formControlName="rolPersonal1" readonly>
+</mat-form-field>
+
+<!-- Personal Asignado 2 con búsqueda -->
+<mat-form-field appearance="outline">
+  <mat-label>Personal Asignado 2</mat-label>
+  <input type="text" matInput formControlName="personal2" 
+         [matAutocomplete]="autoPersonal2" 
+         (input)="filtrarPersonal($event)">
+  <mat-autocomplete #autoPersonal2="matAutocomplete" [displayWith]="displayPersona">
+    <mat-option *ngFor="let persona of filteredPersonal" 
+    [value]="persona" 
+    (onSelectionChange)="setPersonalDisplay($event, persona, 'personal2', 'rolPersonal2')">
+{{ persona.display }}
+</mat-option>
+
+  </mat-autocomplete>
+</mat-form-field>
+
+<!-- Rol del Personal 2 -->
+<mat-form-field appearance="outline">
+  <mat-label>Ocupación Personal 2</mat-label>
+  <input type="text" matInput formControlName="rolPersonal2" readonly>
+</mat-form-field>
+    </form>
+  </div>
+
+  <!-- Botones de acción -->
+  <mat-dialog-actions class="mat-mdc-dialog-actions">
+    <button mat-raised-button color="warn" (click)="onCancel()">Cancelar</button>
+    <button mat-raised-button color="primary" [disabled]="secondStepForm.invalid" (click)="onFinish()">Finalizar</button>
+  </mat-dialog-actions>
+</div>

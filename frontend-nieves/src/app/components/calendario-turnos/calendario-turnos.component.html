@@ -1,0 +1,95 @@
+<div class="calendar-container">
+  <!-- Encabezado de navegación de fechas -->
+  <div class="calendar-header">
+    <button (click)="prevDays()">&#60;</button>
+    <span>{{ visibleDays[0] | date:'dd/MM/yyyy' }} - {{ visibleDays[visibleDays.length - 1] | date:'dd/MM/yyyy' }}</span>
+    <button (click)="nextDays()">&#62;</button>
+  </div>
+
+  <table class="schedule-table">
+    <!-- Encabezado de días y horas -->
+    <thead>
+      <tr>
+        <th rowspan="2">Recurso</th>
+        <ng-container *ngFor="let day of visibleDays">
+          <th [attr.colspan]="hours.length + 1">{{ day | date:'EEEE dd/MM' : 'es' }}</th> 
+        </ng-container>
+      </tr>
+      <tr>
+        <ng-container *ngFor="let day of visibleDays">
+          <th *ngFor="let hour of hours">{{ hour }}</th>
+          <th class="total-header">Total</th> <!-- Asegurado que está dentro del bucle -->
+        </ng-container>
+      </tr>
+    </thead>
+
+    <!-- Cuerpo de la tabla con filas dinámicas -->
+    <tbody>
+
+      <!-- Recursos de Personal -->
+      <ng-container *ngFor="let resource of categories[0].resources">
+        <tr>
+          <td>{{ resource.name }}</td>
+
+          <ng-container *ngFor="let day of visibleDays">
+            <td *ngFor="let hour of hours" class="hour-cell">
+              <div class="shift-container">
+                <ng-container *ngFor="let shift of resource.shifts">
+                  <div *ngIf="shiftMatches(day, hour, shift)" 
+                  class="shift"
+                  [ngClass]="shiftType(day, hour, resource)"
+                  (dblclick)="editShift(shift, resource.name)">
+                  {{ shift.title }}
+                  </div>
+                </ng-container>
+              </div>
+            </td>
+            <td class="day-total">{{ getDayTotal(resource, day) }}</td> 
+          </ng-container>
+        </tr>
+      </ng-container>
+
+      <!-- Fila de Total Personal -->
+      <tr class="category-summary">
+        <td>Total Personal</td>
+        <ng-container *ngFor="let day of visibleDays">
+          <td *ngFor="let hour of hours"></td>
+          <td class="day-total">{{ getCategoryDayTotal(categories[0], day) }}</td>
+        </ng-container>
+      </tr>
+
+      <!-- Recursos de Quitanieves -->
+      <ng-container *ngFor="let resource of categories[1].resources">
+        <tr>
+          <td>{{ resource.name }}</td>
+
+          <ng-container *ngFor="let day of visibleDays">
+            <td *ngFor="let hour of hours" class="hour-cell">
+              <div class="shift-container">
+                <ng-container *ngFor="let shift of resource.shifts">
+                  <div *ngIf="shiftMatches(day, hour, shift)" 
+                  class="shift"
+                  [ngClass]="shiftType(day, hour, resource)"
+                  (dblclick)="editShift(shift, resource.name)">
+                  {{ shift.title }}
+                  </div>
+                </ng-container>
+              </div>
+            </td>
+            <td class="day-total">{{ getDayTotal(resource, day) }}</td>
+          </ng-container>
+        </tr>
+      </ng-container>
+
+      <!-- Fila de Total Quitanieves -->
+      <tr class="category-summary">
+        <td>Total Quitanieves</td>
+        <ng-container *ngFor="let day of visibleDays">
+          <td *ngFor="let hour of hours"></td>
+          <td class="day-total">{{ getCategoryDayTotal(categories[1], day) }}</td>
+        </ng-container>
+      </tr>
+
+    </tbody>
+  </table>
+</div>

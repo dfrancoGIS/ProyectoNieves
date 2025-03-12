@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.editarVehiculoHandler = exports.insertarVehiculoController = exports.eliminarVehiculoHandler = exports.getVehiculosDetalle = exports.obtenerVehiculosPorCampania = exports.getVehiculos = void 0;
+exports.obtenerVehiculosPorRecurso = exports.editarVehiculoHandler = exports.insertarVehiculoController = exports.eliminarVehiculoHandler = exports.getVehiculosDetalle = exports.obtenerVehiculosPorCampania = exports.getVehiculos = void 0;
 const vehiculos_1 = require("../models/vehiculos");
 // ✅ Obtener todos los vehículos
 const getVehiculos = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -138,3 +138,25 @@ const editarVehiculoHandler = (req, res) => __awaiter(void 0, void 0, void 0, fu
     }
 });
 exports.editarVehiculoHandler = editarVehiculoHandler;
+const obtenerVehiculosPorRecurso = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const { recurso } = req.query;
+        if (!recurso) {
+            res.status(400).json({ msg: '⚠️ Debes proporcionar un recurso' });
+            return;
+        }
+        const vehiculos = yield (0, vehiculos_1.getVehiculosPorRecurso)(recurso);
+        res.status(200).json({
+            msg: '✅ Vehículos obtenidos correctamente',
+            data: vehiculos,
+        });
+    }
+    catch (error) {
+        console.error('❌ Error al obtener vehículos por recurso:', error);
+        res.status(500).json({
+            msg: '❌ Error interno en la API',
+            error: error instanceof Error ? error.message : error,
+        });
+    }
+});
+exports.obtenerVehiculosPorRecurso = obtenerVehiculosPorRecurso;

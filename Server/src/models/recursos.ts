@@ -105,3 +105,13 @@ export async function editarRecurso(id: string, datos: any): Promise<void> {
     }
   }
 }
+
+export function getRecursosPorEmpresa(empresaRecurso: string) {
+  return sequelize.query(
+    `SELECT * FROM dbo.filtrar_recursos_por_empresa(:empresaRecurso);`,
+    {
+      type: QueryTypes.SELECT,
+      replacements: { empresaRecurso }
+    }
+  );
+}

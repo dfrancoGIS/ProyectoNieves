@@ -1,0 +1,151 @@
+/* Contenedor del calendario */
+.calendar-container {
+  overflow-x: auto; /* Scroll horizontal para toda la tabla */
+  padding: 0.5rem;
+  position: relative;
+}
+
+/* Encabezado */
+.calendar-header {
+  text-align: center;
+  margin-bottom: 0.5rem;
+  font-size: 12px;
+}
+
+.calendar-header button {
+  margin: 0 0.5rem;
+  padding: 2px 6px;
+  font-size: 12px;
+}
+
+/* Tabla de turnos */
+.schedule-table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: auto; /* Permite ajuste dinámico */
+  font-size: 10px; /* Texto compacto */
+}
+
+/* Bordes y alineación de celdas */
+.schedule-table th, .schedule-table td {
+  border: 1px solid #ccc;
+  text-align: center;
+  white-space: nowrap; /* Evita saltos de línea */
+}
+
+/* Evita que se oculten los textos */
+.schedule-table th, .schedule-table td {
+  overflow: visible;
+  text-overflow: clip;
+}
+
+/* Ajuste de tamaño para los títulos de filas */
+.schedule-table th:first-child,
+.schedule-table td:first-child {
+  max-width: 180px;
+  font-size: 11px;
+  font-weight: bold;
+  position: sticky;
+  z-index: 3;
+}
+
+/* Ajuste del total al final de cada día */
+.schedule-table th:last-child,
+.schedule-table td:last-child {
+  max-width: 80px;
+  position: sticky;
+  z-index: 3;
+}
+
+/* Fija el encabezado */
+.schedule-table thead th {
+  background: #f5f5f5;
+  font-weight: bold;
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  font-size: 10px;
+  padding: 3px;
+}
+
+/* Celdas de hora */
+.hour-cell {
+  max-width: 50px;
+  height: 30px;
+  text-align: center;
+  font-size: 9px;
+}
+
+/* Permite el scroll vertical en los días */
+.day-column {
+  flex: 1;
+  overflow-y: auto;
+  max-height: 400px;
+  border-left: 1px solid #ccc;
+}
+
+/* Contenedor de turnos dentro de cada celda */
+.shift-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap; /* Evita que los turnos se superpongan */
+  gap: 2px;
+  max-width: 100%;
+}
+
+/* Turnos */
+.shift {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  padding: 2px 4px;
+  font-size: 10px;
+  cursor: pointer;
+  opacity: 0.9;
+  white-space: nowrap;
+  overflow: visible; /* Evita que se corte */
+  text-overflow: clip;
+}
+
+/* Evita superposición de turnos */
+.shift + .shift {
+  margin-top: 3px;
+}
+
+.shift:hover {
+  opacity: 1;
+}
+
+.start-end-shift {
+  background-color: green;
+  color: #fff;
+}
+
+.shift-change {
+  background-color: purple;
+  color: #fff;
+}
+
+/* Colores diferenciados */
+.personal-shift { background-color: #2E86C1; }  /* Azul para Personal */
+.quitanieves-shift { background-color: #28B463; } /* Verde para Quitanieves */
+
+/* Totales */
+.category-summary td {
+  font-weight: bold;
+  background: #e0e0e0;
+  font-size: 10px;
+  padding: 4px;
+}
+
+/* Mantiene visible la columna de totales */
+.total-column {
+  font-weight: bold;
+  background: #ddd;
+  position: sticky;
+  right: 0;
+  z-index: 3;
+}

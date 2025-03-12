@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { getRecursos, getRecursosEquipos, eliminarRecursoController, insertarRecursoController, editarRecursoHandler, obtenerRecursosPorCampania, obtenerTareasPorCampania } from '../controllers/recursos';
+import { getRecursos, getRecursosEquipos, eliminarRecursoController, insertarRecursoController, editarRecursoHandler, obtenerRecursosPorCampania, obtenerTareasPorCampania, obtenerRecursosPorEmpresa } from '../controllers/recursos';
 
 const router = Router();
 
@@ -16,5 +16,7 @@ router.put('/editar/:id', editarRecursoHandler);
 router.get('/filtrar', obtenerRecursosPorCampania);
 // Ruta para obtener tareas filtradas por título de campaña
 router.get('/filtrar', obtenerTareasPorCampania);
+// Ruta para obtener los recursos filtrados por empresa
+router.get('/recursos-por-empresa', obtenerRecursosPorEmpresa);
 
 export default router;

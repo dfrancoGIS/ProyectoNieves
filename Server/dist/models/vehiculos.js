@@ -18,6 +18,7 @@ exports.getVehiculosUltimaCampania = getVehiculosUltimaCampania;
 exports.eliminarVehiculo = eliminarVehiculo;
 exports.insertarVehiculo = insertarVehiculo;
 exports.editarVehiculo = editarVehiculo;
+exports.getVehiculosPorRecurso = getVehiculosPorRecurso;
 const connection_1 = __importDefault(require("../db/connection"));
 const sequelize_1 = require("sequelize");
 /**
@@ -95,5 +96,11 @@ function editarVehiculo(id, datos) {
             console.error("❌ Error al actualizar vehículo:", error);
             throw new Error(error instanceof Error ? error.message : "Error desconocido al actualizar el vehículo");
         }
+    });
+}
+function getVehiculosPorRecurso(recurso) {
+    return connection_1.default.query(`SELECT * FROM dbo.filtrar_vehiculos_por_recurso(:recurso);`, {
+        type: sequelize_1.QueryTypes.SELECT,
+        replacements: { recurso },
     });
 }
